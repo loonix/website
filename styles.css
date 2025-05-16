@@ -87,6 +87,7 @@ h1 {
     margin-bottom: 1rem;
     color: var(--neon-purple);
     text-shadow: 0 0 20px var(--neon-purple);
+    font-size: 16px
 }
 
 .cyber-text {
