@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOONIX | Cyberpunk Future</title>
+    <title>LOONIX</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,47 +13,48 @@
 </head>
 
 <body>
+    <div class="scanlines"></div>
     <div class="noise"></div>
     <header>
         <nav>
-            <div class="logo glitch" data-text="LOONIX">LOONIX</div>
-            <!-- <ul class="nav-links">
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#skills">SKILLS</a></li>
-                <li><a href="#features">FEATURES</a></li>
-                <li><a href="#chat">CHAT</a></li>
-            </ul> -->
+            <div class="nav-scanlines"></div>
+            <div class="logo glitch neon-flicker glitch-on-hover" data-text="LOONIX">LOONIX</div>
+            <ul class="nav-links">
+                <li><a href="#about" class="glitch-on-hover neon-flicker">ABOUT</a></li>
+                <li><a href="#skills" class="glitch-on-hover neon-flicker">SKILLS</a></li>
+                <li><a href="#chat" class="glitch-on-hover neon-flicker">CHAT</a></li>
+            </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <h1 class="glitch" data-text="WELCOME TO THE FUTURE">WELCOME TO THE FUTURE</h1>
-            <p class="cyber-text">Enter the digital realm where reality meets innovation</p>
-            <button class="cyber-button">JACK IN</button>
+            <h1 class="glitch neon-flicker glitch-on-hover" data-text="WELCOME TO THE FUTURE">WELCOME TO THE FUTURE</h1>
+            <p class="cyber-text neon-flicker">Enter the digital realm where reality meets innovation</p>
+            <a href="#chat" class="cyber-button pulse glitch-on-hover">TRY RUDE CHAT</a>
         </section>
 
         <section id="about" class="about">
-            <h2 class="section-title glitch" data-text="FRONT END DEVELOPER">FRONT END DEVELOPER</h2>
+            <h2 class="section-title glitch neon-flicker glitch-on-hover" data-text="FRONT END DEVELOPER">FRONT END DEVELOPER</h2>
             <div class="about-content">
                 <div class="profile-info">
-                    <h3>DANIEL CARNEIRO</h3>
-                    <p class="cyber-text">Senior Software Enginee</p>
+                    <h3 class="neon-flicker">DANIEL CARNEIRO</h3>
+                    <p class="cyber-text neon-flicker">Senior Software Engineer</p>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/djgc/" target="_blank" class="cyber-link">
+                        <a href="https://www.linkedin.com/in/djgc/" target="_blank" class="cyber-link glitch-on-hover">
                             <i class="fab fa-linkedin"></i> CONNECT
                         </a>
-                        <a href="https://github.com/loonix" target="_blank" class="cyber-link">
+                        <a href="https://github.com/loonix" target="_blank" class="cyber-link glitch-on-hover">
                             <i class="fab fa-github"></i> CODE VAULT
                         </a>
                     </div>
                 </div>
                 <div class="profile-details">
-                    <div class="detail-card">
+                    <div class="detail-card holo-shimmer">
                         <h4>MISSION</h4>
                         <p>Specialized in front-end development of mobile and web applications.</p>
                     </div>
-                    <div class="detail-card">
+                    <div class="detail-card holo-shimmer">
                         <h4>EXPERTISE</h4>
                         <p>Over 10 years of experience in software development, focusing on high-performance web/mobile
                             applications.</p>
@@ -63,40 +64,40 @@
         </section>
 
 <section id="skills" class="skills">
-    <h2 class="section-title glitch" data-text="SKILL SET">SKILL SET</h2>
+    <h2 class="section-title glitch neon-flicker glitch-on-hover" data-text="SKILL SET">SKILL SET</h2>
 </section>
 
 <section id="features" class="features">
     <div class="feature-grid">
-        <div class="feature-card">
-            <h3>MOBILE DEVELOPMENT</h3>
+        <div class="feature-card holo-shimmer">
+            <h3 class="neon-flicker glitch-on-hover">MOBILE DEVELOPMENT</h3>
             <p>Crafting seamless, high-performance apps for iOS and Android</p>
         </div>
-        <div class="feature-card">
-            <h3>WEB DEVELOPMENT</h3>
+        <div class="feature-card holo-shimmer">
+            <h3 class="neon-flicker glitch-on-hover">WEB DEVELOPMENT</h3>
             <p>Building responsive, dynamic websites with cutting-edge tech</p>
         </div>
-        <div class="feature-card">
-            <h3>UI/UX DESIGN</h3>
+        <div class="feature-card holo-shimmer">
+            <h3 class="neon-flicker glitch-on-hover">UI/UX DESIGN</h3>
             <p>Designing intuitive, stunning interfaces—<a href="https://www.behance.net/dslice" target="_blank">see my work</a></p>
         </div>
-        <div class="feature-card">
-            <h3>MUSIC PRODUCTION</h3>
+        <div class="feature-card holo-shimmer">
+            <h3 class="neon-flicker glitch-on-hover">MUSIC PRODUCTION</h3>
             <p>Creating immersive soundscapes—<a href="https://soundcloud.com/iamloonix" target="_blank">listen on SoundCloud</a></p>
         </div>
     </div>
 </section>
 
         <section id="chat" class="chat">
-            <h2 class="section-title glitch" data-text="RUDE INTERFACE">RUDE INTERFACE</h2>
+            <h2 class="section-title glitch neon-flicker glitch-on-hover" data-text="RUDE CHAT">RUDE CHAT</h2>
             <div class="chat-container">
                 <div class="chat-window" id="chat-window">
                     <div class="chat-message ai"><strong>RUDE:</strong> About damn time you said something.</div>
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chat-input" placeholder="Type your nonsense here..." class="cyber-input">
-                    <button id="send-btn" class="cyber-button">SEND</button>
-                    <button id="mode-toggle" class="cyber-button">Mode: Text 💬</button>
+                    <button id="send-btn" class="cyber-button pulse glitch-on-hover">SEND</button>
+                    <button id="mode-toggle" class="cyber-button pulse glitch-on-hover">Mode: Text 💬</button>
                 </div>
 
 
@@ -105,7 +106,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 LOONIX - TRANSCEND REALITY</p>
+        <p>&copy; 2025 LOONIX - BLOWING MY MIND</p>
     </footer>
 
     <script src="script.js"></script>

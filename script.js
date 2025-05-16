@@ -70,3 +70,39 @@ function escapeHTML(str) {
 function sanitizeMarkdown(str) {
     return str.replace(/<script/gi, "&lt;script").replace(/<\/script>/gi, "&lt;/script&gt;");
 }
+
+// === CYBERPUNK ANIMATIONS ===
+
+// Parallax effect for overlays
+document.addEventListener('mousemove', function(e) {
+    const x = (e.clientX / window.innerWidth - 0.5) * 10;
+    const y = (e.clientY / window.innerHeight - 0.5) * 10;
+    document.querySelectorAll('.scanlines, .animated-noise, .noise').forEach(el => {
+        el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+});
+
+// Glitch-on-hover JS fallback (for browsers that ignore CSS animation on pseudo-elements)
+document.querySelectorAll('.glitch-on-hover').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        el.classList.add('js-glitch');
+        setTimeout(() => el.classList.remove('js-glitch'), 400);
+    });
+});
+
+// Optional: Add a little flicker to all neon-flicker elements on click
+document.querySelectorAll('.neon-flicker').forEach(el => {
+    el.addEventListener('click', () => {
+        el.style.animation = 'none';
+        // Force reflow
+        void el.offsetWidth;
+        el.style.animation = '';
+    });
+});
+
+// Allow Enter key to send chat message
+document.getElementById("chat-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        document.getElementById("send-btn").click();
+    }
+});

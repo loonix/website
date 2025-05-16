@@ -38,8 +38,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 5%;
-    background: rgba(10, 10, 15, 0.9);
+    padding: 1rem 5%;
     backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
@@ -461,7 +460,8 @@ footer {
 }
 
 .chat-container {
-    max-width: 800px;
+    width: 90%;
+    max-width: none;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -473,7 +473,7 @@ footer {
     border: 1px solid var(--neon-blue);
     border-radius: 8px;
     padding: 1rem;
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
     font-family: monospace;
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
@@ -573,4 +573,133 @@ footer {
 
 .chat-message.ai em {
     color: var(--neon-pink);
+}
+
+/* === CYBERPUNK ANIMATIONS === */
+
+/* Scanlines Overlay */
+.scanlines {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 100;
+    opacity: 0.04;
+    background: repeating-linear-gradient(
+        to bottom,
+        #fff 0px,
+        #fff 1px,
+        transparent 2px,
+        transparent 6px
+    );
+    animation: scanlines-move 0.7s linear infinite;
+}
+@keyframes scanlines-move {
+    0% { background-position-y: 0; }
+    100% { background-position-y: 6px; }
+}
+
+* Neon Flicker Animation */
+.neon-flicker {
+    animation: neon-flicker 1s infinite alternate;
+}
+@keyframes neon-flicker {
+    0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-pink); }
+    10% { opacity: 0.8; }
+    20% { opacity: 0.6; text-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-blue); }
+    22% { opacity: 0.2; }
+    24% { opacity: 1; }
+    30% { opacity: 0.7; }
+    35% { opacity: 1; }
+    40% { opacity: 0.5; }
+    50% { opacity: 1; }
+    60% { opacity: 0.9; }
+    70% { opacity: 1; }
+    80% { opacity: 0.6; }
+    90% { opacity: 1; }
+}
+
+/* Button Pulse Animation */
+.cyber-button.pulse {
+    animation: button-pulse 0.5s infinite alternate;
+}
+@keyframes button-pulse {
+    0% { box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); }
+    100% { box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-blue); }
+}
+
+/* Hologram Shimmer Animation for Cards */
+.holo-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+.holo-shimmer::after {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: linear-gradient(120deg, rgba(0,255,255,0.1) 0%, rgba(255,0,255,0.15) 50%, rgba(0,255,255,0.1) 100%);
+    opacity: 0.7;
+    transform: rotate(25deg);
+    animation: holo-shimmer-move 1.2s linear infinite;
+    pointer-events: none;
+}
+@keyframes holo-shimmer-move {
+    0% { transform: translateX(-100%) rotate(25deg); }
+    100% { transform: translateX(100%) rotate(25deg); }
+}
+
+/* Glitch-on-Hover Animation */
+.glitch-on-hover:hover,
+.glitch-on-hover:focus {
+    animation: glitch-hover 0.18s steps(2) 1;
+}
+@keyframes glitch-hover {
+    0% { filter: blur(0px) hue-rotate(0deg); }
+    20% { filter: blur(2px) hue-rotate(30deg); }
+    40% { filter: blur(0px) hue-rotate(-30deg); }
+    60% { filter: blur(2px) hue-rotate(60deg); }
+    80% { filter: blur(0px) hue-rotate(-60deg); }
+    100% { filter: blur(0px) hue-rotate(0deg); }
+}
+
+/* Nav-specific scanlines overlay */
+.nav-scanlines {
+    pointer-events: none;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10;
+    opacity: 0.08;
+    background: repeating-linear-gradient(to bottom, #000000 0px, #a3a3a3 1px, transparent 2px, transparent 6px);
+    animation: scanlines-move 0.7s linear infinite;
+}
+
+/* Neon flicker and glitch for nav links */
+.nav-links a {
+    position: relative;
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
+    transition: color 0.2s;
+}
+.nav-links a.neon-flicker {
+    animation: neon-flicker 1s infinite alternate;
+}
+.nav-links a.glitch-on-hover:hover,
+.nav-links a.glitch-on-hover:focus {
+    animation: glitch-hover 0.18s steps(2) 1;
+}
+
+/* Animated underline */
+.nav-links a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    transition: width 0.3s;
+    box-shadow: 0 0 8px var(--neon-pink);
+    margin-top: 2px;
+}
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+    width: 100%;
 }
