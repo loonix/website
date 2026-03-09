@@ -131,8 +131,8 @@ class DesignerMode {
     }
 
     // Get repo info from current page
-    const owner = 'danielcarneiro'; // Replace with your GitHub username
-    const repo = 'website'; // Replace with your repo name
+    const owner = 'loonix'; // GitHub username/organization
+    const repo = 'website'; // Repository name
 
     this.githubClient = new GitHubApiClient({
       token: token,
