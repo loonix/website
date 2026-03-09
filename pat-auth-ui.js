@@ -7,6 +7,7 @@ class PatAuthUI {
   constructor(githubClient) {
     this.githubClient = githubClient;
     this.panel = null;
+    this.backdrop = null;
     this.isActive = false;
     this.storageKey = 'github-pat-token';
   }
@@ -21,6 +22,7 @@ class PatAuthUI {
     }
 
     this.isActive = true;
+    this.createBackdrop();
     this.createPanel();
   }
 
@@ -28,11 +30,32 @@ class PatAuthUI {
    * Hide PAT panel
    */
   hide() {
+    if (this.backdrop) {
+      this.backdrop.remove();
+      this.backdrop = null;
+    }
     if (this.panel) {
       this.panel.remove();
       this.panel = null;
     }
     this.isActive = false;
+  }
+
+  /**
+   * Create modal backdrop
+   */
+  createBackdrop() {
+    // Remove existing backdrop
+    if (this.backdrop) {
+      this.backdrop.remove();
+    }
+
+    // Create backdrop
+    this.backdrop = document.createElement('div');
+    this.backdrop.className = 'modal-backdrop';
+    this.backdrop.onclick = () => this.hide();
+
+    document.body.appendChild(this.backdrop);
   }
 
   /**
