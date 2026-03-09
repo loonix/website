@@ -13,9 +13,9 @@ class DesignerMode {
     this.editableElements = [];
     this.versionHistory = [];
 
-    // GitHub Authentication
-    this.githubAuth = null;
-    this.authUI = null;
+    // GitHub Device Flow Authentication
+    this.githubDeviceAuth = null;
+    this.githubClient = null;
 
     // Visual Style Editor
     this.visualStyleEditor = null;
@@ -74,35 +74,75 @@ class DesignerMode {
   }
 
   /**
-   * Initialize GitHub Authentication
+   * Initialize GitHub Authentication (Device Flow only)
    */
   initGitHubAuth() {
-    // Check if GitHubAuth is available
-    if (typeof GitHubAuth === 'undefined') {
-      console.warn('GitHubAuth not available. Make sure github-auth.js is loaded.');
+    // Check if GitHubDeviceAuth is available
+    if (typeof GitHubDeviceAuth === 'undefined') {
+      console.warn('GitHubDeviceAuth not available. Make sure github-device-auth.js is loaded.');
       return;
     }
 
-    // Initialize authentication with config
-    this.githubAuth = new GitHubAuth({
-      clientId: 'Ov23lijgZX3NPmjhZVNt', 
+    // Initialize Device Flow authentication
+    this.githubDeviceAuth = new GitHubDeviceAuth({
+      clientId: 'Ov23lijgZX3NPmjhZVNt',
       scopes: ['repo', 'user:email', 'read:org']
     });
 
-    // Initialize Device Flow as alternative
-    if (typeof GitHubDeviceAuth !== 'undefined') {
-      this.githubDeviceAuth = new GitHubDeviceAuth({
-        clientId: 'Ov23lijgZX3NPmjhZVNt',
-        scopes: ['repo', 'user:email', 'read:org']
-      });
+    // Initialize GitHub API client if already authenticated
+    if (this.githubDeviceAuth.isAuthenticated) {
+      this.initGitHubClient();
     }
 
-    // Initialize UI
-    if (typeof AuthUI !== 'undefined') {
-      this.authUI = new AuthUI(this.githubAuth);
+    console.log('🔐 GitHub Device Flow authentication initialized');
+  }
+
+  /**
+   * Initialize GitHub API client with authenticated token
+   */
+  initGitHubClient() {
+    if (typeof GitHubApiClient === 'undefined') {
+      console.warn('GitHubApiClient not available. Make sure github-client.js is loaded.');
+      return;
     }
 
-    console.log('🔐 GitHub Authentication initialized');
+    const token = this.getAccessToken();
+    if (!token) {
+      console.warn('No access token available for GitHub client');
+      return;
+    }
+
+    // Get repo info from current page
+    const owner = 'danielcarneiro'; // Replace with your GitHub username
+    const repo = 'website'; // Replace with your repo name
+
+    this.githubClient = new GitHubApiClient({
+      token: token,
+      owner: owner,
+      repo: repo,
+      branch: 'main',
+      authType: 'oauth',
+      enableLogging: true
+    });
+
+    console.log('✅ GitHub API client initialized');
+  }
+
+  /**
+   * Check if user is authenticated via Device Flow
+   */
+  isAuthenticated() {
+    return this.githubDeviceAuth && this.githubDeviceAuth.isAuthenticated;
+  }
+
+  /**
+   * Get the current access token
+   */
+  getAccessToken() {
+    if (!this.isAuthenticated()) {
+      return null;
+    }
+    return this.githubDeviceAuth.token;
   }
 
   /**
@@ -130,10 +170,10 @@ class DesignerMode {
 
     // Wait for GitHub auth to potentially be ready
     setTimeout(() => {
-      if (this.githubAuth && this.githubAuth.isAuthenticated) {
+      if (this.isAuthenticated() && this.githubClient) {
         // Initialize OODA Controller with full configuration
         this.oodaController = new OODAController({
-          githubAuth: this.githubAuth,
+          githubClient: this.githubClient,
           contentManager: this,
           syncManager: this,
           ui: this,
@@ -181,14 +221,14 @@ class DesignerMode {
       autoSave: true,
       saveDelay: 1000,
 
-      // Authentication checker
+      // Authentication checker - checks both OAuth and Device Flow
       authChecker: () => {
-        return this.githubAuth && this.githubAuth.isAuthenticated;
+        return this.isAuthenticated();
       },
 
-      // Permission checker
+      // Permission checker - checks both OAuth and Device Flow
       permissionChecker: (requiredPermission) => {
-        if (!this.githubAuth || !this.githubAuth.isAuthenticated) {
+        if (!this.isAuthenticated()) {
           return false;
         }
 
@@ -735,9 +775,17 @@ class DesignerMode {
    * Sync content to GitHub
    */
   async syncToGitHub() {
-    if (!this.githubAuth || !this.githubAuth.isAuthenticated) {
+    if (!this.isAuthenticated()) {
       alert('Please authenticate with GitHub first');
       return;
+    }
+
+    if (!this.githubClient) {
+      this.initGitHubClient();
+      if (!this.githubClient) {
+        alert('Failed to initialize GitHub client');
+        return;
+      }
     }
 
     try {
@@ -747,9 +795,13 @@ class DesignerMode {
         throw new Error('No content to sync');
       }
 
-      await this.githubAuth.saveToGitHub(
-        content,
+      // Convert content to JSON string
+      const contentString = JSON.stringify(content, null, 2);
+
+      // Update file in GitHub repository
+      await this.githubClient.updateFile(
         'content-schema.json',
+        contentString,
         'Update content via Designer Mode'
       );
 
@@ -764,17 +816,29 @@ class DesignerMode {
    * Load content from GitHub
    */
   async loadFromGitHub() {
-    if (!this.githubAuth || !this.githubAuth.isAuthenticated) {
+    if (!this.isAuthenticated()) {
       alert('Please authenticate with GitHub first');
       return;
     }
 
-    try {
-      const content = await this.githubAuth.loadFromGitHub('content-schema.json');
+    if (!this.githubClient) {
+      this.initGitHubClient();
+      if (!this.githubClient) {
+        alert('Failed to initialize GitHub client');
+        return;
+      }
+    }
 
-      if (!content) {
+    try {
+      // Get file content from GitHub
+      const file = await this.githubClient.getFile('content-schema.json');
+
+      if (!file || !file.content) {
         throw new Error('No content found in repository');
       }
+
+      // Parse JSON content
+      const content = JSON.parse(file.content);
 
       this.currentContent = content;
       this.saveToStorage();
