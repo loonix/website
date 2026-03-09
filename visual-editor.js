@@ -261,7 +261,7 @@ class VisualStyleEditor {
         </div>
         \${this.createCategorySections()}
       </div>
-    \`;
+    `;
 
     document.body.appendChild(panel);
 
@@ -293,7 +293,7 @@ class VisualStyleEditor {
       { id: 'components', name: 'Components', icon: '🧩' }
     ];
 
-    return categories.map(cat => \`
+    return categories.map(cat => `
       <div class="vse-section" data-category="\${cat.id}">
         <div class="vse-section-header">
           <span class="vse-section-title">\${cat.icon} \${cat.name}</span>
@@ -303,7 +303,7 @@ class VisualStyleEditor {
           \${this.createCategoryContent(cat.id)}
         </div>
       </div>
-    \`).join('');
+    `).join('');
   }
 
   /**
@@ -354,7 +354,7 @@ class VisualStyleEditor {
     const dataKey = key;
 
     if (isColor) {
-      return \`
+      return `
         <div class="\${controlClass}" data-css-var="\${dataVar}" data-key="\${dataKey}">
           <label>\${item.label}</label>
           <div class="vse-color-input">
@@ -362,11 +362,11 @@ class VisualStyleEditor {
             <input type="text" value="\${item.value}" class="vse-text-input">
           </div>
         </div>
-      \`;
+      `;
     } else if (isSize) {
       const numValue = this.extractNumericValue(item.value);
       const unit = this.extractUnit(item.value);
-      return \`
+      return `
         <div class="\${controlClass}" data-css-var="\${dataVar}" data-key="\${dataKey}">
           <label>\${item.label}</label>
           <div class="vse-size-input">
@@ -374,11 +374,11 @@ class VisualStyleEditor {
             <input type="text" value="\${item.value}" class="vse-text-input">
           </div>
         </div>
-      \`;
+      `;
     } else if (item.value && item.value.includes('rem') && item.value !== '1rem') {
       // For font sizes with specific rem values
       const numValue = parseFloat(item.value);
-      return \`
+      return `
         <div class="\${controlClass}" data-css-var="\${dataVar}" data-key="\${dataKey}">
           <label>\${item.label}</label>
           <div class="vse-size-input">
@@ -386,15 +386,15 @@ class VisualStyleEditor {
             <input type="text" value="\${item.value}" class="vse-text-input">
           </div>
         </div>
-      \`;
+      `;
     } else {
       // Text input for complex values
-      return \`
+      return `
         <div class="\${controlClass}" data-css-var="\${dataVar}" data-key="\${dataKey}">
           <label>\${item.label}</label>
           <input type="text" value="\${item.value}" class="vse-text-input">
         </div>
-      \`;
+      `;
     }
   }
 
@@ -506,7 +506,7 @@ class VisualStyleEditor {
         const item = obj[key];
 
         if (item.cssVar && item.value) {
-          css += \`  \${item.cssVar}: \${item.value};\n\`;
+          css += `  \${item.cssVar}: \${item.value};\n`;
         }
 
         if (typeof item === 'object' && !item.cssVar) {
@@ -626,7 +626,7 @@ class VisualStyleEditor {
       const r = parseInt(rgbMatch[1]).toString(16).padStart(2, '0');
       const g = parseInt(rgbMatch[2]).toString(16).padStart(2, '0');
       const b = parseInt(rgbMatch[3]).toString(16).padStart(2, '0');
-      return \`#\${r}\${g}\${b}\`;
+      return `#\${r}\${g}\${b}`;
     }
 
     return '#000000';
