@@ -90,11 +90,18 @@ class DesignerMode {
     window.patAuthUI = this.patAuthUI;
 
     // Check if already authenticated
-    if (this.patAuthUI.isAuthenticated()) {
+    console.log('🔍 Checking authentication status...');
+    const isAuth = this.patAuthUI.isAuthenticated();
+    console.log('📊 Is authenticated:', isAuth);
+
+    if (isAuth) {
       const token = this.patAuthUI.getToken();
+      console.log('🔑 Token found:', token ? 'Yes (' + token.substring(0, 10) + '...)' : 'No');
       if (token) {
         this.initGitHubClient(token);
       }
+    } else {
+      console.log('⚠️ No token found in localStorage');
     }
 
     console.log('🔐 GitHub PAT authentication initialized');
