@@ -883,11 +883,23 @@ class DesignerMode {
       // Convert content to JSON string
       const contentString = JSON.stringify(content, null, 2);
 
-      // Update file in GitHub repository
+      // Try to get the file first to check if it exists
+      let sha = null;
+      try {
+        const existingFile = await this.githubClient.getFile('content-schema.json');
+        sha = existingFile.sha;
+        console.log('📄 File exists, updating with SHA:', sha);
+      } catch (error) {
+        console.log('📄 File does not exist, creating new file');
+        // File doesn't exist, sha stays null
+      }
+
+      // Update or create file in GitHub repository
       await this.githubClient.updateFile(
         'content-schema.json',
         contentString,
-        'Update content via Designer Mode'
+        'Update content via Designer Mode',
+        sha
       );
 
       alert('✅ Content synced to GitHub successfully');
