@@ -243,27 +243,93 @@
             color: var(--magenta);
         }
 
+        /* PROTOCOL DIAGRAM */
+        .diagram-label {
+            color: var(--cyan);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .protocol-box {
+            background: rgba(0, 243, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .protocol-title {
+            color: var(--cyan);
+            font-family: 'Urbanist', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .protocol-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-body);
+            padding: 8px 0;
+        }
+
+        .protocol-key {
+            color: var(--cyan);
+            font-weight: 500;
+        }
+
+        .protocol-arrow {
+            text-align: center;
+            font-size: 32px;
+            color: var(--magenta);
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .diagram-footer {
+            color: var(--magenta);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
         /* EVOLUTION LIST */
         .evolution-list {
             list-style: none;
             padding: 0;
-            margin: 30px 0;
+            margin: 30px 0 50px 0;
         }
 
         .evolution-list li {
-            padding: 16px 0 16px 40px;
+            padding: 20px 0 20px 70px;
             position: relative;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
         }
 
         .evolution-list li::before {
             content: attr(data-phase);
             position: absolute;
             left: 0;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--cyan);
             font-family: 'JetBrains Mono', monospace;
             font-size: 14px;
             font-weight: 900;
+        }
+
+        .evolution-list li:last-child {
+            padding-bottom: 24px;
         }
 
         /* CTA */
@@ -376,7 +442,7 @@
         <div class="article-meta">The Cognitive Mesh Protocol</div>
         <h1>Cognitive Mesh</h1>
         <p class="article-subtitle">My Roadmap to Grab AI by the Horns - BDI Meets OODA Loop</p>
-        <p class="article-byline">By <a href="#">Daniel Carneiro</a> | Cognitive Mesh Academy</p>
+        <p class="article-byline">By <a href="#">Daniel Carneiro</a> | March 9, 2026</p>
     </header>
 
     <p class="lead">It all started about a year ago. Maybe a bit more.</p>
@@ -386,6 +452,10 @@
     <p>But it always did. It would start strong, then completely lose the plot.</p>
 
     <p>Caralho.</p>
+
+    <blockquote>
+        <p>Constraints power innovation.</p>
+    </blockquote>
 
     <hr>
 
@@ -404,15 +474,44 @@
 
     <p>And surprise, surprise... it actually worked. The AI started giving me better answers. It had "depth." It felt like I was getting more value out of that tenner than anyone else. But even then, I knew I was just waiting for the models to catch up with the context windows I actually needed.</p>
 
+    <div class="highlight-box green">
+        <p><strong>Derivations & Evolution</strong>: You can find derivations and related experiments from those early days on GitHub: <a href="https://github.com/loonix/github_copilot_prs/" target="_blank" rel="noopener" style="color: var(--green); text-decoration: underline;">github.com/loonix/github_copilot_prs</a> — where the original <code>executor_lusitano</code> chatmode instructions could be stored.</p>
+    </div>
+
+    <blockquote>
+        <p>"Em pt?? Nem parece de ti 😁 Pensamento lusófono? Soa interessante"</p>
+        <p style="font-size: 14px; color: var(--text-dim); margin-top: 12px;">— Ari, testing the chatmode</p>
+    </blockquote>
+
     <hr>
 
     <h2>The Vertigo of Autonomy</h2>
 
-    <p>Fast forward. I moved away from the cheap seats. Thanks to my friend Lucas, I jumped from a $30 to a $90 subscription. I started playing with Claude Code and Opus. If you're reading this, you're probably as much of a nerd as I am... so you know the dream: <strong>Autonomous Systems</strong>.</p>
+    <p>Fast forward. I was still on that $10/month Copilot subscription, constantly looking for alternatives. My friend Lucas told me about Claude—said it was really good. He was on the $90 plan, but I didn't want to pay that much. I went with the lower tier.</p>
 
-    <p>I started building CLIs to mimic that shelved "Empire" way of thinking, but I kept hitting the same wall: <strong>Context Rot</strong>. The AI would get tired. It would get confused.</p>
+    <p>Then Lucas showed me how he was using it. Something clicked. I realized I'd been working with AI under constraints the whole time. I wasn't using AI for git commits, pushes, terminal actions—I was using it purely for logic and boilerplate. The stuff that took most time.</p>
+
+    <p>My problem? I was constantly trying to constrain the AI. I wasn't letting it loose. And it was costing me—I had to constantly steer it, correct it, babysit it.</p>
+
+    <p>Once I started getting the grips on it, I thought: <em>"I'm going to take the $90 plan."</em></p>
+
+    <p>And man... I built the different AI harnesses. I started building CLIs to mimic that shelved "Empire" way of thinking, but I kept hitting the same wall: <strong>Context Rot</strong>. The AI would get tired. It would get confused.</p>
+
+    <div class="highlight-box">
+        <h3 style="margin-top: 0; color: var(--cyan);">The Harness Evolution</h3>
+        <p><strong>First Attempts:</strong> Various CLI tools + VSCode extension — <em>Failed</em></p>
+        <p><strong>Mengle:</strong> JavaScript solution — <em>Too slow</em>. Created pipelines for agents and built a scheduling system.</p>
+        <p><strong>MengleX:</strong> Rust rewrite — <em>First success</em>. The first time I managed to get an agent to work truly by himself. A feeling I could not describe. This was done before OpenCLAW was a thing—only a week or two after my Rust harness was released, something called clawdbot.</p>
+        <p><strong>eth0:</strong> Open source coming soon</p>
+        <p><strong>Orbit:</strong> Currently building — <em>Classified</em></p>
+    </div>
 
     <p>Then, I saw a guy online talking about "Ralph Loops." It clicked. I went back to basics. I stripped away the fluff. I removed the personas. I followed the philosophy like a disciple. I built and rebuilt five different versions of autonomous systems. It was wild—I'm talking physical vertigo from lack of sleep and pure mental fatigue.</p>
+
+    <blockquote>
+        <p>"That first time MengleX worked by himself... that was a feeling I could not describe."</p>
+        <p style="font-size: 14px; color: var(--text-dim); margin-top: 12px;">— <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7417930749820952576/" target="_blank" rel="noopener" style="color: var(--cyan);">LinkedIn, March 2025</a></p>
+    </blockquote>
 
     <hr>
 
@@ -498,32 +597,65 @@ DESIRES (Goals):
 - Invalid credentials are rejected
 - No regression to existing users</code></pre>
 
+    <h3>CLI Example</h3>
+
+    <pre data-label="TERMINAL"><code>$ cognitive-mesh analyze --issue "auth failures"
+
+[COGNITIVE MESH: INITIALIZING]
+├─ BDI Layer: Loading beliefs...
+├─ OODA Loop: Starting observation cycle...
+└─ Mesh: Active
+
+[OBSERVE] Gathering ground truth...
+  ├─ Error: Invalid token response
+  ├─ File: src/auth/token-validator.ts
+  └─ DB: 472 pending tokens
+
+[ORIENT] Analyzing context...
+  ├─ Flow breaks at token validation
+  ├─ Related: middleware/auth.ts
+  └─ Root cause: Expiry check logic
+
+[DECIDE] Forming intentions...
+  ├─ Plan: Refactor expiry validation
+  ├─ Files: token-validator.ts, auth-types.ts
+  └─ Risk: Low, isolated change
+
+[ACT] Executing...
+  ├─ ✓ Updated validator
+  ├─ ✓ Added unit tests
+  └─ ✓ All tests passing
+
+[COGNITIVE MESH: COMPLETE]
+  Beliefs updated: 3
+  Intentions executed: 1
+  Desires satisfied: 100%</code></pre>
+
     <hr>
 
     <h2>The Protocol</h2>
 
     <div class="diagram">
-<span class="label">[COGNITIVE MESH: ACTIVE]</span>
+        <div class="diagram-label">[COGNITIVE MESH: ACTIVE]</div>
 
-┌─────────────────────────────────────────┐
-│          BDI LAYER (Internal)           │
-├─────────────────────────────────────────┤
-│  BELIEFS   → What we know is true       │
-│  DESIRES   → What we want to achieve    │
-│  INTENTIONS → What we commit to doing   │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         OODA LAYER (External)           │
-├─────────────────────────────────────────┤
-│  OBSERVE  → Gather ground truth         │
-│  ORIENT   → Analyze context             │
-│  DECIDE   → Form intentions             │
-│  ACT      → Execute and verify          │
-└─────────────────────────────────────────┘
+        <div class="protocol-box">
+            <div class="protocol-title">BDI LAYER (Internal)</div>
+            <div class="protocol-item"><span class="protocol-key">BELIEFS</span> → What we know is true</div>
+            <div class="protocol-item"><span class="protocol-key">DESIRES</span> → What we want to achieve</div>
+            <div class="protocol-item"><span class="protocol-key">INTENTIONS</span> → What we commit to doing</div>
+        </div>
 
-<span class="highlight">BDI feeds OODA. OODA updates BDI. The mesh tightens with every iteration.</span>
+        <div class="protocol-arrow">↓</div>
+
+        <div class="protocol-box">
+            <div class="protocol-title">OODA LAYER (External)</div>
+            <div class="protocol-item"><span class="protocol-key">OBSERVE</span> → Gather ground truth</div>
+            <div class="protocol-item"><span class="protocol-key">ORIENT</span> → Analyze context</div>
+            <div class="protocol-item"><span class="protocol-key">DECIDE</span> → Form intentions</div>
+            <div class="protocol-item"><span class="protocol-key">ACT</span> → Execute and verify</div>
+        </div>
+
+        <div class="diagram-footer">BDI feeds OODA. OODA updates BDI. The mesh tightens with every iteration.</div>
     </div>
 
     <hr>
@@ -555,6 +687,22 @@ DESIRES (Goals):
     <p>Each phase stripped away pretense. Each phase got closer to how actual cognition works.</p>
 
     <p>The future isn't smarter prompts. It's <strong>cognitive architectures</strong> that reliably process complexity.</p>
+
+    <hr>
+
+    <h2>The Caravela</h2>
+
+    <p>Now, I'm building continuously a <em>caravela</em>—just like the Portuguese back in the Age of Discovery. I'm digitally going to conquer the digital world with my motto and my <strong>Cognitive Cartography</strong>.</p>
+
+    <p>Every line of code, every protocol refinement, every mesh iteration—it's all planks in the hull. Every autonomous system that successfully navigates complexity is another nautical mile charted on the map.</p>
+
+    <p>The caravela wasn't just a ship. It was a platform for exploration. A marriage of constraint and innovation that made the impossible possible.</p>
+
+    <p>My Cognitive Mesh is the same. It's not a persona. It's not a prompt. It's a vessel—built on BDI and OODA, powered by constraint, designed for discovery.</p>
+
+    <blockquote>
+        <p>Constraints power innovation. Innovation builds caravelas. Caravelas conquer worlds.</p>
+    </blockquote>
 
     <footer class="article-footer">
         <div class="author-bio">
