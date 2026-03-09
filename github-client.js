@@ -389,19 +389,19 @@ class GitHubApiClient {
    * Build full URL from endpoint
    */
   buildUrl(endpoint) {
-    // Remove leading slash if present
-    const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
-
     // Check if endpoint already includes full URL
-    if (cleanEndpoint.startsWith('http')) {
-      return cleanEndpoint;
+    if (endpoint.startsWith('http')) {
+      return endpoint;
     }
 
     // Parse GitHub API endpoint format (METHOD /path)
-    const parts = cleanEndpoint.split(' ');
+    const parts = endpoint.split(' ');
     const path = parts[parts.length - 1];
 
-    return `${this.baseUrl}/${path}`;
+    // Remove leading slash from path if present
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+
+    return `${this.baseUrl}/${cleanPath}`;
   }
 
   /**
