@@ -85,7 +85,7 @@ class DesignerMode {
 
     // Initialize authentication with config
     this.githubAuth = new GitHubAuth({
-      clientId: '', // Add your GitHub OAuth Client ID
+      clientId: 'Ov23lijgZX3NPmjhZVNt', 
       scopes: ['repo', 'user:email', 'read:org']
     });
 
