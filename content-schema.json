@@ -1,0 +1,460 @@
+{
+  "version": "1.1",
+  "lastModified": null,
+  "articleOrder": [
+    "cognitive-mesh",
+    "designer-mode-cms",
+    "security-architecture",
+    "bdi-ooda-production",
+    "github-as-database",
+    "cyberpunk-design",
+    "agent-swarms",
+    "image-optimization",
+    "zero-infrastructure-deployment"
+  ],
+  "content": {
+    "hero": {
+      "title": {
+        "id": "hero-title",
+        "type": "text",
+        "content": "WELCOME TO THE FUTURE",
+        "selector": ".hero h1"
+      },
+      "subtitle": {
+        "id": "hero-subtitle",
+        "type": "text",
+        "content": "Enter the digital realm where reality meets innovation",
+        "selector": ".hero p"
+      },
+      "cta": {
+        "id": "hero-cta",
+        "type": "link",
+        "content": "TRY RUDE CHAT",
+        "href": "#chat",
+        "selector": ".hero .cyber-button"
+      }
+    },
+    "about": {
+      "name": {
+        "id": "about-name",
+        "type": "text",
+        "content": "DANIEL CARNEIRO",
+        "selector": "#about .profile-info h3"
+      },
+      "title": {
+        "id": "about-title",
+        "type": "text",
+        "content": "Senior Software Engineer",
+        "selector": "#about .profile-info .cyber-text"
+      },
+      "mission": {
+        "id": "about-mission",
+        "type": "richtext",
+        "content": "Specialized in front-end development of mobile and web applications.",
+        "selector": "#about .detail-card:nth-child(1) p"
+      },
+      "expertise": {
+        "id": "about-expertise",
+        "type": "richtext",
+        "content": "Over 10 years of experience in software development, focusing on high-performance web/mobile applications.",
+        "selector": "#about .detail-card:nth-child(2) p"
+      }
+    },
+    "skills": {
+      "title": {
+        "id": "skills-title",
+        "type": "text",
+        "content": "SKILL SET",
+        "selector": "#skills .section-title"
+      }
+    },
+    "articles": {
+      "title": {
+        "id": "articles-title",
+        "type": "text",
+        "content": "ARTICLES",
+        "selector": "#articles .section-title"
+      },
+      "items": [
+        {
+          "id": "cognitive-mesh",
+          "type": "article",
+          "title": "COGNITIVE MESH",
+          "description": "My roadmap to grab AI by the horns - BDI meets OODA Loop. How I evolved from personas to protocols for building reliable AI systems.",
+          "link": "/articles/cognitive-mesh.html",
+          "selector": "#articles .article-card[data-article-id=\"cognitive-mesh\"]",
+          "order": 0
+        },
+        {
+          "id": "designer-mode-cms",
+          "type": "article",
+          "title": "DESIGNER MODE CMS",
+          "description": "Building a zero-infrastructure content management system. How I created a browser-based CMS using GitHub as the backend.",
+          "link": "/articles/designer-mode-cms.html",
+          "selector": "#articles .article-card[data-article-id=\"designer-mode-cms\"]",
+          "order": 1
+        },
+        {
+          "id": "security-architecture",
+          "type": "article",
+          "title": "SECURITY ARCHITECTURE",
+          "description": "Encryption, OAuth, and XSS prevention in zero-infrastructure applications. A comprehensive guide to building secure systems.",
+          "link": "/articles/security-architecture.html",
+          "selector": "#articles .article-card[data-article-id=\"security-architecture\"]",
+          "order": 2
+        },
+        {
+          "id": "bdi-ooda-production",
+          "type": "article",
+          "title": "BDI & OODA IN PRODUCTION",
+          "description": "Real-world implementation of cognitive architectures for AI agents. How I combined BDI and OODA for reliable AI systems.",
+          "link": "/articles/bdi-ooda-production.html",
+          "selector": "#articles .article-card[data-article-id=\"bdi-ooda-production\"]",
+          "order": 3
+        },
+        {
+          "id": "github-as-database",
+          "type": "article",
+          "title": "GITHUB AS DATABASE",
+          "description": "Building a backend architecture without a database. How to use Git repositories as your primary data store.",
+          "link": "/articles/github-as-database.html",
+          "selector": "#articles .article-card[data-article-id=\"github-as-database\"]",
+          "order": 4
+        },
+        {
+          "id": "cyberpunk-design",
+          "type": "article",
+          "title": "CYBERPUNK DESIGN",
+          "description": "Creating high-tech, low-life visual experiences. A deep dive into neon aesthetics, glitch effects, and cyberpunk UI.",
+          "link": "/articles/cyberpunk-design.html",
+          "selector": "#articles .article-card[data-article-id=\"cyberpunk-design\"]",
+          "order": 5
+        },
+        {
+          "id": "agent-swarms",
+          "type": "article",
+          "title": "AGENT SWARMS",
+          "description": "Building multi-agent systems that work together. Architecture, communication patterns, and coordination strategies.",
+          "link": "/articles/agent-swarms.html",
+          "selector": "#articles .article-card[data-article-id=\"agent-swarms\"]",
+          "order": 6
+        },
+        {
+          "id": "image-optimization",
+          "type": "article",
+          "title": "IMAGE OPTIMIZATION",
+          "description": "Performance techniques for modern web applications. How to reduce image weight by 90% while maintaining quality.",
+          "link": "/articles/image-optimization.html",
+          "selector": "#articles .article-card[data-article-id=\"image-optimization\"]",
+          "order": 7
+        },
+        {
+          "id": "zero-infrastructure-deployment",
+          "type": "article",
+          "title": "ZERO-INFRASTRUCTURE DEPLOYMENT",
+          "description": "Deploying applications without servers. A complete guide to serverless architecture and edge computing.",
+          "link": "/articles/zero-infrastructure-deployment.html",
+          "selector": "#articles .article-card[data-article-id=\"zero-infrastructure-deployment\"]",
+          "order": 8
+        }
+      ]
+    },
+    "chat": {
+      "title": {
+        "id": "chat-title",
+        "type": "text",
+        "content": "RUDE CHAT",
+        "selector": "#chat .section-title"
+      },
+      "placeholder": {
+        "id": "chat-placeholder",
+        "type": "text",
+        "content": "Type your nonsense here...",
+        "selector": "#chat-input"
+      },
+      "welcomeMessage": {
+        "id": "chat-welcome",
+        "type": "text",
+        "content": "About damn time you said something.",
+        "selector": "#chat-window .chat-message.ai"
+      }
+    },
+    "features": {
+      "mobile": {
+        "id": "feature-mobile",
+        "type": "richtext",
+        "title": "MOBILE DEVELOPMENT",
+        "content": "Crafting seamless, high-performance apps for iOS and Android",
+        "selector": "#features .feature-card:nth-child(1)"
+      },
+      "web": {
+        "id": "feature-web",
+        "type": "richtext",
+        "title": "WEB DEVELOPMENT",
+        "content": "Building responsive, dynamic websites with cutting-edge tech",
+        "selector": "#features .feature-card:nth-child(2)"
+      },
+      "uiux": {
+        "id": "feature-uiux",
+        "type": "richtext",
+        "title": "UI/UX DESIGN",
+        "content": "Designing intuitive, stunning interfaces",
+        "link": "https://www.behance.net/dslice",
+        "selector": "#features .feature-card:nth-child(3)"
+      },
+      "music": {
+        "id": "feature-music",
+        "type": "richtext",
+        "title": "MUSIC PRODUCTION",
+        "content": "Creating immersive soundscapes",
+        "link": "https://soundcloud.com/iamloonix",
+        "selector": "#features .feature-card:nth-child(4)"
+      }
+    }
+  },
+  "styles": {
+    "colors": {
+      "primary": {
+        "value": "#0ff",
+        "cssVar": "--neon-blue",
+        "label": "Neon Blue"
+      },
+      "secondary": {
+        "value": "#f0f",
+        "cssVar": "--neon-pink",
+        "label": "Neon Pink"
+      },
+      "accent": {
+        "value": "#c526ff",
+        "cssVar": "--neon-purple",
+        "label": "Neon Purple"
+      },
+      "background": {
+        "value": "#0a0a0f",
+        "cssVar": "--dark-bg",
+        "label": "Dark Background"
+      },
+      "text": {
+        "value": "#ffffff",
+        "cssVar": "--text-color",
+        "label": "Text Color"
+      },
+      "cardBackground": {
+        "value": "rgba(255, 255, 255, 0.05)",
+        "cssVar": "--card-bg",
+        "label": "Card Background"
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "value": "'Orbitron', sans-serif",
+        "cssVar": "--font-family",
+        "label": "Font Family"
+      },
+      "baseSize": {
+        "value": "1rem",
+        "cssVar": "--font-size-base",
+        "label": "Base Size"
+      },
+      "h1Size": {
+        "value": "4rem",
+        "cssVar": "--font-size-h1",
+        "label": "H1 Size"
+      },
+      "h2Size": {
+        "value": "3rem",
+        "cssVar": "--font-size-h2",
+        "label": "H2 Size"
+      },
+      "h3Size": {
+        "value": "2rem",
+        "cssVar": "--font-size-h3",
+        "label": "H3 Size"
+      },
+      "weightNormal": {
+        "value": "400",
+        "cssVar": "--font-weight-normal",
+        "label": "Normal Weight"
+      },
+      "weightBold": {
+        "value": "700",
+        "cssVar": "--font-weight-bold",
+        "label": "Bold Weight"
+      },
+      "lineHeight": {
+        "value": "1.6",
+        "cssVar": "--line-height",
+        "label": "Line Height"
+      },
+      "letterSpacing": {
+        "value": "0px",
+        "cssVar": "--letter-spacing",
+        "label": "Letter Spacing"
+      }
+    },
+    "spacing": {
+      "containerPadding": {
+        "value": "2rem",
+        "cssVar": "--spacing-container",
+        "label": "Container Padding"
+      },
+      "sectionPadding": {
+        "value": "5rem",
+        "cssVar": "--spacing-section",
+        "label": "Section Padding"
+      },
+      "gap": {
+        "value": "2rem",
+        "cssVar": "--spacing-gap",
+        "label": "Gap"
+      },
+      "cardPadding": {
+        "value": "2rem",
+        "cssVar": "--spacing-card",
+        "label": "Card Padding"
+      }
+    },
+    "effects": {
+      "glowIntensity": {
+        "value": "10px",
+        "cssVar": "--glow-intensity",
+        "label": "Glow Intensity"
+      },
+      "shadowBlur": {
+        "value": "20px",
+        "cssVar": "--shadow-blur",
+        "label": "Shadow Blur"
+      },
+      "shadowSpread": {
+        "value": "0px",
+        "cssVar": "--shadow-spread",
+        "label": "Shadow Spread"
+      },
+      "textShadow": {
+        "value": "0 0 10px",
+        "cssVar": "--text-shadow",
+        "label": "Text Shadow"
+      },
+      "boxShadow": {
+        "value": "0 0 15px",
+        "cssVar": "--box-shadow",
+        "label": "Box Shadow"
+      },
+      "animationSpeed": {
+        "value": "0.3s",
+        "cssVar": "--animation-speed",
+        "label": "Animation Speed"
+      }
+    },
+    "layout": {
+      "maxWidth": {
+        "value": "1200px",
+        "cssVar": "--max-width",
+        "label": "Max Width"
+      },
+      "gridColumns": {
+        "value": "repeat(auto-fit, minmax(300px, 1fr))",
+        "cssVar": "--grid-columns",
+        "label": "Grid Columns"
+      },
+      "borderRadius": {
+        "value": "8px",
+        "cssVar": "--border-radius",
+        "label": "Border Radius"
+      },
+      "borderWidth": {
+        "value": "1px",
+        "cssVar": "--border-width",
+        "label": "Border Width"
+      }
+    },
+    "components": {
+      "button": {
+        "background": {
+          "value": "transparent",
+          "cssVar": "--button-bg",
+          "label": "Button Background"
+        },
+        "border": {
+          "value": "2px solid var(--neon-blue)",
+          "cssVar": "--button-border",
+          "label": "Button Border"
+        },
+        "color": {
+          "value": "var(--neon-blue)",
+          "cssVar": "--button-color",
+          "label": "Button Color"
+        },
+        "padding": {
+          "value": "1rem 2rem",
+          "cssVar": "--button-padding",
+          "label": "Button Padding"
+        },
+        "hoverBackground": {
+          "value": "var(--neon-blue)",
+          "cssVar": "--button-hover-bg",
+          "label": "Button Hover BG"
+        },
+        "hoverColor": {
+          "value": "var(--dark-bg)",
+          "cssVar": "--button-hover-color",
+          "label": "Button Hover Color"
+        }
+      },
+      "input": {
+        "background": {
+          "value": "rgba(0, 255, 255, 0.05)",
+          "cssVar": "--input-bg",
+          "label": "Input Background"
+        },
+        "border": {
+          "value": "1px solid var(--neon-blue)",
+          "cssVar": "--input-border",
+          "label": "Input Border"
+        },
+        "color": {
+          "value": "var(--neon-blue)",
+          "cssVar": "--input-color",
+          "label": "Input Color"
+        },
+        "padding": {
+          "value": "0.75rem 1rem",
+          "cssVar": "--input-padding",
+          "label": "Input Padding"
+        },
+        "focusShadow": {
+          "value": "0 0 10px var(--neon-blue)",
+          "cssVar": "--input-focus-shadow",
+          "label": "Input Focus Shadow"
+        }
+      },
+      "card": {
+        "background": {
+          "value": "rgba(255, 255, 255, 0.05)",
+          "cssVar": "--card-bg",
+          "label": "Card Background"
+        },
+        "border": {
+          "value": "1px solid var(--neon-blue)",
+          "cssVar": "--card-border",
+          "label": "Card Border"
+        },
+        "padding": {
+          "value": "2rem",
+          "cssVar": "--card-padding",
+          "label": "Card Padding"
+        },
+        "hoverTransform": {
+          "value": "translateY(-5px)",
+          "cssVar": "--card-hover-transform",
+          "label": "Card Hover Transform"
+        },
+        "hoverShadow": {
+          "value": "0 0 20px var(--neon-blue)",
+          "cssVar": "--card-hover-shadow",
+          "label": "Card Hover Shadow"
+        }
+      }
+    }
+  }
+}

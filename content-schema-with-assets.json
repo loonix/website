@@ -1,0 +1,173 @@
+{
+  "version": "1.1",
+  "lastModified": null,
+  "content": {
+    "hero": {
+      "title": {
+        "id": "hero-title",
+        "type": "text",
+        "content": "WELCOME TO THE FUTURE",
+        "selector": ".hero h1"
+      },
+      "subtitle": {
+        "id": "hero-subtitle",
+        "type": "text",
+        "content": "Enter the digital realm where reality meets innovation",
+        "selector": ".hero p"
+      },
+      "cta": {
+        "id": "hero-cta",
+        "type": "link",
+        "content": "TRY RUDE CHAT",
+        "href": "#chat",
+        "selector": ".hero .cyber-button"
+      },
+      "background": {
+        "id": "hero-background",
+        "type": "image",
+        "src": "",
+        "alt": "Hero background image",
+        "selector": ".hero"
+      }
+    },
+    "about": {
+      "name": {
+        "id": "about-name",
+        "type": "text",
+        "content": "DANIEL CARNEIRO",
+        "selector": "#about .profile-info h3"
+      },
+      "title": {
+        "id": "about-title",
+        "type": "text",
+        "content": "Senior Software Engineer",
+        "selector": "#about .profile-info .cyber-text"
+      },
+      "mission": {
+        "id": "about-mission",
+        "type": "richtext",
+        "content": "Specialized in front-end development of mobile and web applications.",
+        "selector": "#about .detail-card:nth-child(1) p"
+      },
+      "expertise": {
+        "id": "about-expertise",
+        "type": "richtext",
+        "content": "Over 10 years of experience in software development, focusing on high-performance web/mobile applications.",
+        "selector": "#about .detail-card:nth-child(2) p"
+      },
+      "profilePicture": {
+        "id": "about-profile-picture",
+        "type": "image",
+        "src": "",
+        "alt": "Profile picture",
+        "selector": "#about .profile-image"
+      }
+    },
+    "skills": {
+      "title": {
+        "id": "skills-title",
+        "type": "text",
+        "content": "SKILL SET",
+        "selector": "#skills .section-title"
+      }
+    },
+    "articles": {
+      "title": {
+        "id": "articles-title",
+        "type": "text",
+        "content": "ARTICLES",
+        "selector": "#articles .section-title"
+      },
+      "items": [
+        {
+          "id": "article-1",
+          "type": "article",
+          "title": "COGNITIVE MESH",
+          "description": "My roadmap to grab AI by the horns - BDI meets OODA Loop. How I evolved from personas to protocols for building reliable AI systems.",
+          "link": "/articles/cognitive-mesh.html",
+          "image": "",
+          "selector": "#articles .article-card:nth-child(1)"
+        }
+      ]
+    },
+    "chat": {
+      "title": {
+        "id": "chat-title",
+        "type": "text",
+        "content": "RUDE CHAT",
+        "selector": "#chat .section-title"
+      },
+      "placeholder": {
+        "id": "chat-placeholder",
+        "type": "text",
+        "content": "Type your nonsense here...",
+        "selector": "#chat-input"
+      },
+      "welcomeMessage": {
+        "id": "chat-welcome",
+        "type": "text",
+        "content": "About damn time you said something.",
+        "selector": "#chat-window .chat-message.ai"
+      }
+    },
+    "features": {
+      "mobile": {
+        "id": "feature-mobile",
+        "type": "richtext",
+        "title": "MOBILE DEVELOPMENT",
+        "content": "Crafting seamless, high-performance apps for iOS and Android",
+        "image": "",
+        "selector": "#features .feature-card:nth-child(1)"
+      },
+      "web": {
+        "id": "feature-web",
+        "type": "richtext",
+        "title": "WEB DEVELOPMENT",
+        "content": "Building responsive, dynamic websites with cutting-edge tech",
+        "image": "",
+        "selector": "#features .feature-card:nth-child(2)"
+      },
+      "uiux": {
+        "id": "feature-uiux",
+        "type": "richtext",
+        "title": "UI/UX DESIGN",
+        "content": "Designing intuitive, stunning interfaces",
+        "link": "https://www.behance.net/dslice",
+        "image": "",
+        "selector": "#features .feature-card:nth-child(3)"
+      },
+      "music": {
+        "id": "feature-music",
+        "type": "richtext",
+        "title": "MUSIC PRODUCTION",
+        "content": "Creating immersive soundscapes",
+        "link": "https://soundcloud.com/iamloonix",
+        "image": "",
+        "selector": "#features .feature-card:nth-child(4)"
+      }
+    }
+  },
+  "assets": {
+    "heroBackground": {
+      "id": "asset-hero-bg",
+      "type": "image",
+      "src": "",
+      "alt": "Hero background",
+      "usage": ["hero.background"]
+    },
+    "profilePicture": {
+      "id": "asset-profile-pic",
+      "type": "image",
+      "src": "",
+      "alt": "Profile picture",
+      "usage": ["about.profilePicture"]
+    }
+  },
+  "styles": {
+    "colors": {
+      "primary": "#00ff41",
+      "secondary": "#ff00ff",
+      "background": "#0a0a0a"
+    }
+  }
+}

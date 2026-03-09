@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OODA Loop Monitor - Test Page</title>
+  <link rel="stylesheet" href="ooda-dashboard.css">
+  <style>
+    body {
+      font-family: 'Orbitron', monospace;
+      background: #0a0a14;
+      color: #00ff41;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .test-controls {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #00ff41;
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    }
+
+    .test-section {
+      margin-bottom: 30px;
+    }
+
+    .test-section h2 {
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .test-btn {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #00ff41;
+      color: #00ff41;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      transition: all 0.2s ease;
+    }
+
+    .test-btn:hover {
+      background: rgba(0, 255, 65, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .test-btn:active {
+      transform: scale(0.98);
+    }
+
+    .status-display {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+    }
+
+    .status-item:last-child {
+      border-bottom: none;
+    }
+
+    .status-label {
+      color: rgba(0, 255, 65, 0.6);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .status-value {
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .log-output {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+    }
+
+    .log-entry {
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.05);
+    }
+
+    .log-entry.error {
+      color: #ff0047;
+    }
+
+    .log-entry.success {
+      color: #00ff41;
+    }
+
+    .log-entry.info {
+      color: #00aaff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔄 OODA Loop Monitor - Test Interface</h1>
+
+  <div class="test-controls">
+    <div class="test-section">
+      <h2>1. Initialize OODA Controller</h2>
+      <div class="button-grid">
+        <button class="test-btn" onclick="initOODA()">Initialize OODA</button>
+        <button class="test-btn" onclick="startOODA()">Start Loop</button>
+        <button class="test-btn" onclick="stopOODA()">Stop Loop</button>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>2. Manual Controls</h2>
+      <div class="button-grid">
+        <button class="test-btn" onclick="forceCycle()">Force Cycle</button>
+        <button class="test-btn" onclick="setInterval10s()">Interval: 10s</button>
+        <button class="test-btn" onclick="setInterval30s()">Interval: 30s</button>
+        <button class="test-btn" onclick="setInterval60s()">Interval: 60s</button>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>3. Query Status</h2>
+      <div class="button-grid">
+        <button class="test-btn" onclick="getStatus()">Get Status</button>
+        <button class="test-btn" onclick="getMetrics()">Get Metrics</button>
+        <button class="test-btn" onclick="getHistory()">Get History</button>
+        <button class="test-btn" onclick="getLogs()">Get Logs</button>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>4. Data Management</h2>
+      <div class="button-grid">
+        <button class="test-btn" onclick="exportState()">Export State</button>
+        <button class="test-btn" onclick="clearHistory()">Clear History</button>
+        <button class="test-btn" onclick="simulateNetworkChange()">Toggle Network</button>
+      </div>
+    </div>
+
+    <div class="status-display" id="status-display">
+      <div class="status-item">
+        <span class="status-label">OODA Status</span>
+        <span class="status-value" id="ooda-status">Not initialized</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Current Phase</span>
+        <span class="status-value" id="current-phase">--</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Total Cycles</span>
+        <span class="status-value" id="total-cycles">0</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Success Rate</span>
+        <span class="status-value" id="success-rate">--</span>
+      </div>
+    </div>
+
+    <div class="log-output" id="log-output">
+      <div class="log-entry info">Ready to test OODA Loop...</div>
+    </div>
+  </div>
+
+  <script src="ooda-controller.js"></script>
+  <script src="ooda-dashboard.js"></script>
+  <script>
+    let oodaController = null;
+    let oodaDashboard = null;
+
+    function log(message, type = 'info') {
+      const logOutput = document.getElementById('log-output');
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logOutput.appendChild(entry);
+      logOutput.scrollTop = logOutput.scrollHeight;
+    }
+
+    function updateStatus() {
+      if (!oodaController) return;
+
+      const status = oodaController.getStatus();
+      const metrics = oodaController.getMetrics();
+
+      document.getElementById('ooda-status').textContent = status.running ? 'Running' : 'Stopped';
+      document.getElementById('current-phase').textContent = status.phase;
+      document.getElementById('total-cycles').textContent = metrics.totalCycles;
+      document.getElementById('success-rate').textContent = metrics.successRate;
+    }
+
+    function initOODA() {
+      try {
+        oodaController = new OODAController({
+          intervalMs: 30000,
+          autoSync: true,
+          notifyConflicts: true,
+          logLevel: 'debug'
+        });
+
+        oodaDashboard = new OODADashboard(oodaController);
+
+        log('OODA Controller initialized', 'success');
+        log('Dashboard created', 'success');
+        updateStatus();
+      } catch (error) {
+        log('Failed to initialize: ' + error.message, 'error');
+      }
+    }
+
+    function startOODA() {
+      if (!oodaController) {
+        log('Initialize OODA first', 'error');
+        return;
+      }
+
+      oodaController.start();
+      log('OODA Loop started', 'success');
+      updateStatus();
+    }
+
+    function stopOODA() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      oodaController.stop();
+      log('OODA Loop stopped', 'info');
+      updateStatus();
+    }
+
+    function forceCycle() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      oodaController.runCycle('manual');
+      log('Manual cycle triggered', 'info');
+    }
+
+    function setInterval10s() {
+      if (!oodaController) return;
+      oodaController.setInterval(10000);
+      log('Interval set to 10 seconds', 'success');
+    }
+
+    function setInterval30s() {
+      if (!oodaController) return;
+      oodaController.setInterval(30000);
+      log('Interval set to 30 seconds', 'success');
+    }
+
+    function setInterval60s() {
+      if (!oodaController) return;
+      oodaController.setInterval(60000);
+      log('Interval set to 60 seconds', 'success');
+    }
+
+    function getStatus() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      const status = oodaController.getStatus();
+      log('Status: ' + JSON.stringify(status, null, 2), 'info');
+      updateStatus();
+    }
+
+    function getMetrics() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      const metrics = oodaController.getMetrics();
+      log('Metrics: ' + JSON.stringify(metrics, null, 2), 'info');
+      updateStatus();
+    }
+
+    function getHistory() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      const history = oodaController.getHistory(10);
+      log(`History (${history.length} cycles):`, 'info');
+      history.forEach((cycle, i) => {
+        log(`  ${i + 1}. ${cycle.status} - ${cycle.decide?.action || 'unknown'}`, cycle.status === 'success' ? 'success' : 'error');
+      });
+    }
+
+    function getLogs() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      const logs = oodaController.getLogs(null, 20);
+      log(`Logs (${logs.length} entries):`, 'info');
+      logs.forEach(entry => {
+        log(`  [${entry.level}] ${entry.message}`, entry.level === 'error' ? 'error' : 'info');
+      });
+    }
+
+    function exportState() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      const state = oodaController.exportState();
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ooda-state-${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      log('State exported successfully', 'success');
+    }
+
+    function clearHistory() {
+      if (!oodaController) {
+        log('OODA not initialized', 'error');
+        return;
+      }
+
+      oodaController.clearHistory();
+      log('History cleared', 'success');
+      updateStatus();
+    }
+
+    function simulateNetworkChange() {
+      const isOnline = navigator.onLine;
+      log(`Network is ${isOnline ? 'ONLINE' : 'OFFLINE'}`, 'info');
+
+      if (!isOnline) {
+        log('Simulating network reconnection...', 'info');
+        window.dispatchEvent(new Event('online'));
+      } else {
+        log('Simulating network disconnection...', 'info');
+        window.dispatchEvent(new Event('offline'));
+      }
+    }
+
+    // Listen to OODA events
+    window.addEventListener('ooda-phase', (e) => {
+      log(`Phase: ${e.detail.phase}`, 'info');
+      updateStatus();
+    });
+
+    window.addEventListener('ooda-cycle', (e) => {
+      const cycle = e.detail;
+      const status = cycle.status === 'success' ? 'success' : cycle.status === 'error' ? 'error' : 'info';
+      log(`Cycle completed: ${cycle.decide?.action || 'unknown'} (${cycle.status})`, status);
+      updateStatus();
+    });
+
+    window.addEventListener('ooda-started', () => {
+      log('OODA Loop started', 'success');
+      updateStatus();
+    });
+
+    window.addEventListener('ooda-stopped', () => {
+      log('OODA Loop stopped', 'info');
+      updateStatus();
+    });
+
+    window.addEventListener('online', () => {
+      log('Network connection restored', 'success');
+    });
+
+    window.addEventListener('offline', () => {
+      log('Network connection lost', 'error');
+    });
+
+    // Initial status update
+    updateStatus();
+  </script>
+</body>
+</html>

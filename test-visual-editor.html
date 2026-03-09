@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Style Editor Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="visual-editor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+        }
+        .test-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--neon-blue);
+        }
+        .test-button {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 1rem 2rem;
+            cursor: pointer;
+            margin: 1rem;
+        }
+        .test-input {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 0.75rem 1rem;
+            margin: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visual Style Editor Test Page</h1>
+    <p>This page tests the Visual Style Editor component.</p>
+
+    <button onclick="testEditor()" style="margin: 2rem; padding: 1rem 2rem; background: var(--neon-pink); border: none; color: white; cursor: pointer;">
+        🎨 Open Visual Style Editor
+    </button>
+
+    <div class="test-section">
+        <h2>Typography Test</h2>
+        <h3>H3 Heading</h3>
+        <p>This is a paragraph with <span style="color: var(--neon-blue);">neon blue text</span> and <span style="color: var(--neon-pink);">neon pink text</span>.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Component Test</h2>
+        <button class="test-button">Test Button</button>
+        <input type="text" class="test-input" placeholder="Test Input">
+    </div>
+
+    <div class="test-section">
+        <h2>Effects Test</h2>
+        <p style="text-shadow: var(--text-shadow);">Text with shadow</p>
+        <div style="box-shadow: var(--box-shadow); padding: 1rem; margin-top: 1rem;">
+            Box with shadow
+        </div>
+    </div>
+
+    <script src="visual-editor.js"></script>
+    <script>
+        let editor = null;
+
+        function testEditor() {
+            if (!editor) {
+                editor = new VisualStyleEditor(null);
+            }
+            editor.toggle();
+        }
+
+        // Auto-open for testing
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('Click the button to open the Visual Style Editor');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

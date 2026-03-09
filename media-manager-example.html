@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Manager - Simple Example</title>
+  <link rel="stylesheet" href="media-manager.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .demo-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .demo-buttons {
+      display: flex;
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    .demo-btn {
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .demo-btn:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .demo-btn.secondary {
+      background: #764ba2;
+    }
+
+    .demo-btn.secondary:hover {
+      background: #64408a;
+    }
+
+    .status-box {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 16px;
+      border-radius: 4px;
+      margin: 20px 0;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 13px;
+    }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .step {
+      margin: 20px 0;
+      padding-left: 20px;
+      border-left: 3px solid #667eea;
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: #667eea;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .feature-card {
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+
+    .feature-card h4 {
+      margin: 0 0 8px 0;
+      color: #667eea;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>🖼️ Media Manager</h1>
+    <p>Simple example of using the Media Manager system for image upload and storage via GitHub.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📤 Drag & Drop</h4>
+        <p>Upload images by dragging and dropping</p>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Optimized</h4>
+        <p>Auto resize and compression</p>
+      </div>
+      <div class="feature-card">
+        <h4>🔍 Search</h4>
+        <p>Find images instantly</p>
+      </div>
+      <div class="feature-card">
+        <h4>🌐 CDN</h4>
+        <p>Global CDN delivery</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">1</span>
+      <strong>Authenticate with GitHub</strong>
+      <p>Click the button below to authenticate with GitHub. This is required for uploading images.</p>
+    </div>
+
+    <div class="demo-buttons">
+      <button class="demo-btn" id="auth-btn">🔐 Authenticate GitHub</button>
+      <button class="demo-btn secondary" id="check-auth-btn">✓ Check Status</button>
+    </div>
+
+    <div id="auth-status" class="status-box" style="display: none;"></div>
+
+    <div class="step">
+      <span class="step-number">2</span>
+      <strong>Open Media Library</strong>
+      <p>After authentication, open the media library to upload and manage images.</p>
+    </div>
+
+    <div class="demo-buttons">
+      <button class="demo-btn" id="open-media-btn" disabled>🖼️ Open Media Library</button>
+    </div>
+
+    <div class="step">
+      <span class="step-number">3</span>
+      <strong>Use in Your Code</strong>
+      <p>Here's how to use the Media Manager in your own projects:</p>
+    </div>
+
+    <div class="code-block">// Initialize Media Manager
+const mediaManager = new MediaManager(githubAuth, {
+  assetsPath: 'cms/assets/images',
+  indexFile: 'cms/assets-index.json',
+  maxWidth: 1920,
+  quality: 0.85
+});
+
+await mediaManager.init();
+
+// Upload an image
+const file = fileInput.files[0];
+const metadata = await mediaManager.uploadImage(file);
+console.log('CDN URL:', metadata.cdnUrl);
+
+// List all images
+const images = mediaManager.listImages();
+
+// Search images
+const results = mediaManager.searchImages('profile');
+
+// Delete an image
+await mediaManager.deleteImage('img-id');</div>
+
+    <div class="step">
+      <span class="step-number">4</span>
+      <strong>Use CDN URLs in Your HTML</strong>
+      <p>All uploaded images get automatic CDN URLs for fast loading:</p>
+    </div>
+
+    <div class="code-block">&lt;!-- Use the CDN URL from metadata --&gt;
+&lt;img src="https://cdn.jsdelivr.net/gh/username/repo@main/cms/assets/images/image.webp"
+     alt="My image"
+     loading="lazy"&gt;</div>
+
+    <h3 style="margin-top: 40px;">📚 Documentation</h3>
+    <ul>
+      <li><strong>Quick Start:</strong> <code>MEDIA-MANAGER-QUICK-START.md</code></li>
+      <li><strong>Full Documentation:</strong> <code>MEDIA-MANAGER-README.md</code></li>
+      <li><strong>Test Suite:</strong> <code>test-media-manager.html</code></li>
+    </ul>
+
+    <h3 style="margin-top: 30px;">🔧 Features</h3>
+    <ul>
+      <li>✅ Drag-and-drop upload</li>
+      <li>✅ Client-side optimization (resize, compress, WebP)</li>
+      <li>✅ GitHub storage with version control</li>
+      <li>✅ Automatic CDN URL generation</li>
+      <li>✅ Beautiful gallery UI</li>
+      <li>✅ Search and filter</li>
+      <li>✅ Metadata tracking</li>
+      <li>✅ Responsive image support</li>
+    </ul>
+  </div>
+
+  <!-- Required Scripts -->
+  <script src="github-client.js"></script>
+  <script src="github-auth.js"></script>
+  <script src="media-manager.js"></script>
+  <script src="media-manager-ui.js"></script>
+
+  <script>
+    // Example usage
+    let githubAuth = null;
+    let mediaManager = null;
+    let mediaManagerUI = null;
+
+    // Authenticate
+    document.getElementById('auth-btn').addEventListener('click', async () => {
+      try {
+        githubAuth = new GitHubAuth({
+          clientId: '',
+          scopes: ['repo', 'user:email']
+        });
+
+        await githubAuth.authenticate();
+
+        showStatus('✅ Authenticated successfully!', 'success');
+        document.getElementById('open-media-btn').disabled = false;
+
+        // Initialize Media Manager
+        mediaManager = new MediaManager(githubAuth);
+        await mediaManager.init();
+
+        mediaManagerUI = new MediaManagerUI(mediaManager);
+
+        console.log('✅ Media Manager ready');
+      } catch (error) {
+        showStatus('❌ Authentication failed: ' + error.message, 'error');
+        console.error('Auth error:', error);
+      }
+    });
+
+    // Check auth status
+    document.getElementById('check-auth-btn').addEventListener('click', () => {
+      if (githubAuth && githubAuth.isAuthenticated) {
+        showStatus('✅ Authenticated as: ' + githubAuth.user.login, 'success');
+      } else {
+        showStatus('❌ Not authenticated', 'error');
+      }
+    });
+
+    // Open media library
+    document.getElementById('open-media-btn').addEventListener('click', () => {
+      if (mediaManagerUI) {
+        mediaManagerUI.open();
+      }
+    });
+
+    // Helper function
+    function showStatus(message, type) {
+      const statusEl = document.getElementById('auth-status');
+      statusEl.textContent = message;
+      statusEl.style.display = 'block';
+      statusEl.style.borderLeftColor = type === 'success' ? '#28a745' : '#dc3545';
+      statusEl.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+      statusEl.style.color = type === 'success' ? '#155724' : '#721c24';
+    }
+
+    // Log on load
+    console.log('🖼️ Media Manager Example Loaded');
+    console.log('📚 Quick Start: MEDIA-MANAGER-QUICK-START.md');
+    console.log('📖 Full Docs: MEDIA-MANAGER-README.md');
+  </script>
+</body>
+</html>
