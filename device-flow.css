@@ -1,0 +1,276 @@
+/**
+ * DEVICE FLOW STYLES
+ * Cyberpunk-themed UI for GitHub Device Flow authentication
+ */
+
+#device-flow-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+  border: 2px solid #00ff41;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.3),
+              0 0 60px rgba(0, 255, 65, 0.1);
+  z-index: 10000;
+  font-family: 'Orbitron', sans-serif;
+  animation: panelFadeIn 0.3s ease;
+}
+
+@keyframes panelFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.device-flow-content {
+  padding: 0;
+}
+
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #00ff41;
+  background: rgba(0, 255, 65, 0.05);
+}
+
+.device-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #00ff41;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #00ff41;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff0000;
+}
+
+.device-instructions {
+  padding: 25px;
+}
+
+.device-instructions p {
+  margin: 0 0 15px 0;
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.device-instructions strong {
+  color: #00ff41;
+}
+
+.code-display {
+  position: relative;
+  background: rgba(0, 255, 65, 0.1);
+  border: 2px solid #00ff41;
+  border-radius: 8px;
+  padding: 15px 50px 15px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.code-display code {
+  font-family: 'Courier New', monospace;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff;
+}
+
+.copy-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #00ff41;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(0, 255, 65, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.url-display {
+  position: relative;
+  background: rgba(255, 0, 255, 0.05);
+  border: 1px solid #ff00ff;
+  border-radius: 8px;
+  padding: 15px 50px 15px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.url-display a {
+  color: #ff00ff;
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.open-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #00ff41;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0 3s ease;
+}
+
+.open-btn:hover {
+  background: rgba(0, 255, 65, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.status-display {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid #00ff41;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.status-icon {
+  font-size: 32px;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+}
+
+.status-text {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00ff41, #ff00ff);
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+
+.troubleshoot {
+  margin-top: 15px;
+}
+
+.troubleshoot details {
+  background: rgba(255, 0, 0, 0.05);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.troubleshoot summary {
+  color: #ff9900;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.troubleshoot ul {
+  margin: 10px 0 0 20px;
+  padding-left: 20px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.troubleshoot li {
+  margin-bottom: 5px;
+}
+
+/* Success state */
+#device-flow-panel.success {
+  border-color: #00ff41;
+}
+
+#device-flow-panel.success .status-icon {
+  animation: none;
+}
+
+/* Error state */
+#device-flow-panel.error {
+  border-color: #ff0000;
+}
+
+#device-flow-panel.error .status-icon {
+  animation: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #device-flow-panel {
+    width: 95%;
+    max-width: none;
+  }
+
+  .code-display code {
+    font-size: 24px;
+  }
+
+  .device-instructions {
+    padding: 20px;
+  }
+}

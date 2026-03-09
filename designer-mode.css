@@ -1,0 +1,414 @@
+/**
+ * DESIGNER MODE STYLES
+ * Embedded CMS UI
+ */
+
+/* Designer Mode Active State */
+body.designer-mode {
+  position: relative;
+}
+
+/* Admin Panel */
+#designer-admin-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 320px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border: 2px solid #00ff41;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3),
+              0 0 40px rgba(0, 255, 65, 0.1);
+  z-index: 9999;
+  font-family: 'Orbitron', sans-serif;
+  color: #00ff41;
+  animation: panelSlideIn 0.3s ease;
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #00ff41;
+  background: rgba(0, 255, 65, 0.05);
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 18px;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+.panel-content {
+  padding: 15px 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.panel-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border-radius: 4px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+  background: #00cc33;
+}
+
+/* Panel Sections */
+.panel-section {
+  margin-bottom: 20px;
+}
+
+.panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.panel-section h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #ff00ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Panel Buttons */
+.panel-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-btn {
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.panel-btn:hover {
+  background: rgba(0, 255, 65, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  transform: translateX(-2px);
+}
+
+.panel-btn.primary {
+  background: rgba(0, 255, 65, 0.2);
+  font-weight: bold;
+}
+
+.panel-btn.github {
+  border-color: #0366d6;
+  color: #0366d6;
+  background: rgba(3, 102, 214, 0.1);
+}
+
+.panel-btn.github:hover {
+  background: rgba(3, 102, 214, 0.2);
+  box-shadow: 0 0 10px rgba(3, 102, 214, 0.3);
+}
+
+.panel-btn.style-editor {
+  border-color: #ff00ff;
+  color: #ff00ff;
+  background: rgba(255, 0, 255, 0.1);
+}
+
+.panel-btn.style-editor:hover {
+  background: rgba(255, 0, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.panel-btn.drag-drop {
+  border-color: #ffa500;
+  color: #ffa500;
+  background: rgba(255, 165, 0, 0.1);
+}
+
+.panel-btn.drag-drop:hover {
+  background: rgba(255, 165, 0, 0.2);
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+
+.panel-btn.drag-drop.active {
+  background: rgba(255, 165, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+  font-weight: bold;
+}
+}
+
+.panel-btn {
+  background: transparent;
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.panel-btn:hover {
+  background: #00ff41;
+  color: #0a0a0a;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+  transform: translateX(-5px);
+}
+
+.panel-btn.primary {
+  background: #00ff41;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.panel-btn.primary:hover {
+  background: #00cc33;
+}
+
+#close-panel {
+  background: transparent;
+  border: none;
+  color: #00ff41;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+#close-panel:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff0000;
+}
+
+/* Panel Stats */
+.panel-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.panel-stats span {
+  padding: 8px;
+  background: rgba(0, 255, 65, 0.05);
+  border-radius: 4px;
+  border-left: 3px solid #00ff41;
+}
+
+.panel-stats strong {
+  color: #ff00ff;
+  margin-left: 5px;
+}
+
+/* Panel Info */
+.panel-info {
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 10px;
+  background: rgba(255, 0, 255, 0.05);
+  border-radius: 4px;
+  border-left: 3px solid #ff00ff;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Editable Element Indicators */
+.cms-editable {
+  position: relative;
+  outline: 2px dashed rgba(0, 255, 65, 0.5) !important;
+  outline-offset: 2px;
+  transition: all 0.2s ease;
+  cursor: text;
+}
+
+.cms-editable::before {
+  content: '✎';
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #00ff41;
+  color: #0a0a0a;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.cms-editable:hover {
+  outline: 2px solid #00ff41 !important;
+  background: rgba(0, 255, 65, 0.05);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.cms-editable:hover::before {
+  opacity: 1;
+}
+
+.cms-editable:focus {
+  outline: 2px solid #ff00ff !important;
+  background: rgba(255, 0, 255, 0.05);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+/* Save Indicator Animation */
+.save-indicator {
+  position: fixed;
+  top: 20px;
+  right: 360px;
+  background: linear-gradient(135deg, #00ff41, #00cc33);
+  color: #0a0a0a;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  animation: savePulse 2s ease forwards;
+  z-index: 10000;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+}
+
+@keyframes savePulse {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #designer-admin-panel {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    width: auto;
+    max-height: 40vh;
+  }
+
+  .save-indicator {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Glitch Effect for Panel */
+#designer-admin-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    #00ff41,
+    #ff00ff,
+    #00ff41,
+    transparent
+  );
+  animation: glitchLine 2s linear infinite;
+}
+
+@keyframes glitchLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Disabled State */
+body:not(.designer-mode) .cms-editable {
+  outline: none !important;
+  cursor: default;
+}
+
+body:not(.designer-mode) .cms-editable::before {
+  display: none;
+}
+
+/* Loading State */
+#designer-admin-panel.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#designer-admin-panel.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid transparent;
+  border-top-color: #00ff41;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Style Editor Button */
+.panel-btn.style-editor {
+  border-color: #c526ff;
+  color: #c526ff;
+}
+
+.panel-btn.style-editor:hover {
+  background: #c526ff;
+  color: #0a0a0a;
+  box-shadow: 0 0 15px rgba(197, 38, 255, 0.5);
+}

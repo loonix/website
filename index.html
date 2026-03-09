@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOONIX</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="designer-mode.css">
+    <link rel="stylesheet" href="visual-editor.css">
+    <link rel="stylesheet" href="auth-ui.css">
+    <link rel="stylesheet" href="github-admin-panel.css">
+    <link rel="stylesheet" href="drag-drop.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -71,10 +76,50 @@
 <section id="articles" class="articles">
     <h2 class="section-title glitch neon-flicker glitch-on-hover" data-text="ARTICLES">ARTICLES</h2>
     <div class="article-grid">
-        <div class="article-card holo-shimmer">
+        <div class="article-card holo-shimmer" data-article-id="cognitive-mesh">
             <h3 class="neon-flicker glitch-on-hover">COGNITIVE MESH</h3>
             <p>My roadmap to grab AI by the horns - BDI meets OODA Loop. How I evolved from personas to protocols for building reliable AI systems.</p>
             <a href="/articles/cognitive-mesh.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="designer-mode-cms">
+            <h3 class="neon-flicker glitch-on-hover">DESIGNER MODE CMS</h3>
+            <p>Building a zero-infrastructure content management system. How I created a browser-based CMS using GitHub as the backend.</p>
+            <a href="/articles/designer-mode-cms.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="security-architecture">
+            <h3 class="neon-flicker glitch-on-hover">SECURITY ARCHITECTURE</h3>
+            <p>Encryption, OAuth, and XSS prevention in zero-infrastructure applications. A comprehensive guide to building secure systems.</p>
+            <a href="/articles/security-architecture.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="bdi-ooda-production">
+            <h3 class="neon-flicker glitch-on-hover">BDI & OODA IN PRODUCTION</h3>
+            <p>Real-world implementation of cognitive architectures for AI agents. How I combined BDI and OODA for reliable AI systems.</p>
+            <a href="/articles/bdi-ooda-production.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="github-as-database">
+            <h3 class="neon-flicker glitch-on-hover">GITHUB AS DATABASE</h3>
+            <p>Building a backend architecture without a database. How to use Git repositories as your primary data store.</p>
+            <a href="/articles/github-as-database.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="cyberpunk-design">
+            <h3 class="neon-flicker glitch-on-hover">CYBERPUNK DESIGN</h3>
+            <p>Creating high-tech, low-life visual experiences. A deep dive into neon aesthetics, glitch effects, and cyberpunk UI.</p>
+            <a href="/articles/cyberpunk-design.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="agent-swarms">
+            <h3 class="neon-flicker glitch-on-hover">AGENT SWARMS</h3>
+            <p>Building multi-agent systems that work together. Architecture, communication patterns, and coordination strategies.</p>
+            <a href="/articles/agent-swarms.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="image-optimization">
+            <h3 class="neon-flicker glitch-on-hover">IMAGE OPTIMIZATION</h3>
+            <p>Performance techniques for modern web applications. How to reduce image weight by 90% while maintaining quality.</p>
+            <a href="/articles/image-optimization.html" class="cyber-link glitch-on-hover">READ →</a>
+        </div>
+        <div class="article-card holo-shimmer" data-article-id="zero-infrastructure-deployment">
+            <h3 class="neon-flicker glitch-on-hover">ZERO-INFRASTRUCTURE DEPLOYMENT</h3>
+            <p>Deploying applications without servers. A complete guide to serverless architecture and edge computing.</p>
+            <a href="/articles/zero-infrastructure-deployment.html" class="cyber-link glitch-on-hover">READ →</a>
         </div>
     </div>
 </section>
@@ -122,6 +167,14 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="github-auth.js"></script>
+    <script src="auth-ui.js"></script>
+    <script src="visual-editor.js"></script>
+    <script src="github-admin-panel.js"></script>
+    <script src="drag-drop-manager.js"></script>
+    <script src="github-device-auth.js"></script>
+    <script src="device-flow-ui.js"></script>
+    <script src="designer-mode.js"></script>
 </body>
 
 </html>

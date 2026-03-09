@@ -290,6 +290,50 @@ h1 {
     font-size: 1.2rem;
 }
 
+/* Articles Section */
+.articles {
+    padding: 5rem 5%;
+    background: linear-gradient(180deg, rgba(0, 243, 255, 0.05), var(--dark-bg));
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.article-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border: 1px solid var(--neon-blue);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.article-card h3 {
+    color: var(--neon-pink);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.article-card p {
+    color: #cbd5e1;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.article-card .cyber-link {
+    align-self: flex-start;
+}
+
 /* Features Section */
 .features {
     padding: 5rem 5%;
