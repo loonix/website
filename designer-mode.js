@@ -16,6 +16,7 @@ class DesignerMode {
     // GitHub Device Flow Authentication
     this.githubDeviceAuth = null;
     this.githubClient = null;
+    this.deviceFlowUI = null;
 
     // Visual Style Editor
     this.visualStyleEditor = null;
@@ -88,6 +89,13 @@ class DesignerMode {
       clientId: 'Ov23lijgZX3NPmjhZVNt',
       scopes: ['repo', 'user:email', 'read:org']
     });
+
+    // Initialize Device Flow UI
+    if (typeof DeviceFlowUI !== 'undefined') {
+      this.deviceFlowUI = new DeviceFlowUI(this.githubDeviceAuth);
+      // Make it globally accessible for the onclick handlers
+      window.deviceFlowUI = this.deviceFlowUI;
+    }
 
     // Initialize GitHub API client if already authenticated
     if (this.githubDeviceAuth.isAuthenticated) {
@@ -438,6 +446,7 @@ class DesignerMode {
         <div class="panel-section">
           <h4>GitHub Sync</h4>
           <div class="panel-buttons">
+            <button id="auth-github" class="panel-btn github auth">🔐 Authenticate GitHub</button>
             <button id="sync-github" class="panel-btn github">⬆️ Sync to GitHub</button>
             <button id="load-github" class="panel-btn github">⬇️ Load from GitHub</button>
           </div>
@@ -472,8 +481,21 @@ class DesignerMode {
     document.getElementById('toggle-drag-drop').addEventListener('click', () => this.toggleDragDrop());
 
     // GitHub sync buttons
+    document.getElementById('auth-github').addEventListener('click', () => this.authenticateGitHub());
     document.getElementById('sync-github').addEventListener('click', () => this.syncToGitHub());
     document.getElementById('load-github').addEventListener('click', () => this.loadFromGitHub());
+  }
+
+  /**
+   * Authenticate with GitHub using Device Flow
+   */
+  authenticateGitHub() {
+    if (!this.deviceFlowUI) {
+      alert('Device Flow UI not available. Make sure device-flow-ui.js is loaded.');
+      return;
+    }
+
+    this.deviceFlowUI.show();
   }
 
   makeEditable() {
