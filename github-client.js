@@ -52,7 +52,13 @@ class GitHubApiClient {
    * Initialize the client
    */
   async init() {
-    this.loadStoredToken();
+    // Only load from storage if no token was provided in config
+    if (!this.token) {
+      this.loadStoredToken();
+    } else {
+      // Token provided in config, use it directly
+      this.log('info', 'Using token from config');
+    }
     this.log('info', 'GitHub API Client initialized');
   }
 

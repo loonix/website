@@ -86,6 +86,15 @@ class DesignerMode {
     // Initialize PAT authentication UI
     this.patAuthUI = new PatAuthUI(this.githubClient);
 
+    // Set up success callback
+    this.patAuthUI.onAuthSuccess = (token, userData) => {
+      console.log('✅ Authentication successful for:', userData.login);
+      // Initialize GitHub client with the new token
+      this.initGitHubClient(token);
+      // Update the auth status display
+      this.updateAuthStatusDisplay();
+    };
+
     // Make it globally accessible for the onclick handlers
     window.patAuthUI = this.patAuthUI;
 
@@ -447,7 +456,10 @@ class DesignerMode {
         <div class="panel-section">
           <h4>GitHub Sync</h4>
           <div class="panel-buttons">
-            <button id="auth-github" class="panel-btn github auth">🔐 Authenticate GitHub</button>
+            <div id="auth-status">
+              <span class="auth-text">🔐 Authenticate GitHub</span>
+              <button id="auth-github" class="panel-btn github auth">Sign In</button>
+            </div>
             <button id="sync-github" class="panel-btn github">⬆️ Sync to GitHub</button>
             <button id="load-github" class="panel-btn github">⬇️ Load from GitHub</button>
           </div>
@@ -467,6 +479,9 @@ class DesignerMode {
     `;
 
     document.body.appendChild(panel);
+
+    // Update auth status display
+    this.updateAuthStatusDisplay();
 
     // Add event listeners
     document.getElementById('close-panel').addEventListener('click', () => this.toggle());
@@ -498,6 +513,52 @@ class DesignerMode {
 
     this.patAuthUI.show();
   }
+
+  /**
+   * Update authentication status display in panel
+   */
+  updateAuthStatusDisplay() {
+    const authStatusEl = document.getElementById('auth-status');
+    if (!authStatusEl) return;
+
+    if (this.isAuthenticated()) {
+      // Get user data from localStorage
+      const userDataStr = localStorage.getItem('github-user-data');
+      if (userDataStr) {
+        try {
+          const userData = JSON.parse(userDataStr);
+          authStatusEl.innerHTML = '<span class="auth-text">✅ Logged in as <strong>' + userData.login + '</strong></span><button id="auth-github" class="panel-btn github logout">Sign Out</button>';
+        } catch (e) {
+          authStatusEl.innerHTML = '<span class="auth-text">✅ Authenticated</span><button id="auth-github" class="panel-btn github logout">Sign Out</button>';
+        }
+      } else {
+        authStatusEl.innerHTML = '<span class="auth-text">✅ Authenticated</span><button id="auth-github" class="panel-btn github logout">Sign Out</button>';
+      }
+      // Update event listener for logout button
+      document.getElementById('auth-github').addEventListener('click', () => this.logoutGitHub());
+    } else {
+      authStatusEl.innerHTML = '<span class="auth-text">🔐 Authenticate GitHub</span><button id="auth-github" class="panel-btn github auth">Sign In</button>';
+      // Update event listener for login button
+      document.getElementById('auth-github').addEventListener('click', () => this.authenticateGitHub());
+    }
+  }
+
+  /**
+   * Logout from GitHub
+   */
+  logoutGitHub() {
+    if (this.patAuthUI) {
+      this.patAuthUI.logout();
+    } else {
+      // Fallback: just clear storage
+      localStorage.removeItem('github-pat-token');
+      localStorage.removeItem('github-token');
+      localStorage.removeItem('github-token-type');
+      localStorage.removeItem('github-user-data');
+      window.location.reload();
+    }
+  }
+
 
   makeEditable() {
     const content = this.currentContent;

@@ -218,12 +218,13 @@ class PatAuthUI {
       // Hide panel
       this.hide();
 
-      alert('Successfully authenticated as ' + userData.login + '!');
+      // Call success callback if provided
+      if (this.onAuthSuccess) {
+        this.onAuthSuccess(token, userData);
+      }
 
-      // Reload page to initialize everything
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // Show success message
+      console.log('Successfully authenticated as ' + userData.login + '!');
 
     } catch (error) {
       console.error('Token validation failed:', error);
