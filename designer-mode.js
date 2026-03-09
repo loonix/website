@@ -13,10 +13,9 @@ class DesignerMode {
     this.editableElements = [];
     this.versionHistory = [];
 
-    // GitHub Device Flow Authentication
-    this.githubDeviceAuth = null;
+    // GitHub Authentication (PAT-based for GitHub Pages)
     this.githubClient = null;
-    this.deviceFlowUI = null;
+    this.patAuthUI = null;
 
     // Visual Style Editor
     this.visualStyleEditor = null;
@@ -75,48 +74,43 @@ class DesignerMode {
   }
 
   /**
-   * Initialize GitHub Authentication (Device Flow only)
+   * Initialize GitHub Authentication (PAT-based)
    */
   initGitHubAuth() {
-    // Check if GitHubDeviceAuth is available
-    if (typeof GitHubDeviceAuth === 'undefined') {
-      console.warn('GitHubDeviceAuth not available. Make sure github-device-auth.js is loaded.');
+    // Check if PatAuthUI is available
+    if (typeof PatAuthUI === 'undefined') {
+      console.warn('PatAuthUI not available. Make sure pat-auth-ui.js is loaded.');
       return;
     }
 
-    // Initialize Device Flow authentication
-    this.githubDeviceAuth = new GitHubDeviceAuth({
-      clientId: 'Ov23lijgZX3NPmjhZVNt',
-      scopes: ['repo', 'user:email', 'read:org']
-    });
+    // Initialize PAT authentication UI
+    this.patAuthUI = new PatAuthUI(this.githubClient);
 
-    // Initialize Device Flow UI
-    if (typeof DeviceFlowUI !== 'undefined') {
-      this.deviceFlowUI = new DeviceFlowUI(this.githubDeviceAuth);
-      // Make it globally accessible for the onclick handlers
-      window.deviceFlowUI = this.deviceFlowUI;
+    // Make it globally accessible for the onclick handlers
+    window.patAuthUI = this.patAuthUI;
+
+    // Check if already authenticated
+    if (this.patAuthUI.isAuthenticated()) {
+      const token = this.patAuthUI.getToken();
+      if (token) {
+        this.initGitHubClient(token);
+      }
     }
 
-    // Initialize GitHub API client if already authenticated
-    if (this.githubDeviceAuth.isAuthenticated) {
-      this.initGitHubClient();
-    }
-
-    console.log('🔐 GitHub Device Flow authentication initialized');
+    console.log('🔐 GitHub PAT authentication initialized');
   }
 
   /**
-   * Initialize GitHub API client with authenticated token
+   * Initialize GitHub API client with token
    */
-  initGitHubClient() {
+  initGitHubClient(token) {
     if (typeof GitHubApiClient === 'undefined') {
       console.warn('GitHubApiClient not available. Make sure github-client.js is loaded.');
       return;
     }
 
-    const token = this.getAccessToken();
     if (!token) {
-      console.warn('No access token available for GitHub client');
+      console.warn('No token available for GitHub client');
       return;
     }
 
@@ -129,7 +123,7 @@ class DesignerMode {
       owner: owner,
       repo: repo,
       branch: 'main',
-      authType: 'oauth',
+      authType: 'pat',
       enableLogging: true
     });
 
@@ -137,10 +131,10 @@ class DesignerMode {
   }
 
   /**
-   * Check if user is authenticated via Device Flow
+   * Check if user is authenticated via PAT
    */
   isAuthenticated() {
-    return this.githubDeviceAuth && this.githubDeviceAuth.isAuthenticated;
+    return this.patAuthUI && this.patAuthUI.isAuthenticated();
   }
 
   /**
@@ -150,7 +144,7 @@ class DesignerMode {
     if (!this.isAuthenticated()) {
       return null;
     }
-    return this.githubDeviceAuth.token;
+    return this.patAuthUI.getToken();
   }
 
   /**
@@ -487,15 +481,15 @@ class DesignerMode {
   }
 
   /**
-   * Authenticate with GitHub using Device Flow
+   * Authenticate with GitHub using PAT
    */
   authenticateGitHub() {
-    if (!this.deviceFlowUI) {
-      alert('Device Flow UI not available. Make sure device-flow-ui.js is loaded.');
+    if (!this.patAuthUI) {
+      alert('PAT Auth UI not available. Make sure pat-auth-ui.js is loaded.');
       return;
     }
 
-    this.deviceFlowUI.show();
+    this.patAuthUI.show();
   }
 
   makeEditable() {
@@ -803,7 +797,8 @@ class DesignerMode {
     }
 
     if (!this.githubClient) {
-      this.initGitHubClient();
+      const token = this.getAccessToken();
+      this.initGitHubClient(token);
       if (!this.githubClient) {
         alert('Failed to initialize GitHub client');
         return;
@@ -844,7 +839,8 @@ class DesignerMode {
     }
 
     if (!this.githubClient) {
-      this.initGitHubClient();
+      const token = this.getAccessToken();
+      this.initGitHubClient(token);
       if (!this.githubClient) {
         alert('Failed to initialize GitHub client');
         return;
