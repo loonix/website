@@ -1,0 +1,598 @@
+/**
+ * GITHUB AUTHENTICATION UI STYLES
+ */
+
+/* Auth Container */
+.auth-container {
+  position: fixed;
+  z-index: 9999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Auth Status Indicator */
+.auth-status {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.auth-status:hover {
+  border-color: #555;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+.auth-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff4444;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+  transition: all 0.3s ease;
+}
+
+.status-dot.authenticated {
+  background: #00ff41;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+.auth-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #333;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.auth-toggle-btn:hover {
+  background: #444;
+  transform: scale(1.05);
+}
+
+.auth-toggle-btn.authenticated {
+  background: #00ff41;
+  color: #000;
+}
+
+/* Auth Panel */
+.auth-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: rgba(10, 10, 10, 0.98);
+  border: 2px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.auth-panel.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: rgba(51, 51, 51, 0.5);
+  border-bottom: 1px solid #333;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Auth Views */
+.auth-view {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.auth-view.hidden {
+  display: none;
+}
+
+/* Auth Methods */
+.auth-methods h4 {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.auth-method {
+  background: rgba(51, 51, 51, 0.3);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.auth-method:hover {
+  border-color: #555;
+  background: rgba(51, 51, 51, 0.5);
+}
+
+.method-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.method-header h5 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.method-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.method-badge.recommended {
+  background: rgba(0, 255, 65, 0.2);
+  color: #00ff41;
+  border: 1px solid #00ff41;
+}
+
+.method-badge.dev {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border: 1px solid #ffc107;
+}
+
+.method-badge.enterprise {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196f3;
+  border: 1px solid #2196f3;
+}
+
+.method-description {
+  margin: 8px 0 16px 0;
+  font-size: 13px;
+  color: #999;
+  line-height: 1.5;
+}
+
+.method-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Auth Buttons */
+.auth-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.oauth-btn {
+  background: #24292e;
+  color: #fff;
+}
+
+.oauth-btn:hover:not(:disabled) {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pat-btn {
+  background: #333;
+  color: #fff;
+}
+
+.pat-btn:hover:not(:disabled) {
+  background: #444;
+}
+
+.app-btn {
+  background: #2196f3;
+  color: #fff;
+}
+
+.app-btn:hover:not(:disabled) {
+  background: #1976d2;
+}
+
+.auth-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* PAT Input */
+.pat-input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.auth-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #00ff41;
+  box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+}
+
+.auth-input::placeholder {
+  color: #666;
+}
+
+.pat-create-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #2196f3;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.pat-create-link:hover {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+/* User Info */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(51, 51, 51, 0.3);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid #333;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.user-details p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #999;
+}
+
+.auth-type-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(0, 255, 65, 0.2);
+  color: #00ff41;
+  border: 1px solid #00ff41;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Permissions Section */
+.permissions-section,
+.repo-section {
+  margin-bottom: 20px;
+}
+
+.permissions-section h5,
+.repo-section h5 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.permissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.permission-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(51, 51, 51, 0.3);
+  border-radius: 6px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.permission-item i {
+  color: #00ff41;
+}
+
+.permission-item.error i {
+  color: #ff4444;
+}
+
+/* Repo Info */
+.repo-info {
+  padding: 14px;
+  background: rgba(51, 51, 51, 0.3);
+  border-radius: 6px;
+}
+
+.repo-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.repo-details i {
+  color: #00ff41;
+  font-size: 18px;
+}
+
+.repo-text {
+  font-size: 14px;
+}
+
+.repo-text strong {
+  color: #00ff41;
+}
+
+.repo-placeholder {
+  margin: 0;
+  font-size: 13px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.repo-placeholder i {
+  color: #666;
+}
+
+/* Auth Actions */
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.sync-btn {
+  background: #00ff41;
+  color: #000;
+}
+
+.sync-btn:hover:not(:disabled) {
+  background: #00cc33;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 65, 0.3);
+}
+
+.load-btn {
+  background: #2196f3;
+  color: #fff;
+}
+
+.load-btn:hover:not(:disabled) {
+  background: #1976d2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.logout-btn {
+  background: transparent;
+  color: #ff4444;
+  border: 1px solid #ff4444;
+}
+
+.logout-btn:hover:not(:disabled) {
+  background: rgba(255, 68, 68, 0.1);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Notifications */
+.auth-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transform: translateX(400px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 10000;
+}
+
+.auth-notification.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.auth-notification.success {
+  background: rgba(0, 255, 65, 0.95);
+  color: #000;
+}
+
+.auth-notification.error {
+  background: rgba(255, 68, 68, 0.95);
+  color: #fff;
+}
+
+.auth-notification.info {
+  background: rgba(33, 150, 243, 0.95);
+  color: #fff;
+}
+
+.auth-notification.warning {
+  background: rgba(255, 193, 7, 0.95);
+  color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .auth-panel {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .auth-status {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 12px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pat-input-group {
+    flex-direction: column;
+  }
+
+  .auth-notification {
+    right: 10px;
+    left: 10px;
+    transform: translateY(-100px);
+  }
+
+  .auth-notification.visible {
+    transform: translateY(0);
+  }
+}

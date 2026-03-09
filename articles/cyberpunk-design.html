@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Design Principles - Design Aesthetics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --bg-code: #0a0a0a;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --yellow: #f3ff00;
+            --green: #00ff88;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--magenta);
+            transform: translateX(-5px);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--text-main);
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--cyan);
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-top: 70px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--cyan);
+            padding-left: 20px;
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--text-main);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 1.5em;
+        }
+
+        .highlight {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        code {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--bg-code);
+            color: var(--green);
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-body);
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .color-swatch {
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .color-name {
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .color-hex {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to LOONIX</a>
+
+        <h1>Cyberpunk Design Principles</h1>
+        <p class="subtitle">Creating High-Tech, Low-Life Visual Experiences</p>
+
+        <p><span class="highlight">The Aesthetic:</span> Cyberpunk is more than neon lights and glitch effects. It's a visual language that speaks to our relationship with technology—simultaneously utopian and dystopian, beautiful and broken. This article breaks down the principles behind creating authentic cyberpunk interfaces.</p>
+
+        <h2>Core Principles</h2>
+
+        <h3>1. High Contrast, Low Fidelity</h3>
+
+        <p>Cyberpunk thrives on the tension between pristine technology and decayed infrastructure. Use harsh lighting, deep shadows, and intentional imperfections.</p>
+
+        <pre><code>// High contrast color scheme
+:root {
+    --bg-deep: #050505;
+    --bg-card: #0c0c0c;
+    --text-main: #ffffff;
+    --text-dim: #94a3b8;
+    --accent-cyan: #00f3ff;
+    --accent-magenta: #ff00f3;
+    --accent-yellow: #f3ff00;
+}
+
+body {
+    background: var(--bg-deep);
+    color: var(--text-main);
+    font-weight: 600;
+}
+        </code></pre>
+
+        <h3>2. Neon as Information Layer</h3>
+
+        <p>Neon colors should serve a purpose—they're not just decoration, they're information hierarchy:</p>
+
+        <ul>
+        <li><span style="color: var(--cyan)">Cyan:</span> Primary actions, active states, success</li>
+        <li><span style="color: var(--magenta)">Magenta:</span> Alerts, warnings, critical info</li>
+        <li><span style="color: var(--yellow)">Yellow:</span> Secondary actions, pending states</li>
+        <li><span style="color: var(--green)">Green:</span> System status, online, connected</li>
+        </ul>
+
+        <div class="color-palette">
+            <div class="color-swatch" style="background: #00f3ff; color: #000;">
+                <div class="color-name">NEON CYAN</div>
+                <div class="color-hex">#00F3FF</div>
+            </div>
+            <div class="color-swatch" style="background: #ff00f3; color: #000;">
+                <div class="color-name">NEON MAGENTA</div>
+                <div class="color-hex">#FF00F3</div>
+            </div>
+            <div class="color-swatch" style="background: #f3ff00; color: #000;">
+                <div class="color-name">NEON YELLOW</div>
+                <div class="color-hex">#F3FF00</div>
+            </div>
+            <div class="color-swatch" style="background: #00ff88; color: #000;">
+                <div class="color-name">NEON GREEN</div>
+                <div class="color-hex">#00FF88</div>
+            </div>
+        </div>
+
+        <h3>3. Scanlines and CRT Effects</h3>
+
+        <pre><code>// Scanline overlay
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.15) 50%
+    );
+    background-size: 100% 3px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+// CRT flicker
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    41% { opacity: 0.98; }
+    42% { opacity: 0.9; }
+    43% { opacity: 0.95; }
+    45% { opacity: 0.99; }
+    46% { opacity: 0.94; }
+}
+
+.neon-flicker {
+    animation: flicker 4s infinite;
+}
+        </code></pre>
+
+        <h3>4. Glitch as Language</h3>
+
+        <p>Glitch effects shouldn't be random—they should communicate instability, corruption, or system stress:</p>
+
+        <pre><code>// Controlled glitch effect
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.glitch-on-hover:hover {
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+// Text glitch with data attribute
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00f3;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00f3ff;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+        </code></pre>
+
+        <h3>5. Holographic Depth</h3>
+
+        <pre><code>// Holographic shimmer effect
+@keyframes holo-shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.holo-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 243, 255, 0.1) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: holo-shimmer 3s ease-in-out infinite;
+}
+        </code></pre>
+
+        <h2>Typography</h2>
+
+        <p>Cyberpunk typography needs to feel technical but readable:</p>
+
+        <pre><code>// Font stack
+:root {
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+// Display typography
+h1, h2, h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+// Technical typography
+.code, .terminal {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+        </code></pre>
+
+        <h2>UI Components</h2>
+
+        <h3>Cyberpunk Buttons</h3>
+
+        <pre><code>// Cyber button styles
+.cyber-button {
+    background: transparent;
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 12px 24px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cyber-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-cyan);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.cyber-button:hover {
+    color: #000;
+}
+
+.cyber-button:hover::before {
+    left: 0;
+}
+
+// Pulse animation for CTAs
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--accent-cyan),
+                    0 0 10px var(--accent-cyan);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--accent-cyan),
+                    0 0 30px var(--accent-cyan);
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+        </code></pre>
+
+        <h3>Data Cards</h3>
+
+        <pre><code>// Information card
+.data-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+}
+
+.data-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-cyan);
+}
+
+.data-card.alert::before {
+    background: var(--accent-magenta);
+}
+        </code></pre>
+
+        <h2>Performance Considerations</h2>
+
+        <p>Cyberpunk effects can be expensive. Optimize with:</p>
+
+        <ul>
+        <li><span class="highlight">CSS transforms over position changes</span></li>
+        <li><span class="highlight">will-change property for animated elements</span></li>
+        <li><span class="highlight">Reduced motion preferences</span></li>
+        <li><span class="highlight">RequestAnimationFrame for JS animations</span></li>
+        </ul>
+
+        <pre><code>// Performance optimizations
+.glitch {
+    will-change: clip, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .glitch,
+    .neon-flicker,
+    .holo-shimmer {
+        animation: none !important;
+    }
+}
+        </code></pre>
+
+        <h2>Accessibility</h2>
+
+        <p>Cyberpunk shouldn't mean inaccessible:</p>
+
+        <pre><code>// Accessible focus states
+.cyber-button:focus-visible {
+    outline: 3px solid var(--accent-yellow);
+    outline-offset: 2px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+    :root {
+        --border: rgba(0, 243, 255, 0.5);
+    }
+}
+
+// Readable text
+body {
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.6;
+    max-width: 70ch;
+}
+        </code></pre>
+
+        <h2>Conclusion</h2>
+
+        <p>Great cyberpunk design balances style with substance. Every glitch, every neon light, every scanline should serve a purpose. It's not about making things look broken—it's about showing the beauty in the breakdown.</p>
+
+        <p><span class="highlight">The best cyberpunk interfaces feel like they're barely holding together—and that's exactly the point.</span></p>
+
+    </div>
+</body>
+</html>
