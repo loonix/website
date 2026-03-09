@@ -244,7 +244,7 @@ class VisualStyleEditor {
 
     const panel = document.createElement('div');
     panel.id = 'visual-style-editor';
-    panel.innerHTML = \`
+    panel.innerHTML = `
       <div class="vse-header">
         <h3>🎨 Visual Style Editor</h3>
         <div class="vse-header-actions">
