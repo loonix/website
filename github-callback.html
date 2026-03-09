@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Authentication Callback</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0e27;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00f3ff;
+        }
+
+        .callback-container {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(0, 243, 255, 0.05);
+            border: 2px solid #00f3ff;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .callback-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00f3ff;
+        }
+
+        .message {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+
+        .device-flow-info {
+            background: rgba(255, 42, 109, 0.1);
+            border: 1px solid #ff2a6d;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .device-flow-info h3 {
+            color: #ff2a6d;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .device-flow-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .device-flow-info li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .device-flow-info li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #ff2a6d;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 1.5rem;
+            background: transparent;
+            border: 2px solid #00f3ff;
+            color: #00f3ff;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: #00f3ff;
+            color: #0a0e27;
+            box-shadow: 0 0 20px #00f3ff;
+        }
+
+        .countdown {
+            font-weight: bold;
+            color: #ff2a6d;
+        }
+    </style>
+</head>
+<body>
+    <div class="callback-container">
+        <div class="callback-icon">⚠️</div>
+        <h1>OAuth Not Available</h1>
+        <div class="message">
+            <p>Traditional OAuth requires a backend server to exchange authorization codes for access tokens.</p>
+            <p>Since this site is hosted on GitHub Pages (static hosting), we use <strong>GitHub Device Flow</strong> instead - which works entirely in the browser!</p>
+        </div>
+
+        <div class="device-flow-info">
+            <h3>🔐 Use Device Flow Instead</h3>
+            <ul>
+                <li>Press <strong>Ctrl+Shift+E</strong> to open Designer Mode</li>
+                <li>Click the GitHub button (bottom-right)</li>
+                <li>Select "Use Device Flow"</li>
+                <li>Copy the 8-character code</li>
+                <li>Paste it at github.com/devices</li>
+            </ul>
+        </div>
+
+        <div class="message">
+            Redirecting to homepage in <span class="countdown">5</span> seconds...
+        </div>
+
+        <a href="/" class="button">Go Home Now</a>
+    </div>
+
+    <script>
+        // Countdown and redirect
+        let seconds = 5;
+        const countdownEl = document.querySelector('.countdown');
+
+        const countdown = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = '/';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
