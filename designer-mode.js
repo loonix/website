@@ -365,6 +365,14 @@ class DesignerMode {
     if (item.type === 'link') {
       element.textContent = item.content;
       if (item.href) element.href = item.href;
+    } else if (item.type === 'article' && item.title && item.description) {
+      // For article cards with title and description
+      const titleEl = element.querySelector('h3');
+      const descEl = element.querySelector('p');
+      const linkEl = element.querySelector('a');
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.description;
+      if (linkEl && item.link) linkEl.href = item.link;
     } else if (item.title && item.content) {
       // For feature cards with title and content
       const titleEl = element.querySelector('h3');
@@ -377,7 +385,7 @@ class DesignerMode {
           contentEl.textContent = item.content;
         }
       }
-    } else {
+    } else if (item.content) {
       element.textContent = item.content;
     }
   }
