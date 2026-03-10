@@ -319,19 +319,20 @@ h1 {
 }
 
 .article-card h3 {
-    color: var(--neon-pink);
+    color: var(--neon-pink) !important;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
 
 .article-card p {
-    color: #cbd5e1;
+    color: #cbd5e1 !important;
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
 
 .article-card .cyber-link {
     align-self: flex-start;
+    color: #00f3ff !important;
 }
 
 /* Features Section */
