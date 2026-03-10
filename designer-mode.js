@@ -316,10 +316,12 @@ class DesignerMode {
       try {
         this.currentContent = JSON.parse(saved);
       } catch (e) {
-        this.currentContent = JSON.parse(JSON.stringify(this.schema.content));
+        // Fallback to schema if saved content is invalid
+        this.currentContent = this.schema ? JSON.parse(JSON.stringify(this.schema)) : {};
       }
     } else {
-      this.currentContent = JSON.parse(JSON.stringify(this.schema.content));
+      // Use schema directly as initial content
+      this.currentContent = this.schema ? JSON.parse(JSON.stringify(this.schema)) : {};
     }
 
     // Load version history
