@@ -52,7 +52,53 @@
       "type": "text",
       "content": "SKILL SET",
       "selector": "#skills .section-title"
-    }
+    },
+    "items": [
+      {
+        "id": "skill-mobile",
+        "type": "richtext",
+        "title": "MOBILE DEVELOPMENT",
+        "content": "Crafting seamless, high-performance apps for iOS and Android",
+        "selector": "#skills .feature-card:nth-child(1)"
+      },
+      {
+        "id": "skill-web",
+        "type": "richtext",
+        "title": "WEB DEVELOPMENT",
+        "content": "Building responsive, dynamic websites with cutting-edge tech",
+        "selector": "#skills .feature-card:nth-child(2)"
+      },
+      {
+        "id": "skill-uiux",
+        "type": "richtext",
+        "title": "UI/UX DESIGN",
+        "content": "Designing intuitive, stunning interfaces",
+        "link": "https://www.behance.net/dslice",
+        "selector": "#skills .feature-card:nth-child(3)"
+      },
+      {
+        "id": "skill-music",
+        "type": "richtext",
+        "title": "MUSIC PRODUCTION",
+        "content": "Creating immersive soundscapes",
+        "link": "https://soundcloud.com/iamloonix",
+        "selector": "#skills .feature-card:nth-child(4)"
+      },
+      {
+        "id": "skill-ai-platforms",
+        "type": "richtext",
+        "title": "AI NATIVE PLATFORMS",
+        "content": "Building next-generation platforms from the ground up with AI at the core—architecting systems that think, learn, and evolve",
+        "selector": "#skills .feature-card:nth-child(5)"
+      },
+      {
+        "id": "skill-ai-integration",
+        "type": "richtext",
+        "title": "AI PRODUCT INTEGRATION",
+        "content": "Seamlessly embedding intelligence into existing products—LLMs, agents, and cognitive architectures that enhance user experience",
+        "selector": "#skills .feature-card:nth-child(6)"
+      }
+    ]
   },
   "articles": {
     "title": {
