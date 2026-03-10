@@ -3,7 +3,7 @@
     "title": {
       "id": "hero-title",
       "type": "text",
-      "content": "WELCOME TO THE FUUTURE",
+      "content": "WELCOME TO MY FUTURE",
       "selector": ".hero h1"
     },
     "subtitle": {
