@@ -10,6 +10,11 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Watching an AGI Wake Up - 24h Live">
 
+    <!-- Prevent caching for live updates -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>Cognitive Mesh - 24h Shadow Run | LOONIX</title>
 
     <link rel="stylesheet" href="styles.css">
@@ -511,6 +516,11 @@
         <span>Next refresh: <span id="countdown">5:00</span></span>
     </div>
 
-    <script src="mesh.js"></script>
+    <script>
+        // Load mesh.js with cache-busting
+        const script = document.createElement('script');
+        script.src = 'mesh.js?v=' + Date.now();
+        document.body.appendChild(script);
+    </script>
 </body>
 </html>
