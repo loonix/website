@@ -63,7 +63,8 @@ function updateAGIStatus(data) {
 // Load live metrics
 async function loadMetrics() {
     try {
-        const response = await fetch('mesh-metrics.json');
+        // Add timestamp to bypass browser cache
+        const response = await fetch('mesh-metrics.json?t=' + Date.now());
 
         if (!response.ok) {
             console.log('Metrics file not yet available');
