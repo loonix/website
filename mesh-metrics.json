@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-03-23T17:09:11Z",
+  "timestamp": "2026-03-23T17:10:04Z",
   "elapsed": {
     "hours": 2,
-    "minutes": 32,
-    "total_seconds": 9120
+    "minutes": 33,
+    "total_seconds": 9180
   },
   "progress": {
     "percentage": 8.3,
     "hours_remaining": 22
   },
   "decisions": {
-    "total": 153,
+    "total": 154,
     "target": 1440,
     "rejected": 50,
-    "reject_rate": 32.6
+    "reject_rate": 32.4
   },
   "archeology": {
     "triggers": 50,
-    "rate": 32.6,
+    "rate": 32.4,
     "historical_vetoes": 50
   },
   "agi": {
@@ -28,7 +28,7 @@
   "prediction": {
     "window_start": 360,
     "window_end": 720,
-    "current_decision": 153,
+    "current_decision": 154,
     "status": "waiting"
   },
   "beliefs": {
