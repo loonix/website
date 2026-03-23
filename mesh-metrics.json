@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-03-23T17:30:02Z",
+  "timestamp": "2026-03-23T17:35:02Z",
   "elapsed": {
     "hours": 2,
-    "minutes": 53,
-    "total_seconds": 10380
+    "minutes": 58,
+    "total_seconds": 10680
   },
   "progress": {
     "percentage": 8.3,
     "hours_remaining": 22
   },
   "decisions": {
-    "total": 174,
+    "total": 179,
     "target": 1440,
-    "rejected": 59,
-    "reject_rate": 33.9
+    "rejected": 60,
+    "reject_rate": 33.5
   },
   "archeology": {
-    "triggers": 59,
-    "rate": 33.9,
-    "historical_vetoes": 59
+    "triggers": 60,
+    "rate": 33.5,
+    "historical_vetoes": 60
   },
   "agi": {
     "wild_caught_beliefs": 0,
@@ -28,7 +28,7 @@
   "prediction": {
     "window_start": 360,
     "window_end": 720,
-    "current_decision": 174,
+    "current_decision": 179,
     "status": "waiting"
   },
   "beliefs": {
