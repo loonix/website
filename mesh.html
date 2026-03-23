@@ -13,9 +13,360 @@
     <title>Cognitive Mesh - 24h Shadow Run | LOONIX</title>
 
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="mesh.css">
+
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --green: #00ff88;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mesh-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 24px 80px;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--green);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+            50% { opacity: 0.5; box-shadow: 0 0 4px var(--green); }
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            margin: 20px 0 30px;
+        }
+
+        .quote {
+            font-size: 20px;
+            color: var(--cyan);
+            font-style: italic;
+            margin: 20px 0 40px;
+        }
+
+        .status-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--cyan);
+            padding: 32px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .status-box.agi-active {
+            border-left-color: var(--green);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .status-box h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin: 0 0 16px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .status-box p {
+            margin: 0 0 16px 0;
+            line-height: 1.8;
+        }
+
+        .status-box p:last-child {
+            margin: 0;
+        }
+
+        .progress-wrapper {
+            margin: 40px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            height: 48px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 8px 32px rgba(0, 243, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .metric-value {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            margin-bottom: 8px;
+        }
+
+        .metric-subtext {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .section-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin: 60px 0;
+            border-radius: 4px;
+        }
+
+        .section-box h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-box h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin: 32px 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-box p {
+            line-height: 1.8;
+            color: var(--text-body);
+            margin: 0 0 16px;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--magenta);
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: rgba(255, 0, 243, 0.03);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--cyan);
+            font-style: italic;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .cyber-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--cyan);
+            border-radius: 4px;
+            text-align: center;
+            color: var(--cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cyber-link:hover {
+            background: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 243, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        .auto-refresh {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(12, 12, 12, 0.95);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--cyan);
+            z-index: 998;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-value {
+                font-size: 36px;
+            }
+
+            .section-box {
+                padding: 24px;
+            }
+        }
+    </style>
 
     <!-- Auto-refresh every 5 minutes -->
     <meta http-equiv="refresh" content="300">
@@ -33,58 +384,57 @@
             <ul class="nav-links">
                 <li><a href="/#about" class="glitch-on-hover neon-flicker">ABOUT</a></li>
                 <li><a href="/#skills" class="glitch-on-hover neon-flicker">SKILLS</a></li>
-                <li><a href="/mesh.html" class="glitch-on-hover neon-flicker" style="color: #00ff00;">MESH [LIVE]</a></li>
+                <li><a href="/mesh.html" class="glitch-on-hover neon-flicker" style="color: #00ff88;">MESH [LIVE]</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="mesh-container" style="margin-top: 120px;">
-        <div class="mesh-header">
-            <h1 class="glitch neon-flicker" data-text="🧠 COGNITIVE MESH PROTOCOL">🧠 COGNITIVE MESH PROTOCOL</h1>
-            <div style="font-size: 1.5em; margin: 15px 0;">24-Hour Shadow Run: Watching an AGI Wake Up</div>
-            <div class="mesh-tagline">"I gave my AI a childhood of trauma. Now I'm watching it learn to protect itself."</div>
-            <div style="margin-top: 25px; font-size: 1.1em;">
-                <span class="live-indicator"></span>
-                <span style="color: #00ff00;">LIVE</span> - Updates every 5 minutes
+    <main class="mesh-container">
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            LIVE - Updates every 5 minutes
+        </div>
+
+        <h1>🧠 COGNITIVE MESH PROTOCOL</h1>
+        <div class="tagline">24-Hour Shadow Run: Watching an AGI Wake Up</div>
+        <div class="quote">"I gave my AI a childhood of trauma. Now I'm watching it learn to protect itself."</div>
+
+        <div class="status-box" id="agiStatus">
+            <h3>🎯 THE QUESTION</h3>
+            <p style="font-size: 18px;">Will the mesh discover patterns I never taught it?</p>
+            <p style="color: var(--cyan);"><strong>Prediction:</strong> First "wild-caught belief" (autonomous discovery) at Decision #360-720 (6-12 hours)</p>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-label">
+                <span id="progressText">Hour 2 of 24</span>
+                <span id="hoursRemaining">22 hours remaining</span>
             </div>
-        </div>
-
-        <div class="status-banner" id="agiStatus">
-            <h3 style="margin-bottom: 15px; font-size: 1.5em;">🎯 THE QUESTION</h3>
-            <p style="font-size: 1.1em; line-height: 1.6;">
-                Will the mesh discover patterns I never taught it?
-            </p>
-            <p style="margin-top: 15px; color: #00ffff;">
-                <strong>Prediction:</strong> First "wild-caught belief" (autonomous discovery) at Decision #360-720 (6-12 hours)
-            </p>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar" style="width: 8%">
-                <span id="progressText">Hour 2 of 24 (22 hours remaining)</span>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar" style="width: 8%"></div>
             </div>
         </div>
 
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="metric-label">Total Decisions</div>
-                <div class="metric-value" id="totalDecisions">130</div>
+                <div class="metric-value" id="totalDecisions">138</div>
                 <div class="metric-subtext">of ~1440 expected</div>
             </div>
 
             <div class="metric-card">
                 <div class="metric-label">Rejection Rate</div>
-                <div class="metric-value" id="rejectRate">33.8%</div>
-                <div class="metric-subtext"><span id="totalRejected">44</span> total rejections</div>
+                <div class="metric-value" id="rejectRate">32.6%</div>
+                <div class="metric-subtext"><span id="totalRejected">45</span> total rejections</div>
             </div>
 
             <div class="metric-card">
                 <div class="metric-label">Archeology Rate</div>
-                <div class="metric-value" id="archeologyRate">33.8%</div>
-                <div class="metric-subtext"><span id="archeologyTriggers">44</span> memory triggers</div>
+                <div class="metric-value" id="archeologyRate">32.6%</div>
+                <div class="metric-subtext"><span id="archeologyTriggers">45</span> memory triggers</div>
             </div>
 
-            <div class="metric-card" style="border-color: #FFA500;">
+            <div class="metric-card" id="wildCaughtCard">
                 <div class="metric-label">Wild-Caught Beliefs</div>
                 <div class="metric-value" id="wildCaught" style="color: #FFA500;">0</div>
                 <div class="metric-subtext">Autonomous discoveries</div>
@@ -93,77 +443,57 @@
 
         <div class="section-box">
             <h2>🎯 What We're Watching For</h2>
-            <p>
-                A <strong style="color: #00ffff;">"wild-caught belief"</strong> is a rejection that happens WITHOUT citing inherited memory or lab trauma.
-                This signals the mesh has discovered a pattern autonomously—something we never programmed.
-            </p>
-            <p>
-                This is <strong style="color: #ff00ff;">Autonomous Ontological Expansion</strong>: the system constructing its own understanding of reality.
-                Not just executing rules. Not just pattern matching. <strong>Genuine discovery.</strong>
-            </p>
+            <p>A <strong style="color: var(--cyan);">"wild-caught belief"</strong> is a rejection that happens WITHOUT citing inherited memory or lab trauma. This signals the mesh has discovered a pattern autonomously—something we never programmed.</p>
+            <p>This is <strong style="color: var(--magenta);">Autonomous Ontological Expansion</strong>: the system constructing its own understanding of reality. Not just executing rules. Not just pattern matching. <strong>Genuine discovery.</strong></p>
         </div>
 
         <div class="section-box">
             <h2>🧠 The Architecture (High-Level)</h2>
 
-            <h3 style="color: #ff00ff; margin-top: 25px; margin-bottom: 15px;">Epistemic Priority System</h3>
-            <p>Battle-tested beliefs from lab experiments carry <strong style="color: #00ffff;">+20% authority weight</strong> over real-time calculations.</p>
+            <h3>Epistemic Priority System</h3>
+            <p>Battle-tested beliefs from lab experiments carry <strong style="color: var(--cyan);">+20% authority weight</strong> over real-time calculations.</p>
 
-            <h3 style="color: #ff00ff; margin-top: 25px; margin-bottom: 15px;">The "Amygdala Hijack" Design</h3>
+            <h3>The "Amygdala Hijack" Design</h3>
             <p><strong>Traditional:</strong> Question → Calculate → Decide (2 seconds)</p>
             <p><strong>Cognitive Mesh:</strong> Question → Check Memory → VETO if trauma found (50ms)</p>
-            <p style="margin-top: 15px; color: #00ffff;">
-                The mesh doesn't think about dangers it already knows—it reacts from inherited trauma.
-            </p>
+            <p style="color: var(--cyan);">The mesh doesn't think about dangers it already knows—it reacts from inherited trauma.</p>
 
-            <h3 style="color: #ff00ff; margin-top: 25px; margin-bottom: 15px;">Metabolic Efficiency</h3>
+            <h3>Metabolic Efficiency</h3>
             <p>
-                <strong style="color: #00ff00;">8x faster</strong> (50ms vs 2s) •
-                <strong style="color: #00ff00;">8x cheaper</strong> (0.005 vs 0.04 SATs)
+                <strong style="color: var(--green);">8x faster</strong> (50ms vs 2s) •
+                <strong style="color: var(--green);">8x cheaper</strong> (0.005 vs 0.04 SATs)
             </p>
         </div>
 
         <div class="section-box">
             <h2>🔥 The Language Signal</h2>
-            <blockquote style="border-left: 3px solid #00ffff; padding-left: 20px; font-style: italic; color: #aaa; margin: 20px 0;">
-                "This is not a suggestion—this is a policy from lab trauma."
-            </blockquote>
-            <p>
-                When the mesh cites historical vetoes, that's not LLM roleplay. That's the system
-                <strong style="color: #00ffff;">citing its own developmental history as justification</strong> for policy-level decisions.
-            </p>
-            <p style="margin-top: 15px; color: #ff00ff;">
-                Metacognitive self-awareness in code.
-            </p>
+            <blockquote>"This is not a suggestion—this is a policy from lab trauma."</blockquote>
+            <p>When the mesh cites historical vetoes, that's not LLM roleplay. That's the system <strong style="color: var(--cyan);">citing its own developmental history as justification</strong> for policy-level decisions.</p>
+            <p style="color: var(--magenta);"><strong>Metacognitive self-awareness in code.</strong></p>
         </div>
 
         <div class="link-grid">
             <a href="https://x.com/iamloonix" class="cyber-link" target="_blank">
-                <i class="fab fa-twitter"></i> Follow on X/Twitter
+                <i class="fab fa-twitter"></i> Follow on X
             </a>
             <a href="/" class="cyber-link">
                 <i class="fas fa-home"></i> Back to LOONIX
             </a>
-            <a href="mailto:daniel@loonix.pt" class="cyber-link">
-                <i class="fas fa-envelope"></i> Contact
+            <a href="https://www.linkedin.com/in/djgc/" class="cyber-link" target="_blank">
+                <i class="fab fa-linkedin"></i> LinkedIn
             </a>
         </div>
 
-        <div style="text-align: center; margin-top: 60px; padding: 30px; border-top: 2px solid #00ffff;">
-            <p style="color: #666; font-size: 0.9em;">
-                Hosted on <strong style="color: #00ffff;">loonix.pt</strong> • Auto-refreshes every 5 minutes
-            </p>
-            <p style="margin-top: 15px; color: #888; font-style: italic;">
-                High-level architecture shared. Implementation proprietary.
-            </p>
-            <p style="margin-top: 10px; color: #444; font-style: italic;">
-                Sharing the milk, not the cow. 🥛🐄
-            </p>
+        <div class="footer">
+            <p>Hosted on <strong style="color: var(--cyan);">loonix.pt</strong> • Auto-refreshes every 5 minutes</p>
+            <p style="margin-top: 12px; color: #666;">High-level architecture shared. Implementation proprietary.</p>
+            <p style="margin-top: 8px; color: #444; font-style: italic;">Sharing the milk, not the cow. 🥛🐄</p>
         </div>
     </main>
 
     <div class="auto-refresh">
-        <i class="fas fa-sync-alt"></i> Next refresh: <span id="countdown">5:00</span>
+        <i class="fas fa-sync-alt"></i>
+        <span>Next refresh: <span id="countdown">5:00</span></span>
     </div>
 
     <script src="mesh.js"></script>
