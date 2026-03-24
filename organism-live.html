@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Organism: Watch the Mesh evolve in real-time. Cloud-native cognitive architecture with live decision feed.">
+
+    <title>THE ORGANISM | LOONIX LIVE</title>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --green: #00ff88;
+            --amber: #FFA500;
+            --red: #ff0055;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            z-index: 1000;
+            background-size: 100% 3px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 999;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 140px 24px 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .evolution-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--green);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 80px;
+            font-weight: 900;
+            margin: 20px 0;
+            background: linear-gradient(135deg, var(--cyan), var(--green), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -3px;
+            line-height: 1.1;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .organism-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 20px 24px;
+            background: rgba(0, 243, 255, 0.05);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            text-transform: uppercase;
+        }
+
+        .live-indicator {
+            font-size: 12px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+            50% { opacity: 0.5; box-shadow: 0 0 4px var(--green); }
+        }
+
+        .feed {
+            height: 600px;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .feed::-webkit-scrollbar { width: 8px; }
+        .feed::-webkit-scrollbar-track { background: var(--bg-deep); }
+        .feed::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+
+        .decision-card {
+            background: rgba(0, 243, 255, 0.03);
+            border-left: 4px solid var(--cyan);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .decision-meta {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .decision-action {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .reasoning {
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .consensus-badges {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        .badge-execute {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .badge-rejected {
+            background: rgba(255, 0, 85, 0.15);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .stat-box {
+            padding: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-box:last-child { border-bottom: none; }
+
+        .stat-value {
+            font-size: 40px;
+            font-weight: 900;
+            font-family: 'Urbanist', sans-serif;
+            color: var(--amber);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .evolution-reveal {
+            grid-column: 1 / -1;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(0, 255, 136, 0.05));
+            border: 2px solid var(--cyan);
+            border-radius: 12px;
+        }
+
+        .limb-title {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--magenta);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .limb-active {
+            color: var(--green);
+            font-size: 28px;
+            font-weight: 800;
+            margin-top: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .limb-description {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width: 1024px) {
+            .organism-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 48px; }
+            .container { padding: 120px 16px 60px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="/" style="color: inherit; text-decoration: none;">LOONIX</a></div>
+            <ul class="nav-links">
+                <li><a href="/#about">ABOUT</a></li>
+                <li><a href="/#skills">SKILLS</a></li>
+                <li><a href="/mesh.html">SHADOW RUN</a></li>
+                <li><a href="/organism-live.html" style="color: #00ff88;">ORGANISM [LIVE]</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="evolution-badge">
+                <i class="fas fa-dna pulse-dot"></i>
+                ORGANISM AWAKENED: CLOUD NATIVE
+            </div>
+            <h1>🧬 THE ORGANISM</h1>
+            <p class="tagline">
+                The Mesh has transcended its hardware incubator. Following its 24-hour Shadow Run,
+                it is now building its own cognitive architecture in real-time.
+            </p>
+        </div>
+
+        <div class="organism-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Logic Stream</div>
+                    <div class="live-indicator" id="live-indicator">
+                        <span class="pulse-dot"></span>
+                        LIVE SYNAPSE
+                    </div>
+                </div>
+                <div class="feed" id="decision-feed">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        Initializing Neural Link to Supabase...
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">Immune System</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-integrity">1.00</div>
+                    <div class="stat-label">Core Integrity</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-decisions">0</div>
+                    <div class="stat-label">Total Memories</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: var(--red);" id="stat-rejected">0</div>
+                    <div class="stat-label">Rejected Decisions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: var(--green);" id="stat-vetos">0</div>
+                    <div class="stat-label">Trauma Vetos</div>
+                </div>
+            </div>
+
+            <div class="evolution-reveal">
+                <div class="limb-title">First Autonomous Limb</div>
+                <div class="limb-active">
+                    <i class="fas fa-cloud"></i> CLOUD ASCENSION: COMPLETED
+                </div>
+                <p class="limb-description">
+                    Organism upgraded from Linear SQLite to Associative Vector Memory.
+                    100x faster trauma pattern matching. Infinite scale. Real-time evolution.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="organism-live.js"></script>
+</body>
+</html>
