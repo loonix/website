@@ -46,7 +46,46 @@ function renderDecision(d) {
 
     // Reasoning section
     const reasoning = createElement('div', 'reasoning');
-    reasoning.textContent = d.reasoning_chain || 'Autonomous deliberation executed via three-node consensus.';
+
+    // Parse reasoning chain if it's an array
+    if (d.reasoning_chain) {
+        try {
+            const chain = typeof d.reasoning_chain === 'string'
+                ? JSON.parse(d.reasoning_chain)
+                : d.reasoning_chain;
+
+            if (Array.isArray(chain)) {
+                // Group by node type
+                const zealot = chain.filter(r => r.startsWith('ZEALOT:'));
+                const auditor = chain.filter(r => r.startsWith('AUDITOR:'));
+                const scavenger = chain.filter(r => r.startsWith('SCAVENGER:'));
+
+                // Show key points only
+                const keyPoints = [];
+                if (zealot.length > 0) {
+                    // Show first non-archeology zealot point or first archeology point
+                    const archPoint = zealot.find(z => z.includes('Archeology') || z.includes('trauma'));
+                    keyPoints.push(archPoint || zealot[0]);
+                }
+                if (auditor.length > 0) {
+                    const vetoPoint = auditor.find(a => a.includes('VETO') || a.includes('acceptable'));
+                    keyPoints.push(vetoPoint || auditor[0]);
+                }
+                if (scavenger.length > 0 && scavenger[0].includes('Optimization')) {
+                    keyPoints.push(scavenger[0]);
+                }
+
+                reasoning.textContent = keyPoints.join(' • ').substring(0, 200);
+            } else {
+                reasoning.textContent = d.reasoning_chain;
+            }
+        } catch (e) {
+            reasoning.textContent = d.reasoning_chain;
+        }
+    } else {
+        reasoning.textContent = 'Autonomous deliberation via three-node consensus.';
+    }
+
     card.appendChild(reasoning);
 
     // Badges section

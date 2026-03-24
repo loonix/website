@@ -238,9 +238,9 @@
         }
 
         .panel-header {
-            padding: 20px 24px;
+            padding: 24px;
             background: rgba(0, 243, 255, 0.05);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -248,39 +248,56 @@
 
         .panel-title {
             font-family: 'Urbanist', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 2.5px;
             color: var(--cyan);
             text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
         }
 
         .live-indicator {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--green);
             font-family: 'JetBrains Mono', monospace;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            font-weight: 600;
         }
 
         .feed {
-            height: 500px;
+            height: 600px;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
         }
 
-        .feed::-webkit-scrollbar { width: 6px; }
-        .feed::-webkit-scrollbar-track { background: var(--bg-deep); }
-        .feed::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+        .feed::-webkit-scrollbar { width: 8px; }
+        .feed::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .feed::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--cyan), var(--magenta));
+            border-radius: 4px;
+        }
+        .feed::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--magenta), var(--cyan));
+        }
 
         .decision-card {
             background: rgba(0, 243, 255, 0.03);
-            border-left: 3px solid var(--cyan);
-            padding: 16px;
-            margin-bottom: 16px;
-            border-radius: 4px;
+            border-left: 4px solid var(--cyan);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
             animation: slideIn 0.5s ease-out;
+            transition: all 0.2s ease;
+        }
+
+        .decision-card:hover {
+            background: rgba(0, 243, 255, 0.06);
+            border-left-color: var(--magenta);
         }
 
         @keyframes slideIn {
@@ -291,38 +308,53 @@
         .decision-meta {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-dim);
-            margin-bottom: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .decision-meta strong {
+            color: var(--cyan);
+            font-size: 13px;
         }
 
         .decision-action {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-family: 'Urbanist', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         .reasoning {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-body);
-            line-height: 1.5;
-            margin-bottom: 10px;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
         }
 
         .consensus-badges {
             display: flex;
-            gap: 6px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
         }
 
         .badge {
-            font-size: 9px;
-            padding: 3px 8px;
-            border-radius: 3px;
+            font-size: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .badge-execute {
@@ -338,34 +370,49 @@
         }
 
         .stat-box {
-            padding: 20px;
+            padding: 28px 24px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.2s ease;
+        }
+
+        .stat-box:hover {
+            background: rgba(0, 243, 255, 0.03);
         }
 
         .stat-box:last-child { border-bottom: none; }
 
         .stat-value {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 900;
             font-family: 'Urbanist', sans-serif;
             color: var(--amber);
             line-height: 1;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
         }
 
         .stat-label {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
         }
 
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
             color: var(--text-dim);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .loading i {
+            font-size: 24px;
+            margin-bottom: 16px;
+            display: block;
+            color: var(--cyan);
         }
 
         @media (max-width: 1024px) {
