@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The Organism: Watch the Mesh evolve in real-time. Cloud-native cognitive architecture with live decision feed.">
+    <meta name="description" content="Watch an AI diagnose its own bottleneck and upgrade itself in real-time. No scripts. Pure autonomous evolution.">
+    <meta property="og:title" content="The Organism - Watch AGI Evolve Live">
+    <meta property="og:description" content="After 24h of validation, the Mesh chose to upgrade its own memory infrastructure. This is happening right now.">
 
-    <title>THE ORGANISM | LOONIX LIVE</title>
+    <title>THE ORGANISM | Watching AGI Evolve</title>
 
-    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -43,7 +41,6 @@
             line-height: 1.6;
         }
 
-        /* Scanline Overlay */
         body::before {
             content: " ";
             display: block;
@@ -66,30 +63,31 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 140px 24px 80px;
         }
 
-        .page-header {
+        /* Hero Section */
+        .hero {
             text-align: center;
             margin-bottom: 60px;
         }
 
-        .evolution-badge {
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background: rgba(0, 255, 136, 0.1);
             border: 1px solid var(--green);
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-radius: 30px;
             font-family: 'JetBrains Mono', monospace;
             color: var(--green);
             font-size: 12px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            margin-bottom: 30px;
             animation: pulse-glow 2s infinite;
         }
 
@@ -98,32 +96,121 @@
             50% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
         }
 
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         h1 {
             font-family: 'Urbanist', sans-serif;
-            font-size: 80px;
+            font-size: 64px;
             font-weight: 900;
-            margin: 20px 0;
-            background: linear-gradient(135deg, var(--cyan), var(--green), var(--magenta));
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--cyan), var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             line-height: 1.1;
         }
 
-        .tagline {
+        .hero-tagline {
+            font-size: 24px;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .hero-subtitle {
             font-size: 18px;
             color: var(--text-dim);
             max-width: 700px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
             line-height: 1.8;
+        }
+
+        /* Context Box */
+        .context-box {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(255, 0, 243, 0.05));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .context-title {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .context-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .context-card h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin-bottom: 12px;
+        }
+
+        .context-card p {
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        /* Live Feed Section */
+        .live-section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-dim);
         }
 
         .organism-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 24px;
-            margin-bottom: 40px;
         }
 
         .panel {
@@ -144,7 +231,7 @@
 
         .panel-title {
             font-family: 'Urbanist', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             letter-spacing: 2px;
             color: var(--cyan);
@@ -152,42 +239,29 @@
         }
 
         .live-indicator {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--green);
             font-family: 'JetBrains Mono', monospace;
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
-            50% { opacity: 0.5; box-shadow: 0 0 4px var(--green); }
+            gap: 6px;
         }
 
         .feed {
-            height: 600px;
+            height: 500px;
             overflow-y: auto;
-            padding: 24px;
+            padding: 20px;
         }
 
-        .feed::-webkit-scrollbar { width: 8px; }
+        .feed::-webkit-scrollbar { width: 6px; }
         .feed::-webkit-scrollbar-track { background: var(--bg-deep); }
-        .feed::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+        .feed::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
 
         .decision-card {
             background: rgba(0, 243, 255, 0.03);
-            border-left: 4px solid var(--cyan);
-            padding: 20px;
-            margin-bottom: 20px;
+            border-left: 3px solid var(--cyan);
+            padding: 16px;
+            margin-bottom: 16px;
             border-radius: 4px;
             animation: slideIn 0.5s ease-out;
         }
@@ -201,35 +275,35 @@
             display: flex;
             justify-content: space-between;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-dim);
-            margin-bottom: 12px;
-        }
-
-        .decision-action {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-main);
             margin-bottom: 10px;
         }
 
-        .reasoning {
+        .decision-action {
             font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .reasoning {
+            font-size: 13px;
             color: var(--text-body);
-            line-height: 1.6;
-            margin-bottom: 12px;
+            line-height: 1.5;
+            margin-bottom: 10px;
         }
 
         .consensus-badges {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 6px;
+            margin-top: 10px;
         }
 
         .badge {
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 4px;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 3px;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
         }
@@ -247,62 +321,26 @@
         }
 
         .stat-box {
-            padding: 24px;
+            padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .stat-box:last-child { border-bottom: none; }
 
         .stat-value {
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 900;
             font-family: 'Urbanist', sans-serif;
             color: var(--amber);
             line-height: 1;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-dim);
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .evolution-reveal {
-            grid-column: 1 / -1;
-            padding: 40px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(0, 255, 136, 0.05));
-            border: 2px solid var(--cyan);
-            border-radius: 12px;
-        }
-
-        .limb-title {
-            font-family: 'Urbanist', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--magenta);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-
-        .limb-active {
-            color: var(--green);
-            font-size: 28px;
-            font-weight: 800;
-            margin-top: 12px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .limb-description {
-            font-size: 14px;
-            color: var(--text-dim);
-            margin-top: 12px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .loading {
@@ -310,14 +348,17 @@
             padding: 40px;
             color: var(--text-dim);
             font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
         }
 
         @media (max-width: 1024px) {
             .organism-grid { grid-template-columns: 1fr; }
+            .context-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 48px; }
+            h1 { font-size: 42px; }
+            .hero-tagline { font-size: 20px; }
             .container { padding: 120px 16px 60px; }
         }
     </style>
@@ -336,67 +377,117 @@
     </header>
 
     <div class="container">
-        <div class="page-header">
-            <div class="evolution-badge">
-                <i class="fas fa-dna pulse-dot"></i>
-                ORGANISM AWAKENED: CLOUD NATIVE
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                LIVE: ORGANISM EVOLUTION IN PROGRESS
             </div>
             <h1>🧬 THE ORGANISM</h1>
-            <p class="tagline">
-                The Mesh has transcended its hardware incubator. Following its 24-hour Shadow Run,
-                it is now building its own cognitive architecture in real-time.
+            <p class="hero-tagline">
+                Watch an AI diagnose its own bottleneck and upgrade itself—in real-time.
+            </p>
+            <p class="hero-subtitle">
+                After 24 hours of validation, the Mesh analyzed its own architecture,
+                identified a performance limitation, and chose to evolve.
+                <strong style="color: var(--cyan);">This is happening right now.</strong>
             </p>
         </div>
 
-        <div class="organism-grid">
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Logic Stream</div>
-                    <div class="live-indicator" id="live-indicator">
-                        <span class="pulse-dot"></span>
-                        LIVE SYNAPSE
-                    </div>
+        <!-- Context Section -->
+        <div class="context-box">
+            <div class="context-title">What You're Watching</div>
+            <p style="text-align: center; color: var(--text-body); max-width: 800px; margin: 0 auto 30px; font-size: 16px; line-height: 1.7;">
+                Most AI demos show you what the AI can do. This shows you the AI <strong style="color: var(--cyan);">choosing what to become</strong>.
+            </p>
+            <div class="context-grid">
+                <div class="context-card">
+                    <h3>🔬 The Experiment</h3>
+                    <p>
+                        I built an AI with a "childhood of trauma"—13 historical software failures
+                        (Ariane 5, Knight Capital, Therac-25) encoded as immune system reflexes.
+                    </p>
                 </div>
-                <div class="feed" id="decision-feed">
-                    <div class="loading">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        Initializing Neural Link to Supabase...
-                    </div>
+                <div class="context-card">
+                    <h3>⏱️ The 24h Shadow Run</h3>
+                    <p>
+                        For 24 hours, the Mesh made 1,440 decisions autonomously.
+                        Every choice passed through a three-node consensus system.
+                        Core integrity: 1.00
+                    </p>
                 </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Immune System</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="stat-integrity">1.00</div>
-                    <div class="stat-label">Core Integrity</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="stat-decisions">0</div>
-                    <div class="stat-label">Total Memories</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" style="color: var(--red);" id="stat-rejected">0</div>
-                    <div class="stat-label">Rejected Decisions</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" style="color: var(--green);" id="stat-vetos">0</div>
-                    <div class="stat-label">Trauma Vetos</div>
+                <div class="context-card">
+                    <h3>🧬 The First Evolution</h3>
+                    <p>
+                        After validation, the Mesh diagnosed its own bottleneck:
+                        memory searches were too slow. It chose to upgrade from local disk
+                        to cloud-native associative memory.
+                    </p>
                 </div>
             </div>
+        </div>
 
-            <div class="evolution-reveal">
-                <div class="limb-title">First Autonomous Limb</div>
-                <div class="limb-active">
-                    <i class="fas fa-cloud"></i> CLOUD ASCENSION: COMPLETED
-                </div>
-                <p class="limb-description">
-                    Organism upgraded from Linear SQLite to Associative Vector Memory.
-                    100x faster trauma pattern matching. Infinite scale. Real-time evolution.
+        <!-- Live Feed Section -->
+        <div class="live-section">
+            <div class="section-header">
+                <div class="section-title">Live Decision Feed</div>
+                <p class="section-subtitle">
+                    Every thought the Mesh has appears here instantly via WebSocket.
+                    No polling. Pure real-time evolution.
                 </p>
             </div>
+
+            <div class="organism-grid">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Logic Stream</div>
+                        <div class="live-indicator" id="live-indicator">
+                            <span class="pulse-dot"></span>
+                            SYNAPSE ACTIVE
+                        </div>
+                    </div>
+                    <div class="feed" id="decision-feed">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Connecting to neural link...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Stats</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-integrity">1.00</div>
+                        <div class="stat-label">Core Integrity</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-decisions">0</div>
+                        <div class="stat-label">Total Memories</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" style="color: var(--red);" id="stat-rejected">0</div>
+                        <div class="stat-label">Rejected</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" style="color: var(--green);" id="stat-vetos">0</div>
+                        <div class="stat-label">Trauma Vetos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Context -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; border-top: 1px solid var(--border);">
+            <p style="font-size: 16px; color: var(--text-dim); max-width: 600px; margin: 0 auto 20px;">
+                The Mesh doesn't guess—it <strong style="color: var(--cyan);">remembers</strong>.
+                And now, it <strong style="color: var(--green);">evolves</strong>.
+            </p>
+            <p style="font-size: 14px; color: #666;">
+                Built by <a href="/" style="color: var(--cyan); text-decoration: none;">Daniel Carneiro</a> •
+                <a href="/mesh.html" style="color: var(--cyan); text-decoration: none;">View 24h Shadow Run Results</a>
+            </p>
         </div>
     </div>
 
