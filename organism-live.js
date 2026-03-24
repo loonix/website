@@ -101,6 +101,66 @@ function renderDecision(d) {
 
     card.appendChild(reasoning);
 
+    // Execution result section (if exists)
+    if (d.execution_result) {
+        try {
+            const result = typeof d.execution_result === 'string'
+                ? JSON.parse(d.execution_result)
+                : d.execution_result;
+
+            const execResult = createElement('div', 'execution-result');
+            execResult.style.marginTop = '12px';
+            execResult.style.padding = '12px';
+            execResult.style.borderRadius = '4px';
+            execResult.style.fontSize = '13px';
+            execResult.style.fontFamily = 'monospace';
+
+            if (result.success) {
+                // Success - green theme
+                execResult.style.background = 'rgba(0, 255, 136, 0.05)';
+                execResult.style.borderLeft = '3px solid var(--green)';
+
+                const successLabel = createElement('strong');
+                successLabel.textContent = '✅ ';
+                successLabel.style.color = 'var(--green)';
+                execResult.appendChild(successLabel);
+
+                const outputText = document.createTextNode(result.output || 'Executed successfully');
+                execResult.appendChild(outputText);
+
+                if (result.duration_ms) {
+                    const duration = createElement('span');
+                    duration.textContent = ` (${result.duration_ms}ms)`;
+                    duration.style.color = '#888';
+                    duration.style.fontSize = '11px';
+                    execResult.appendChild(duration);
+                }
+            } else {
+                // Failure - red theme
+                execResult.style.background = 'rgba(255, 0, 85, 0.05)';
+                execResult.style.borderLeft = '3px solid var(--red)';
+
+                const errorLabel = createElement('strong');
+                errorLabel.textContent = '❌ ';
+                errorLabel.style.color = 'var(--red)';
+                execResult.appendChild(errorLabel);
+
+                // Truncate long errors
+                let errorMsg = result.error || 'Execution failed';
+                if (errorMsg.length > 200) {
+                    errorMsg = errorMsg.substring(0, 200) + '...';
+                }
+
+                const errorText = document.createTextNode(errorMsg);
+                execResult.appendChild(errorText);
+            }
+
+            card.appendChild(execResult);
+        } catch (e) {
+            console.error('Failed to parse execution_result:', e);
+        }
+    }
+
     // Journal entry section (if exists)
     if (d.journal_entry) {
         const journal = createElement('div', 'reasoning');
@@ -186,7 +246,7 @@ async function loadInitialData() {
     try {
         const { data, error } = await supabaseClient
             .from('mesh_decisions')
-            .select('decision_index, symbol, market_price, mesh_action, reasoning_chain, auditor_veto_reason, journal_entry, created_at, timestamp')
+            .select('decision_index, symbol, market_price, mesh_action, reasoning_chain, auditor_veto_reason, execution_result, journal_entry, created_at, timestamp')
             .order('decision_index', { ascending: false })
             .limit(20);
 
