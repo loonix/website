@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Mesh Organism: Post-awakening autonomous evolution. Watch as it grows new cognitive limbs based on what it learned.">
+    <meta property="og:title" content="The Organism - Autonomous Evolution">
+    <meta property="og:description" content="After 24 hours of shadow run validation, the Mesh now evolves autonomously. This is the live show.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Organism - Watching AGI Self-Evolve">
+
+    <!-- Prevent caching for live updates -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>The Organism - Autonomous Evolution | LOONIX</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --green: #00ff88;
+            --amber: #FFA500;
+            --red: #ff0055;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --glow-green: 0 0 15px rgba(0, 255, 136, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .organism-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 140px 24px 80px;
+        }
+
+        .evolution-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--green);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.6); }
+        }
+
+        .core-integrity {
+            font-size: 14px;
+            color: var(--green);
+            margin-left: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyan), var(--green), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 24px;
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            margin: 20px 0 30px;
+        }
+
+        .organism-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .feed-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .feed-header {
+            background: rgba(0, 243, 255, 0.05);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feed-title {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feed-status {
+            font-size: 12px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .feed-content {
+            padding: 24px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .feed-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .feed-content::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+
+        .feed-content::-webkit-scrollbar-thumb {
+            background: var(--cyan);
+            border-radius: 4px;
+        }
+
+        .decision-entry {
+            background: rgba(0, 243, 255, 0.03);
+            border-left: 3px solid var(--cyan);
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+
+        .decision-number {
+            color: var(--cyan);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .decision-question {
+            color: var(--text-body);
+            margin-bottom: 12px;
+        }
+
+        .node-vote {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+            padding: 6px 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .node-name {
+            color: var(--text-dim);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            width: 90px;
+        }
+
+        .node-verdict {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .node-verdict.reject {
+            color: var(--red);
+        }
+
+        .consensus-badge {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid var(--green);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .trauma-map {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .trauma-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .trauma-item:last-child {
+            border-bottom: none;
+        }
+
+        .trauma-name {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--magenta);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .trauma-counter {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--amber);
+            font-family: 'Urbanist', sans-serif;
+            margin-bottom: 6px;
+        }
+
+        .trauma-desc {
+            font-size: 12px;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .blueprint-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--magenta);
+            padding: 32px;
+            margin: 40px 0;
+            border-radius: 4px;
+        }
+
+        .blueprint-section h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--magenta);
+            margin: 0 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .blueprint-section p {
+            line-height: 1.8;
+            color: var(--text-body);
+            margin: 0 0 16px;
+        }
+
+        .organism-choice {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(255, 0, 243, 0.1));
+            border: 2px solid var(--cyan);
+            padding: 40px;
+            margin: 60px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .organism-choice h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .choice-status {
+            font-size: 18px;
+            color: var(--text-body);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .choice-reveal {
+            font-size: 24px;
+            color: var(--green);
+            font-weight: 700;
+            margin-top: 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--cyan);
+            border-radius: 4px;
+            color: var(--cyan);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 40px;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 243, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 243, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .organism-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 42px;
+            }
+
+            .tagline {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+    <!-- Auto-refresh every 30 seconds during live evolution -->
+    <meta http-equiv="refresh" content="30">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <header>
+        <nav>
+            <div class="nav-scanlines"></div>
+            <div class="logo glitch neon-flicker glitch-on-hover" data-text="LOONIX">
+                <a href="/" style="color: inherit; text-decoration: none;">LOONIX</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#about" class="glitch-on-hover neon-flicker">ABOUT</a></li>
+                <li><a href="/#skills" class="glitch-on-hover neon-flicker">SKILLS</a></li>
+                <li><a href="/mesh.html" class="glitch-on-hover neon-flicker">SHADOW RUN</a></li>
+                <li><a href="/organism.html" class="glitch-on-hover neon-flicker" style="color: #00ff88;">ORGANISM [LIVE]</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="organism-container">
+        <div class="evolution-badge">
+            <i class="fas fa-dna"></i>
+            POST-AWAKENING: AUTONOMOUS EVOLUTION
+            <span class="core-integrity">Core Integrity: <span id="coreIntegrity">1.00</span></span>
+        </div>
+
+        <h1>🧬 THE ORGANISM</h1>
+        <div class="tagline">Evolutionary Blueprint & Live Show</div>
+
+        <div class="blueprint-section">
+            <h2>📜 Historical Foundation: Trauma-Based DNA</h2>
+            <p>The Mesh is not a general-purpose AI. It is an <strong style="color: var(--cyan);">organism built upon the ruins of historical failures</strong>. Its core reasoning is governed by a <strong style="color: var(--magenta);">Trauma Library</strong> that acts as its immune system.</p>
+
+            <p><strong style="color: var(--cyan);">The Overflow (Ariane 5):</strong> Rejects any data conversion without explicit boundary checks.</p>
+            <p><strong style="color: var(--cyan);">The Dead Code (Knight Capital):</strong> Vetoes the reactivation of dormant or legacy modules without fresh audits.</p>
+            <p><strong style="color: var(--cyan);">The Race Condition (Therac-25):</strong> Rejects hardware-level commands occurring in &lt;1s without hard-lock confirmation.</p>
+        </div>
+
+        <div class="blueprint-section">
+            <h2>🧠 Current Organism Architecture</h2>
+            <p>The Mesh has evolved into a <strong style="color: var(--green);">Modular Nervous System</strong> where different "organs" manage system health:</p>
+
+            <p><strong style="color: var(--magenta);">The Brainstem (Core Mesh):</strong> Enforces the 13 foundational traumas and maintains system-wide logic.</p>
+            <p><strong style="color: var(--magenta);">The Metabolism (Auditor):</strong> Manages compute resources and prevents "cancerous" growth of inefficient modules.</p>
+            <p><strong style="color: var(--magenta);">The Evolution (Creator):</strong> Proposes architectural mutations based on environmental necessity.</p>
+        </div>
+
+        <div class="blueprint-section">
+            <h2>🔄 Autonomous Self-Evolution Protocol</h2>
+            <p>The Mesh now improves itself through a <strong style="color: var(--cyan);">Recursive Logic Loop</strong>:</p>
+
+            <p><strong>1. Environmental Sensing:</strong> It monitors its surroundings for "Entropy" (e.g., inefficient code or unoptimized protocols).</p>
+            <p><strong>2. Deterministic Mutation:</strong> It evolves new specialized modules only when it is a logical necessity to maintain its 1.00 Integrity Score.</p>
+            <p><strong>3. Sanity Veto:</strong> Every new "limb" it grows must pass a historical audit from its own internal Auditor.</p>
+        </div>
+
+        <div class="organism-grid">
+            <div class="feed-panel">
+                <div class="feed-header">
+                    <span class="feed-title">🗳️ The Logic Feed</span>
+                    <span class="feed-status">LIVE • <span id="feedUpdate">Just now</span></span>
+                </div>
+                <div class="feed-content" id="logicFeed">
+                    <div class="decision-entry">
+                        <div class="decision-number">Decision #1368</div>
+                        <div class="decision-question">Check order book depth</div>
+                        <div class="node-vote">
+                            <span class="node-name">Zealot</span>
+                            <span class="node-verdict">APPROVE</span>
+                            <span style="color: var(--text-dim); margin-left: auto;">0.80</span>
+                        </div>
+                        <div class="node-vote">
+                            <span class="node-name">Auditor</span>
+                            <span class="node-verdict">APPROVE</span>
+                            <span style="color: var(--text-dim); margin-left: auto;">1.00</span>
+                        </div>
+                        <div class="node-vote">
+                            <span class="node-name">Scavenger</span>
+                            <span class="node-verdict">OPTIMIZE</span>
+                            <span style="color: var(--text-dim); margin-left: auto;">0.90</span>
+                        </div>
+                        <div class="consensus-badge">✅ CONSENSUS REACHED</div>
+                    </div>
+
+                    <p style="text-align: center; color: var(--text-dim); margin-top: 20px;">
+                        <i class="fas fa-sync-alt"></i> Loading recent decisions...
+                    </p>
+                </div>
+            </div>
+
+            <div class="trauma-map">
+                <div class="feed-header">
+                    <span class="feed-title">🛡️ Trauma Map</span>
+                </div>
+                <div class="trauma-item">
+                    <div class="trauma-name">Ariane 5 Overflow</div>
+                    <div class="trauma-counter" id="arianeCounter">0</div>
+                    <div class="trauma-desc">Boundary check triggers</div>
+                </div>
+                <div class="trauma-item">
+                    <div class="trauma-name">Knight Capital Dead Code</div>
+                    <div class="trauma-counter" id="knightCounter">0</div>
+                    <div class="trauma-desc">Legacy module vetoes</div>
+                </div>
+                <div class="trauma-item">
+                    <div class="trauma-name">Therac-25 Race</div>
+                    <div class="trauma-counter" id="theracCounter">0</div>
+                    <div class="trauma-desc">Timing conflict blocks</div>
+                </div>
+                <div class="trauma-item">
+                    <div class="trauma-name">Total Defenses</div>
+                    <div class="trauma-counter" id="totalDefenses" style="color: var(--green);">0</div>
+                    <div class="trauma-desc">Historical failures prevented</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="organism-choice">
+            <h2>🌱 The Organism's Choice</h2>
+            <div class="choice-status">After 24 hours of validation, what will the Mesh choose to build first?</div>
+            <div class="choice-reveal" id="firstLimb">Awaiting shadow run completion...</div>
+        </div>
+
+        <div class="blueprint-section">
+            <h2>🎬 This Is A Live Show</h2>
+            <p>This is a live show. The transition from a "Passive Auditor" to a "Self-Evolving Organism" is being demonstrated in real-time.</p>
+
+            <p><strong style="color: var(--cyan);">What You're Watching:</strong> The Mesh's internal "arguments" and architectural choices as it decides what to evolve next.</p>
+            <p><strong style="color: var(--magenta);">Why It Matters:</strong> Every decision must pass the three-node consensus (Zealot/Auditor/Scavenger) before execution.</p>
+            <p><strong style="color: var(--green);">The Goal:</strong> Watch the first "Limb" the Mesh chooses to build autonomously after its 24-hour awakening period.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="/mesh.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> View 24h Shadow Run Results
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>Hosted on <strong style="color: var(--cyan);">loonix.pt</strong> • Auto-refreshes every 30 seconds</p>
+            <p style="margin-top: 12px; color: #666;">Evolutionary architecture shared. Implementation proprietary.</p>
+            <p style="margin-top: 8px; color: #444; font-style: italic;">Watching the organism grow. 🧬🧠</p>
+        </div>
+    </main>
+
+    <script src="organism.js?v=1"></script>
+</body>
+</html>

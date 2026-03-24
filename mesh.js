@@ -94,6 +94,24 @@ async function loadMetrics() {
                 `Hour ${data.elapsed.hours} of 24 (${data.progress.hours_remaining} hours remaining)`;
         }
 
+        // Check if 24h run is complete
+        if (data.decisions.total >= 1440 || data.elapsed.hours >= 24) {
+            const completionBanner = document.getElementById('completionBanner');
+            if (completionBanner) {
+                completionBanner.style.display = 'block';
+
+                // Hide the live badge
+                const liveBadge = document.querySelector('.live-badge');
+                if (liveBadge) {
+                    liveBadge.style.display = 'none';
+                }
+
+                // Stop auto-refresh
+                const metaTags = document.querySelectorAll('meta[http-equiv="refresh"]');
+                metaTags.forEach(tag => tag.remove());
+            }
+        }
+
         // Update AGI status if confirmed
         if (data.agi.wild_caught_beliefs > 0) {
             updateAGIStatus(data);
