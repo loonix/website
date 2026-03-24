@@ -41,9 +41,19 @@ function renderDecision(d) {
     meta.appendChild(metaRight);
     card.appendChild(meta);
 
+    // Task section (if available)
+    if (d.symbol && d.symbol !== 'PROD') {
+        const task = createElement('div', 'decision-task');
+        task.textContent = d.symbol;
+        if (d.market_price && d.market_price > 0) {
+            task.textContent += ` (${d.market_price.toFixed(2)} SATs)`;
+        }
+        card.appendChild(task);
+    }
+
     // Action section
     const action = createElement('div', 'decision-action');
-    action.textContent = `Action: ${d.mesh_action.toUpperCase()}`;
+    action.textContent = `→ ${d.mesh_action.toUpperCase()}`;
     card.appendChild(action);
 
     // Reasoning section
