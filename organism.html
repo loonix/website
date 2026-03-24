@@ -367,6 +367,37 @@
             transform: translateY(-2px);
         }
 
+        /* Mobile Menu Styles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            gap: 4px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--cyan);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         @media (max-width: 1024px) {
             .organism-grid {
                 grid-template-columns: 1fr;
@@ -380,6 +411,46 @@
 
             .tagline {
                 font-size: 18px;
+            }
+
+            .organism-container {
+                padding: 80px 16px 60px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 80px 24px 24px;
+                gap: 24px;
+                border-left: 1px solid var(--border);
+                transition: right 0.3s ease;
+                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+                margin: 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links li a {
+                display: block;
+                font-size: 16px;
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
         }
     </style>
@@ -397,7 +468,12 @@
             <div class="logo glitch neon-flicker glitch-on-hover" data-text="LOONIX">
                 <a href="/" style="color: inherit; text-decoration: none;">LOONIX</a>
             </div>
-            <ul class="nav-links">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="/#about" class="glitch-on-hover neon-flicker">ABOUT</a></li>
                 <li><a href="/#skills" class="glitch-on-hover neon-flicker">SKILLS</a></li>
                 <li><a href="/mesh.html" class="glitch-on-hover neon-flicker">SHADOW RUN</a></li>
@@ -532,6 +608,34 @@
         </div>
     </main>
 
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+    </script>
     <script src="organism.js?v=1"></script>
 </body>
 </html>
