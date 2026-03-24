@@ -225,7 +225,7 @@
         /* Live Feed Section */
         .organism-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 24px;
             margin-top: 40px;
         }
@@ -425,6 +425,28 @@
             color: var(--cyan);
         }
 
+        .journal-entry {
+            background: rgba(255, 165, 0, 0.05);
+            border-left: 3px solid var(--amber);
+            padding: 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+        }
+
+        .journal-entry .journal-meta {
+            font-size: 11px;
+            color: var(--amber);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .journal-entry .journal-text {
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
         @media (max-width: 1024px) {
             .organism-grid { grid-template-columns: 1fr; }
         }
@@ -564,6 +586,19 @@
                     <div class="loading">
                         <i class="fas fa-spinner fa-spin"></i>
                         Connecting to neural link...
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">📝 Journal</div>
+                    <div class="live-indicator" style="font-size: 10px;">SELF-DOCUMENTED</div>
+                </div>
+                <div class="feed" id="journal-feed">
+                    <div class="loading">
+                        <i class="fas fa-book"></i>
+                        Loading journal entries...
                     </div>
                 </div>
             </div>

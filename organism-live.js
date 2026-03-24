@@ -8,6 +8,7 @@ const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const feedEl = document.getElementById('decision-feed');
+const journalFeedEl = document.getElementById('journal-feed');
 const statDecisions = document.getElementById('stat-decisions');
 const statRejected = document.getElementById('stat-rejected');
 const statVetos = document.getElementById('stat-vetos');
@@ -100,6 +101,20 @@ function renderDecision(d) {
 
     card.appendChild(reasoning);
 
+    // Journal entry section (if exists)
+    if (d.journal_entry) {
+        const journal = createElement('div', 'reasoning');
+        journal.style.borderLeft = '3px solid var(--amber)';
+        journal.style.background = 'rgba(255, 165, 0, 0.05)';
+        const journalLabel = createElement('strong');
+        journalLabel.textContent = '📝 Journal: ';
+        journalLabel.style.color = 'var(--amber)';
+        journal.appendChild(journalLabel);
+        const journalText = document.createTextNode(d.journal_entry);
+        journal.appendChild(journalText);
+        card.appendChild(journal);
+    }
+
     // Badges section
     const badges = createElement('div', 'consensus-badges');
 
@@ -119,12 +134,59 @@ function renderDecision(d) {
     return card;
 }
 
+// Render Journal Entry
+function renderJournalEntry(d) {
+    const entry = createElement('div', 'journal-entry');
+
+    const meta = createElement('div', 'journal-meta');
+    meta.textContent = `Decision #${d.decision_index}`;
+    entry.appendChild(meta);
+
+    const text = createElement('div', 'journal-text');
+    text.textContent = d.journal_entry;
+    entry.appendChild(text);
+
+    return entry;
+}
+
+// Load Journal Entries
+async function loadJournalEntries() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('mesh_decisions')
+            .select('decision_index, journal_entry, created_at')
+            .not('journal_entry', 'is', null)
+            .order('decision_index', { ascending: false })
+            .limit(10);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            journalFeedEl.textContent = '';
+            data.forEach(d => {
+                journalFeedEl.appendChild(renderJournalEntry(d));
+            });
+        } else {
+            const loading = createElement('div', 'loading');
+            loading.textContent = 'No journal entries yet. The organism writes every 10 decisions.';
+            journalFeedEl.textContent = '';
+            journalFeedEl.appendChild(loading);
+        }
+    } catch (error) {
+        console.error('Journal load error:', error);
+        const errorMsg = createElement('div', 'loading');
+        errorMsg.textContent = '⚠️ Journal unavailable';
+        journalFeedEl.textContent = '';
+        journalFeedEl.appendChild(errorMsg);
+    }
+}
+
 // Initial Load
 async function loadInitialData() {
     try {
         const { data, error } = await supabaseClient
             .from('mesh_decisions')
-            .select('*')
+            .select('decision_index, symbol, market_price, mesh_action, reasoning_chain, auditor_veto_reason, journal_entry, created_at, timestamp')
             .order('decision_index', { ascending: false })
             .limit(20);
 
@@ -208,6 +270,11 @@ const channel = supabaseClient
             // Update stats
             updateStats();
 
+            // Reload journal if this decision has a journal entry
+            if (payload.new.journal_entry) {
+                loadJournalEntries();
+            }
+
             // Visual feedback
             liveIndicator.style.color = 'var(--magenta)';
             setTimeout(() => {
@@ -224,6 +291,8 @@ const channel = supabaseClient
 
 // Initialize
 loadInitialData();
+loadJournalEntries();
 
-// Refresh stats every 30 seconds (backup in case realtime fails)
+// Refresh stats and journal every 30 seconds (backup in case realtime fails)
 setInterval(updateStats, 30000);
+setInterval(loadJournalEntries, 30000);
