@@ -32,8 +32,10 @@ function renderDecision(d) {
     metaLeftStrong.textContent = `Decision #${d.decision_index}`;
     metaLeft.appendChild(metaLeftStrong);
 
-    const timestamp = new Date(d.created_at * 1000).toLocaleTimeString();
-    const metaRight = createElement('span', null, timestamp);
+    const date = new Date(d.created_at * 1000);
+    const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const metaRight = createElement('span', null, `${dateStr} ${timeStr}`);
 
     meta.appendChild(metaLeft);
     meta.appendChild(metaRight);
@@ -114,7 +116,7 @@ async function loadInitialData() {
             .from('mesh_decisions')
             .select('*')
             .order('decision_index', { ascending: false })
-            .limit(15);
+            .limit(20);
 
         if (error) throw error;
 
@@ -122,8 +124,8 @@ async function loadInitialData() {
             // Clear loading message
             feedEl.textContent = '';
 
-            // Add cards (reverse to show newest first)
-            data.reverse().forEach(d => {
+            // Add cards (already in descending order - newest first)
+            data.forEach(d => {
                 feedEl.appendChild(renderDecision(d));
             });
 

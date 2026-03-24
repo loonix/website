@@ -133,17 +133,17 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid var(--green);
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.15), rgba(0, 255, 136, 0.15));
+            border: 2px solid var(--cyan);
             padding: 10px 24px;
             border-radius: 30px;
             font-family: 'JetBrains Mono', monospace;
-            color: var(--green);
+            color: var(--cyan);
             font-size: 12px;
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 30px;
-            animation: pulse-glow 2s infinite;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
         }
 
         @keyframes pulse-glow {
@@ -486,17 +486,17 @@
     <div class="container">
         <!-- Hero Section -->
         <div class="live-badge">
-            <span class="pulse-dot"></span>
-            LIVE: ORGANISM EVOLUTION IN PROGRESS
+            <i class="fas fa-check-circle"></i>
+            CLOUD ASCENSION COMPLETE
         </div>
         <h1>🧬 THE ORGANISM</h1>
         <p class="tagline">
-            Watch an AI diagnose its own bottleneck and upgrade itself—in real-time.
+            An AI that diagnosed its own bottleneck and upgraded itself autonomously.
         </p>
         <p class="quote">
-            "After 24 hours of validation, the Mesh analyzed its own architecture,
-            identified a performance limitation, and chose to evolve.
-            <strong style="color: var(--green);">This is happening right now.</strong>"
+            "After 24 hours of validation (1,440 decisions), the Mesh analyzed its own architecture,
+            identified a performance limitation, and chose to evolve from local disk to cloud-native memory.
+            <strong style="color: var(--green);">First autonomous architectural decision complete.</strong>"
         </p>
 
         <!-- Context Section -->
@@ -526,10 +526,11 @@
 
         <!-- Live Feed Section -->
         <h2 style="font-family: 'Urbanist', sans-serif; font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">
-            Live Decision Feed
+            Decision History
         </h2>
         <p style="font-size: 16px; color: var(--text-dim); margin-bottom: 32px;">
-            Every thought the Mesh has appears here instantly via WebSocket. No polling. Pure real-time evolution.
+            Real-time feed from the 24-hour Shadow Run (March 23-24, 2026). 1,440 autonomous decisions with 1.00 core integrity.
+            New decisions will appear instantly when the organism runs again.
         </p>
 
         <div class="organism-grid">
