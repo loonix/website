@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-03-24T14:35:02Z",
+  "timestamp": "2026-03-24T14:40:02Z",
   "elapsed": {
     "hours": 23,
-    "minutes": 58,
-    "total_seconds": 86280
+    "minutes": 59,
+    "total_seconds": 86340
   },
   "progress": {
     "percentage": 95.8,
     "hours_remaining": 1
   },
   "decisions": {
-    "total": 1439,
+    "total": 1440,
     "target": 1440,
     "rejected": 480,
     "reject_rate": 33.3
@@ -28,7 +28,7 @@
   "prediction": {
     "window_start": 360,
     "window_end": 720,
-    "current_decision": 1439,
+    "current_decision": 1440,
     "status": "passed"
   },
   "beliefs": {
