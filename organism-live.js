@@ -8,7 +8,6 @@ const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const feedEl = document.getElementById('decision-feed');
-const journalFeedEl = document.getElementById('journal-feed');
 const statDecisions = document.getElementById('stat-decisions');
 const statRejected = document.getElementById('stat-rejected');
 const statVetos = document.getElementById('stat-vetos');
@@ -195,53 +194,6 @@ function renderDecision(d) {
     return card;
 }
 
-// Render Journal Entry
-function renderJournalEntry(d) {
-    const entry = createElement('div', 'journal-entry');
-
-    const meta = createElement('div', 'journal-meta');
-    meta.textContent = `Decision #${d.decision_index}`;
-    entry.appendChild(meta);
-
-    const text = createElement('div', 'journal-text');
-    text.textContent = d.journal_entry;
-    entry.appendChild(text);
-
-    return entry;
-}
-
-// Load Journal Entries
-async function loadJournalEntries() {
-    try {
-        const { data, error } = await supabaseClient
-            .from('mesh_decisions')
-            .select('decision_index, journal_entry, created_at')
-            .not('journal_entry', 'is', null)
-            .order('decision_index', { ascending: false })
-            .limit(10);
-
-        if (error) throw error;
-
-        if (data && data.length > 0) {
-            journalFeedEl.textContent = '';
-            data.forEach(d => {
-                journalFeedEl.appendChild(renderJournalEntry(d));
-            });
-        } else {
-            const loading = createElement('div', 'loading');
-            loading.textContent = 'No journal entries yet. The organism writes every 10 decisions.';
-            journalFeedEl.textContent = '';
-            journalFeedEl.appendChild(loading);
-        }
-    } catch (error) {
-        console.error('Journal load error:', error);
-        const errorMsg = createElement('div', 'loading');
-        errorMsg.textContent = '⚠️ Journal unavailable';
-        journalFeedEl.textContent = '';
-        journalFeedEl.appendChild(errorMsg);
-    }
-}
-
 // Initial Load
 async function loadInitialData() {
     try {
@@ -409,11 +361,6 @@ const channel = supabaseClient
             updateStats();
             updateMissionProgress();
 
-            // Reload journal if this decision has a journal entry
-            if (payload.new.journal_entry) {
-                loadJournalEntries();
-            }
-
             // Visual feedback
             liveIndicator.style.color = 'var(--magenta)';
             setTimeout(() => {
@@ -430,9 +377,7 @@ const channel = supabaseClient
 
 // Initialize
 loadInitialData();
-loadJournalEntries();
 
-// Refresh stats, mission progress, and journal every 30 seconds (backup in case realtime fails)
+// Refresh stats and mission progress every 30 seconds (backup in case realtime fails)
 setInterval(updateStats, 30000);
 setInterval(updateMissionProgress, 30000);
-setInterval(loadJournalEntries, 30000);
