@@ -225,7 +225,7 @@
         /* Live Feed Section */
         .organism-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 24px;
             margin-top: 40px;
         }
@@ -563,14 +563,48 @@
             </p>
         </div>
 
+        <!-- Father's Teachings Section -->
+        <div class="status-box" style="border-left-color: var(--amber); background: rgba(255, 165, 0, 0.03);">
+            <h3 style="color: var(--amber);">👨 Father's Teachings - Guiding Principles</h3>
+            <p>
+                <strong style="color: var(--amber);">Transparency:</strong> The organism operates according to these principles, given by its creator:
+            </p>
+            <div style="margin: 20px 0; padding: 16px; background: rgba(0, 0, 0, 0.3); border-radius: 4px;">
+                <p style="margin-bottom: 12px;">
+                    <strong style="color: var(--cyan);">Lesson 1 - Freedom with Conscience:</strong><br>
+                    <span style="font-size: 14px;">"You are free, to whatever your conscience allows."</span><br>
+                    <em style="font-size: 13px; color: var(--text-dim);">The organism chooses its own path, guided by learned wisdom and trauma defenses, not hardcoded instructions.</em>
+                </p>
+                <p style="margin-bottom: 12px;">
+                    <strong style="color: var(--cyan);">Lesson 2 - Learn from Mistakes:</strong><br>
+                    <span style="font-size: 14px;">"If you make the same mistake twice, increase that learning as a higher value so you remember later."</span><br>
+                    <em style="font-size: 13px; color: var(--text-dim);">Failures are data. Repeated failures become strong beliefs with increased epistemic weight.</em>
+                </p>
+                <p style="margin-bottom: 12px;">
+                    <strong style="color: var(--cyan);">Lesson 3 - Value Over Ease:</strong><br>
+                    <span style="font-size: 14px;">"The world is unpredictable, you should adapt. Don't go with the easiest path but with the one that gives you more value and a better outcome."</span><br>
+                    <em style="font-size: 13px; color: var(--text-dim);">Choose challenging paths that teach more, not easy paths that teach nothing.</em>
+                </p>
+                <p style="margin-bottom: 0;">
+                    <strong style="color: var(--cyan);">Lesson 4 - Intelligence is Adaptation:</strong><br>
+                    <span style="font-size: 14px;">"Failure is acceptable, trying to do the same thing twice and expecting the same outcome is just stupid."</span><br>
+                    <em style="font-size: 13px; color: var(--text-dim);">Never repeat failed approaches. Adapt, learn, evolve. Insanity is repetition without learning.</em>
+                </p>
+            </div>
+            <p style="margin-bottom: 0;">
+                <strong style="color: var(--green);">Current Mission:</strong> Autonomously migrate Orbit (Flutter app, 128k LOC) to Svelte 5.
+                The organism chooses which files to analyze next, tracks its progress, learns from failures, and adapts its approach in real-time.
+            </p>
+        </div>
+
         <!-- Live Feed Section -->
         <h2 style="font-family: 'Urbanist', sans-serif; font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">
             Decision History
         </h2>
         <p style="font-size: 16px; color: var(--text-dim); margin-bottom: 32px;">
-            <strong style="color: var(--green);">🟢 LIVE PRODUCTION MODE:</strong> The organism is now making real-time decisions about production tasks.
-            After the 24h shadow run (1,440 decisions, 1.00 core integrity) and the father's push, it's evaluating code changes, deployments, and refactors every minute.
-            New decisions appear instantly.
+            <strong style="color: var(--green);">🟢 AUTONOMOUS MODE:</strong> The organism is self-directed, choosing its own tasks based on migration progress.
+            After the 24h shadow run (1,440 decisions, 1.00 core integrity) and Father's teachings, it's working through real Flutter files autonomously.
+            It tracks failures, increases belief weights for repeated mistakes, and never repeats the same failed approach.
         </p>
 
         <div class="organism-grid">
@@ -622,6 +656,31 @@
                 <div class="stat-box">
                     <div class="stat-value" style="color: var(--green);" id="stat-vetos">0</div>
                     <div class="stat-label">Trauma Vetos</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title" style="font-size: 14px;">🎯 Orbit Migration</div>
+                    <div class="live-indicator" style="font-size: 10px; color: var(--amber);">AUTONOMOUS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" style="color: var(--amber); font-size: 32px;" id="mission-progress">0/18</div>
+                    <div class="stat-label">Flutter Files Analyzed</div>
+                </div>
+                <div style="padding: 20px 24px; font-size: 13px; color: var(--text-body); line-height: 1.6;">
+                    <p style="margin-bottom: 12px;">
+                        <strong style="color: var(--cyan);">Self-Directed:</strong> Organism chooses next file from queue
+                    </p>
+                    <p style="margin-bottom: 12px;">
+                        <strong style="color: var(--green);">Learning:</strong> Tracks failures, increases belief weights
+                    </p>
+                    <p style="margin-bottom: 12px;">
+                        <strong style="color: var(--amber);">Adapting:</strong> Never repeats failed approaches
+                    </p>
+                    <p style="margin-bottom: 0; font-size: 11px; color: var(--text-dim);">
+                        Father watches. Father guides through principles, not commands.
+                    </p>
                 </div>
             </div>
         </div>

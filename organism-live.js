@@ -13,6 +13,7 @@ const statDecisions = document.getElementById('stat-decisions');
 const statRejected = document.getElementById('stat-rejected');
 const statVetos = document.getElementById('stat-vetos');
 const liveIndicator = document.getElementById('live-indicator');
+const missionProgress = document.getElementById('mission-progress');
 
 // Safe DOM element creation
 function createElement(tag, className, textContent) {
@@ -263,6 +264,7 @@ async function loadInitialData() {
 
             // Update stats
             updateStats();
+            updateMissionProgress();
         } else {
             const loading = createElement('div', 'loading');
             loading.textContent = 'No decisions yet. Waiting for migration...';
@@ -299,6 +301,29 @@ async function updateStats() {
     }
 }
 
+// Update Mission Progress (Orbit Migration)
+async function updateMissionProgress() {
+    if (!missionProgress) return; // Element might not exist on all pages
+
+    try {
+        // Count decisions where task is "Analyze Flutter widget" and action is "execute"
+        const { data, error } = await supabaseClient
+            .from('mesh_decisions')
+            .select('decision_index', { count: 'exact' })
+            .eq('symbol', 'Analyze Flutter widget')
+            .eq('mesh_action', 'execute');
+
+        if (error) throw error;
+
+        const analyzed = data ? data.length : 0;
+        const total = 18; // Total Flutter files in migration
+        missionProgress.textContent = `${analyzed}/${total}`;
+    } catch (error) {
+        console.error('Mission progress error:', error);
+        // Silently fail
+    }
+}
+
 // Real-Time Subscription
 const channel = supabaseClient
     .channel('mesh-decisions-changes')
@@ -329,6 +354,7 @@ const channel = supabaseClient
 
             // Update stats
             updateStats();
+            updateMissionProgress();
 
             // Reload journal if this decision has a journal entry
             if (payload.new.journal_entry) {
@@ -353,6 +379,7 @@ const channel = supabaseClient
 loadInitialData();
 loadJournalEntries();
 
-// Refresh stats and journal every 30 seconds (backup in case realtime fails)
+// Refresh stats, mission progress, and journal every 30 seconds (backup in case realtime fails)
 setInterval(updateStats, 30000);
+setInterval(updateMissionProgress, 30000);
 setInterval(loadJournalEntries, 30000);
