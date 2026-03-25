@@ -283,21 +283,74 @@ async function loadInitialData() {
 // Update Statistics
 async function updateStats() {
     try {
-        const { data, error } = await supabaseClient
-            .from('mesh_stats')
-            .select('*')
+        // Fetch latest decision to get total count
+        const { data: latestDecision, error: decisionError } = await supabaseClient
+            .from('mesh_decisions')
+            .select('decision_index')
+            .order('decision_index', { ascending: false })
+            .limit(1)
             .single();
 
-        if (error) throw error;
+        if (decisionError) throw decisionError;
 
-        if (data) {
-            statDecisions.textContent = data.total_decisions.toLocaleString();
-            statRejected.textContent = data.total_rejected.toLocaleString();
-            statVetos.textContent = data.trauma_vetos.toLocaleString();
+        // Count successful executions (tasks completed)
+        const { count: successCount, error: successError } = await supabaseClient
+            .from('mesh_decisions')
+            .select('*', { count: 'exact', head: true })
+            .eq('mesh_action', 'execute')
+            .not('execution_result', 'is', null);
+
+        if (successError) throw successError;
+
+        // Count total executions attempted
+        const { count: totalExecutions, error: execError } = await supabaseClient
+            .from('mesh_decisions')
+            .select('*', { count: 'exact', head: true })
+            .eq('mesh_action', 'execute');
+
+        if (execError) throw execError;
+
+        // Calculate success rate
+        const successRate = totalExecutions > 0
+            ? Math.round((successCount / totalExecutions) * 100)
+            : 0;
+
+        // Update new progress elements
+        const totalDecisionsEl = document.getElementById('total-decisions');
+        const tasksCompletedEl = document.getElementById('tasks-completed');
+        const successRateEl = document.getElementById('success-rate');
+
+        if (totalDecisionsEl && latestDecision) {
+            totalDecisionsEl.textContent = latestDecision.decision_index.toLocaleString();
+        }
+        if (tasksCompletedEl) {
+            tasksCompletedEl.textContent = successCount.toLocaleString();
+        }
+        if (successRateEl) {
+            successRateEl.textContent = `${successRate}%`;
+        }
+
+        // Update old stats if elements exist (legacy support)
+        if (statDecisions && latestDecision) {
+            statDecisions.textContent = latestDecision.decision_index.toLocaleString();
+        }
+        if (statRejected) {
+            const rejectedCount = latestDecision.decision_index - totalExecutions;
+            statRejected.textContent = rejectedCount.toLocaleString();
+        }
+        if (statVetos) {
+            statVetos.textContent = '0'; // Phase 4+ has no vetos
         }
     } catch (error) {
         console.error('Stats error:', error);
-        // Silently fail - stats view might not exist yet
+        // Fallback display on error
+        const totalDecisionsEl = document.getElementById('total-decisions');
+        const tasksCompletedEl = document.getElementById('tasks-completed');
+        const successRateEl = document.getElementById('success-rate');
+
+        if (totalDecisionsEl) totalDecisionsEl.textContent = 'N/A';
+        if (tasksCompletedEl) tasksCompletedEl.textContent = 'N/A';
+        if (successRateEl) successRateEl.textContent = 'N/A';
     }
 }
 
