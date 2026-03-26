@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous AI Cheat Sheet - The Organism Experiment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --bg-code: #0a0a0a;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --yellow: #f3ff00;
+            --green: #00ff88;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --glow-magenta: 0 0 15px rgba(255, 0, 243, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 120px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-meta {
+            color: var(--magenta);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+
+        .article-subtitle {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 60px 0 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin: 40px 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p { margin: 0 0 24px; }
+        strong { color: var(--text-main); font-weight: 600; }
+        em { color: var(--cyan); font-style: normal; }
+
+        .lead {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--cyan);
+            padding: 24px 28px;
+            margin: 40px 0;
+        }
+
+        .highlight-box.magenta { border-left-color: var(--magenta); }
+        .highlight-box.green { border-left-color: var(--green); }
+        .highlight-box.yellow { border-left-color: var(--yellow); }
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        blockquote {
+            border-left: 4px solid var(--magenta);
+            margin: 40px 0;
+            padding: 20px 28px;
+            background: rgba(255, 0, 243, 0.03);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        blockquote p { margin: 0; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            background: var(--bg-code);
+            color: var(--cyan);
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 24px;
+            overflow-x: auto;
+            margin: 30px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        ul, ol { margin: 24px 0; padding-left: 24px; }
+        li { margin-bottom: 12px; }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--cyan), transparent);
+            margin: 60px 0;
+        }
+
+        .rule-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--green);
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .rule-card h3 {
+            margin-top: 0;
+            color: var(--green);
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        .diagram {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin: 40px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-dim);
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<article class="article-container">
+
+    <a href="the-organism-experiment.html" class="back-link">← Back to Main Article</a>
+
+    <header class="article-header">
+        <div class="article-meta">Quick Reference • 2 min read</div>
+        <h1>Cheat Sheet</h1>
+        <p class="article-subtitle">The 4 rules that make AI autonomous</p>
+    </header>
+
+    <p class="lead">TL;DR: How to build AI that runs itself</p>
+
+    <hr>
+
+    <h2>🎯 The 4 Rules</h2>
+
+    <div class="rule-card">
+        <h3>Rule #1: Save State Always</h3>
+        <pre style="margin: 16px 0; background: rgba(0, 0, 0, 0.3);">If you save when things work,
+you MUST save when things fail.
+Otherwise your AI has amnesia.</pre>
+    </div>
+
+    <div class="rule-card">
+        <h3>Rule #2: Test Your Own Work</h3>
+        <pre style="margin: 16px 0; background: rgba(0, 0, 0, 0.3);">Before marking anything "done":
+1. Did it actually work?
+2. Is the output quality good?
+3. Are there any placeholders/TODOs?
+
+If any check fails → Don't mark complete</pre>
+    </div>
+
+    <div class="rule-card">
+        <h3>Rule #3: Be Explicit</h3>
+        <pre style="margin: 16px 0; background: rgba(0, 0, 0, 0.3);">❌ "Create login screen"
+✅ "Create src/routes/login/+page.svelte from lib/screens/login_screen.dart"
+
+Don't assume AI will "figure it out"
+Spell out EXACTLY what to do</pre>
+    </div>
+
+    <div class="rule-card">
+        <h3>Rule #4: Clean AI Output</h3>
+        <pre style="margin: 16px 0; background: rgba(0, 0, 0, 0.3);">LLMs add conversational fluff:
+- Markdown fences
+- "Here's your code..."
+- "Let me know if..."
+
+Always post-process to strip artifacts
+Never use raw LLM output directly</pre>
+    </div>
+
+    <hr>
+
+    <h2>🏗️ The Pattern</h2>
+
+    <div class="diagram">
+┌──────────────┐
+│ Pick Task    │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Execute Task │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ VALIDATE ✓   │ ← The magic step
+└──────┬───────┘
+       │
+   ┌───┴───┐
+PASS│       │FAIL
+   ▼       ▼
+┌─────┐ ┌─────┐
+│DONE │ │RETRY│
+└─────┘ └─────┘
+    </div>
+
+    <blockquote>
+        <p>Most people skip the VALIDATE step.</p>
+        <p style="margin-top: 12px;">That's why their AI isn't autonomous.</p>
+    </blockquote>
+
+    <hr>
+
+    <h2>✅ Checklist</h2>
+
+    <p>Building autonomous AI? You need:</p>
+
+    <div class="highlight-box">
+        <p><strong style="color: var(--cyan);">State:</strong></p>
+        <ul class="checklist">
+            <li>Saves on success</li>
+            <li>Saves on failure</li>
+            <li>Survives restarts</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong style="color: var(--green);">Validation:</strong></p>
+        <ul class="checklist">
+            <li>Tests output quality</li>
+            <li>Has pass/fail criteria</li>
+            <li>Retries on failure</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box yellow">
+        <p><strong style="color: var(--yellow);">Tasks:</strong></p>
+        <ul class="checklist">
+            <li>Explicit instructions</li>
+            <li>All context provided</li>
+            <li>Clear "done" definition</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box magenta">
+        <p><strong style="color: var(--magenta);">Output:</strong></p>
+        <ul class="checklist">
+            <li>Explicit format prompts</li>
+            <li>Post-processing cleanup</li>
+            <li>Format validation</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>💡 One Insight</h2>
+
+    <div class="highlight-box" style="border-left-color: var(--magenta); background: rgba(255, 0, 243, 0.03);">
+        <p style="font-size: 20px; margin-bottom: 16px;"><strong>Autonomous = Self-validating</strong></p>
+        <p>An AI that needs humans to check its work is just a tool.</p>
+        <p>An AI that checks its own work before declaring success is autonomous.</p>
+        <p style="margin-bottom: 0; font-style: italic; color: var(--cyan);">The difference is one validation step.</p>
+    </div>
+
+    <hr>
+
+    <h2>🎓 Example</h2>
+
+    <h3>Before (Not Autonomous):</h3>
+    <pre>def process():
+    output = ai.generate()
+    save(output)
+    mark_complete()  # ← Hope it worked!</pre>
+
+    <h3>After (Autonomous):</h3>
+    <pre>def process():
+    output = ai.generate()
+    output = clean(output)  # Strip artifacts
+
+    if validate(output):    # ← The key!
+        save(output)
+        mark_complete()
+    else:
+        save_failure()
+        retry_later()</pre>
+
+    <blockquote>
+        <p>One if statement makes it autonomous.</p>
+    </blockquote>
+
+    <hr>
+
+    <h2>🚀 Start Here</h2>
+
+    <ol>
+        <li>Pick one task your AI does</li>
+        <li>Write a validation function for it</li>
+        <li>Only mark complete if validation passes</li>
+        <li>Track how many tasks pass validation</li>
+    </ol>
+
+    <p><strong style="color: var(--green);">You just built autonomous quality control.</strong></p>
+
+    <p>Now repeat for all tasks.</p>
+
+    <hr>
+
+    <div class="highlight-box" style="text-align: center;">
+        <p><strong>Source:</strong> 6+ hours of autonomous AI making 3,924 decisions</p>
+        <p><strong>Bugs fixed using these rules:</strong> 21</p>
+        <p style="margin-bottom: 0;"><strong>Success rate:</strong> Validation caught 100% of bad output</p>
+    </div>
+
+    <blockquote style="text-align: center; border-left: none; border-top: 4px solid var(--green); padding-top: 24px;">
+        <p>These rules work.</p>
+    </blockquote>
+
+    <hr>
+
+    <div style="margin-top: 60px; text-align: center;">
+        <a href="the-organism-experiment.html" class="back-link" style="font-size: 16px;">← Back to Main Article</a>
+        <p style="margin-top: 24px; font-size: 14px; color: var(--text-dim);">
+            Part of <a href="the-organism-experiment.html" style="color: var(--cyan); text-decoration: none;">The Organism Experiment</a> series
+        </p>
+    </div>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Guide - The Organism Experiment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --bg-code: #0a0a0a;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --yellow: #f3ff00;
+            --green: #00ff88;
+            --red: #ff0055;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --glow-magenta: 0 0 15px rgba(255, 0, 243, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 24px 120px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-meta {
+            color: var(--magenta);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+
+        .article-subtitle {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 60px 0 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin: 40px 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p { margin: 0 0 24px; }
+        strong { color: var(--text-main); font-weight: 600; }
+        em { color: var(--cyan); font-style: normal; }
+
+        .lead {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--cyan);
+            padding: 24px 28px;
+            margin: 40px 0;
+        }
+
+        .highlight-box.magenta { border-left-color: var(--magenta); }
+        .highlight-box.green { border-left-color: var(--green); }
+        .highlight-box.yellow { border-left-color: var(--yellow); }
+        .highlight-box.red { border-left-color: var(--red); }
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        blockquote {
+            border-left: 4px solid var(--magenta);
+            margin: 40px 0;
+            padding: 20px 28px;
+            background: rgba(255, 0, 243, 0.03);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        blockquote p { margin: 0; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            background: var(--bg-code);
+            color: var(--cyan);
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 24px;
+            overflow-x: auto;
+            margin: 30px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        ul, ol { margin: 24px 0; padding-left: 24px; }
+        li { margin-bottom: 12px; }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--cyan), transparent);
+            margin: 60px 0;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pattern-label {
+            display: inline-block;
+            background: var(--red);
+            color: #000;
+            font-weight: 900;
+            font-size: 10px;
+            padding: 4px 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .pattern-label.correct { background: var(--green); }
+    </style>
+</head>
+<body>
+
+<article class="article-container">
+
+    <a href="the-organism-experiment.html" class="back-link">← Back to Main Article</a>
+
+    <header class="article-header">
+        <div class="article-meta">Code Patterns • 30 min read</div>
+        <h1>Implementation</h1>
+        <p class="article-subtitle">Production-ready code patterns you can copy/paste</p>
+    </header>
+
+    <p class="lead">These aren't theoretical patterns. This is the actual code that made the organism autonomous.</p>
+
+    <p>All examples use Rust syntax, but the patterns work in any language. Focus on the structure, not the syntax.</p>
+
+    <hr>
+
+    <h2>1. State Management Pattern</h2>
+
+    <p><strong>The Problem:</strong> Saving state only on success causes infinite loops when tasks fail.</p>
+
+    <div class="comparison-grid">
+        <div>
+            <span class="pattern-label">❌ WRONG (Asymmetric)</span>
+            <pre>fn execute_task(task: Task) -> Result<()> {
+    match do_work(&task) {
+        Ok(output) => {
+            state.mark_complete(&task);
+            state.save()?;  // ← Only saves on success
+        }
+        Err(e) => {
+            log::error!("Failed: {}", e);
+            // ← No save! State not persisted!
+        }
+    }
+}</pre>
+        </div>
+
+        <div>
+            <span class="pattern-label correct">✅ CORRECT (Symmetric)</span>
+            <pre>fn execute_task(task: Task) -> Result<()> {
+    match do_work(&task) {
+        Ok(output) => {
+            state.mark_complete(&task);
+            state.save()?;  // Save on success
+        }
+        Err(e) => {
+            state.track_failure(&task, &e);
+            state.save()?;  // ← ALSO save on failure!
+        }
+    }
+}</pre>
+        </div>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>Key Pattern:</strong></p>
+        <pre style="background: rgba(0, 0, 0, 0.3);">// ALWAYS save state in both branches
+match result {
+    Ok(_) => { state.update(); state.save(); }
+    Err(_) => { state.update(); state.save(); }  // ← Don't forget!
+}</pre>
+    </div>
+
+    <hr>
+
+    <h2>2. Validation Pattern</h2>
+
+    <p><strong>The Problem:</strong> Marking tasks complete without checking if output is actually correct.</p>
+
+    <div class="comparison-grid">
+        <div>
+            <span class="pattern-label">❌ WRONG (No Validation)</span>
+            <pre>async fn create_component(name: &str)
+    -> Result<()> {
+    let code = llm.generate(name).await?;
+    fs::write(
+        format!("{}.svelte", name),
+        code
+    )?;
+
+    // ← Assumes file is good!
+    Ok(())  // Marked as success
+}</pre>
+        </div>
+
+        <div>
+            <span class="pattern-label correct">✅ CORRECT (With Validation)</span>
+            <pre>async fn create_component(name: &str)
+    -> Result<()> {
+    let code = llm.generate(name).await?;
+    let path = format!("{}.svelte", name);
+    fs::write(&path, &code)?;
+
+    // ← VALIDATE before declaring success
+    validate_component(&path)?;
+
+    Ok(())
+}</pre>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>Validation Function Example:</strong></p>
+        <pre>fn validate_component(path: &str) -> Result<()> {
+    let content = fs::read_to_string(path)?;
+
+    // Check 1: No markdown artifacts
+    if content.starts_with("```") {
+        return Err(anyhow!("File contains markdown fences"));
+    }
+
+    // Check 2: No TODO comments (templates)
+    if content.contains("TODO") {
+        return Err(anyhow!("File is placeholder (has TODOs)"));
+    }
+
+    // Check 3: Actually looks like Svelte
+    if !content.contains("<script>") && !content.contains("<style>") {
+        return Err(anyhow!("Doesn't look like Svelte code"));
+    }
+
+    // Check 4: Not just a placeholder
+    if content.len() < 100 {
+        return Err(anyhow!("File too small, likely placeholder"));
+    }
+
+    Ok(())
+}</pre>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>Key Pattern:</strong></p>
+        <pre style="background: rgba(0, 0, 0, 0.3);">// Never trust that creation = success
+// Always validate before returning Ok()
+
+fn do_task() -> Result<()> {
+    create_output()?;
+    validate_output()?;  // ← Critical step
+    Ok(())
+}</pre>
+    </div>
+
+    <hr>
+
+    <h2>3. LLM Output Cleaning Pattern</h2>
+
+    <p><strong>The Problem:</strong> LLMs add conversational fluff that contaminates code output.</p>
+
+    <div class="comparison-grid">
+        <div>
+            <span class="pattern-label">❌ WRONG (Raw Output)</span>
+            <pre>async fn generate_code(
+    prompt: &str
+) -> Result<String> {
+    let response =
+        llm.complete(prompt).await?;
+    Ok(response.content)
+    // ← Raw LLM output, has artifacts!
+}</pre>
+        </div>
+
+        <div>
+            <span class="pattern-label correct">✅ CORRECT (Cleaned Output)</span>
+            <pre>async fn generate_code(
+    prompt: &str
+) -> Result<String> {
+    // Step 1: Explicit output format
+    let system = "You MUST output ONLY code.
+        Do NOT include markdown fences,
+        explanations, or conversational text.
+        Start directly with code.";
+
+    let response = llm
+        .complete_with_system(prompt, system)
+        .await?;
+
+    // Step 2: Clean the output
+    let cleaned =
+        clean_llm_output(&response.content);
+
+    // Step 3: Validate it's actually code
+    if !looks_like_code(&cleaned) {
+        return Err(anyhow!(
+            "LLM generated text, not code"
+        ));
+    }
+
+    Ok(cleaned)
+}</pre>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>Cleaning Function Example:</strong></p>
+        <pre>fn clean_llm_output(raw: &str) -> String {
+    let mut lines: Vec<&str> = raw.lines().collect();
+
+    // Remove leading markdown fence
+    if lines.first().map_or(false, |l| l.trim().starts_with("```")) {
+        lines.remove(0);
+    }
+
+    // Remove trailing markdown fence
+    if lines.last().map_or(false, |l| l.trim().starts_with("```")) {
+        lines.pop();
+    }
+
+    // Remove conversational preamble
+    while let Some(first) = lines.first() {
+        let trimmed = first.trim();
+        // If line is conversational text (not code), remove it
+        if trimmed.is_empty()
+            || (!trimmed.starts_with('<')
+                && !trimmed.starts_with("//")
+                && trimmed.len() > 100)
+        {
+            lines.remove(0);
+        } else {
+            break;
+        }
+    }
+
+    lines.join("\n")
+}
+
+fn looks_like_code(s: &str) -> bool {
+    let trimmed = s.trim();
+    trimmed.starts_with('<')           // HTML/XML
+        || trimmed.starts_with("//")   // Comment
+        || trimmed.starts_with("import")
+        || trimmed.starts_with("export")
+        || trimmed.starts_with("function")
+        || trimmed.starts_with("const")
+}</pre>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>Key Pattern:</strong></p>
+        <pre style="background: rgba(0, 0, 0, 0.3);">// LLM output needs 3 layers of protection:
+// 1. Explicit format instructions in prompt
+// 2. Post-processing to clean artifacts
+// 3. Validation that output is expected type
+
+fn llm_generate() -> Result<Output> {
+    let raw = llm.complete(explicit_prompt).await?;  // Layer 1
+    let cleaned = post_process(raw);                  // Layer 2
+    validate_format(cleaned)?;                        // Layer 3
+    Ok(cleaned)
+}</pre>
+    </div>
+
+    <hr>
+
+    <h2>4. Task Queue Pattern</h2>
+
+    <p><strong>The Problem:</strong> Trying to execute non-actionable tasks like "Analyze LoginScreen".</p>
+
+    <div class="comparison-grid">
+        <div>
+            <span class="pattern-label">❌ WRONG (Assumes Executable)</span>
+            <pre>fn select_next_task(
+    queue: &[Task]
+) -> Option<Task> {
+    queue.first().cloned()
+    // ← Takes first task blindly
+}</pre>
+        </div>
+
+        <div>
+            <span class="pattern-label correct">✅ CORRECT (Filters Non-Executable)</span>
+            <pre>fn select_next_task(
+    queue: &[Task]
+) -> Option<Task> {
+    queue
+        .iter()
+        .find(|task| is_executable(task))
+        .cloned()
+}</pre>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>Filtering Function Example:</strong></p>
+        <pre>fn is_executable(task: &Task) -> bool {
+    // Skip documentation/analysis tasks
+    if task.description.starts_with("Analyze")
+        && !task.description.contains(".dart")
+    {
+        return false;
+    }
+
+    // Skip tasks marked for human review
+    if task.flags.contains(&Flag::HumanReview) {
+        return false;
+    }
+
+    // Skip tasks missing required context
+    if task.required_context.is_empty() {
+        return false;
+    }
+
+    true
+}</pre>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>Key Pattern:</strong></p>
+        <pre style="background: rgba(0, 0, 0, 0.3);">// Not everything in the queue is executable
+// Filter before attempting execution
+
+let next_task = queue
+    .iter()
+    .filter(|t| is_executable(t))
+    .filter(|t| has_required_context(t))
+    .max_by_key(|t| t.priority)
+    .cloned();</pre>
+    </div>
+
+    <hr>
+
+    <h2>5. Failure Learning Pattern</h2>
+
+    <p><strong>The Problem:</strong> Repeating the same failed approach without learning.</p>
+
+    <div class="comparison-grid">
+        <div>
+            <span class="pattern-label">❌ WRONG (No Learning)</span>
+            <pre>fn execute(task: Task)
+    -> Result<()> {
+    match do_work(&task) {
+        Ok(_) => Ok(()),
+        Err(e) => {
+            log::error!("Failed: {}", e);
+            Err(e)
+            // ← Just fails, doesn't learn
+        }
+    }
+}</pre>
+        </div>
+
+        <div>
+            <span class="pattern-label correct">✅ CORRECT (Learns from Failures)</span>
+            <pre>fn execute(
+    task: Task,
+    tracker: &mut FailureTracker
+) -> Result<()> {
+    // Check if approach failed before
+    if tracker
+        .repeated_failures(&task.task_type)
+        >= 3
+    {
+        return Err(anyhow!(
+            "Approach failed 3+ times,
+            need different strategy"
+        ));
+    }
+
+    match do_work(&task) {
+        Ok(_) => Ok(()),
+        Err(e) => {
+            // Track the failure
+            tracker.track(
+                &task.task_type,
+                &e.to_string()
+            );
+
+            if tracker
+                .repeated_failures(&task.task_type)
+                >= 2
+            {
+                log::warn!(
+                    "Task '{}' failed {} times",
+                    task.task_type,
+                    tracker.repeated_failures(
+                        &task.task_type
+                    )
+                );
+            }
+
+            Err(e)
+        }
+    }
+}</pre>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>6. Complete Autonomous Loop</h2>
+
+    <p>Putting it all together:</p>
+
+    <pre>struct AutonomousAgent {
+    state: MigrationState,
+    failure_tracker: FailureTracker,
+    llm: LlmClient,
+}
+
+impl AutonomousAgent {
+    async fn run(&mut self) -> Result<()> {
+        loop {
+            // 1. Select next executable task
+            let task = match self.select_task() {
+                Some(t) => t,
+                None => break,
+            };
+
+            log::info!("Executing: {}", task.description);
+
+            // 2. Execute task
+            let result = self.execute_task(&task).await;
+
+            // 3. Handle result (symmetric state saving!)
+            match result {
+                Ok(output) => {
+                    // 3a. Validate BEFORE marking complete
+                    if self.validate_output(&task, &output).is_ok() {
+                        self.state.mark_complete(&task);
+                        log::info!("✅ Task complete");
+                    } else {
+                        log::warn!("⚠️ Validation failed");
+                    }
+                    self.state.save()?;  // Save state
+                }
+                Err(e) => {
+                    // 3b. Track failure and save state
+                    self.failure_tracker
+                        .track(&task.task_type, &e.to_string());
+                    self.state.track_failure(&task, &e);
+                    self.state.save()?;  // ← ALSO save on failure!
+
+                    log::error!("❌ Task failed: {}", e);
+                }
+            }
+
+            tokio::time::sleep(Duration::from_secs(1)).await;
+        }
+
+        Ok(())
+    }
+
+    async fn execute_task(&self, task: &Task) -> Result<String> {
+        let code = self.generate_code_clean(task).await?;
+        fs::write(&task.output_path, &code)?;
+        self.validate_component(&task.output_path)?;
+        Ok(format!("Created {}", task.output_path))
+    }
+
+    async fn generate_code_clean(&self, task: &Task) -> Result<String> {
+        // Explicit output format
+        let system = "You MUST output ONLY code.";
+        let raw = self.llm
+            .complete_with_system(&task.prompt, system)
+            .await?;
+
+        // Clean output
+        let cleaned = clean_llm_output(&raw.content);
+
+        // Validate format
+        if !looks_like_code(&cleaned) {
+            return Err(anyhow!("LLM generated non-code output"));
+        }
+
+        Ok(cleaned)
+    }
+
+    fn validate_output(&self, task: &Task, output: &str)
+        -> Result<()> {
+        match task.task_type.as_str() {
+            "create_component" => self.validate_component(output),
+            "run_tests" => self.validate_test_results(output),
+            _ => Ok(()),
+        }
+    }
+}</pre>
+
+    <hr>
+
+    <h2>7. Metrics to Track</h2>
+
+    <div class="highlight-box">
+        <pre>struct AgentMetrics {
+    tasks_attempted: usize,
+    tasks_completed: usize,
+    validation_passes: usize,
+    validation_failures: usize,
+    retry_count: usize,
+}
+
+impl AgentMetrics {
+    fn validation_pass_rate(&self) -> f64 {
+        (self.validation_passes as f64) / (self.tasks_attempted as f64)
+    }
+
+    fn quality_rate(&self) -> f64 {
+        (self.validation_passes as f64) / (self.tasks_completed as f64)
+    }
+}</pre>
+    </div>
+
+    <p><strong>Track these, not just "tasks completed":</strong></p>
+    <ul>
+        <li>Validation pass rate (good output / total attempts)</li>
+        <li>First-time completion rate (no retries needed)</li>
+        <li>Repeated failure patterns (same error 3+ times)</li>
+        <li>Quality rate (validated outputs / completions)</li>
+    </ul>
+
+    <hr>
+
+    <h2>Summary: Copy These Patterns</h2>
+
+    <div class="highlight-box magenta">
+        <p><strong>The 6 Core Patterns:</strong></p>
+        <ol style="margin: 12px 0 0 24px;">
+            <li><strong>State:</strong> Save on BOTH success and failure</li>
+            <li><strong>Validation:</strong> Check quality before marking complete</li>
+            <li><strong>LLM Output:</strong> Explicit prompts + post-processing + validation</li>
+            <li><strong>Task Selection:</strong> Filter non-executable before attempting</li>
+            <li><strong>Failure Learning:</strong> Track patterns, adapt strategy</li>
+            <li><strong>Metrics:</strong> Track quality, not just quantity</li>
+        </ol>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>The Complete Loop:</strong></p>
+        <pre style="background: rgba(0, 0, 0, 0.3);">Select executable task
+  ↓
+Execute with explicit context
+  ↓
+Clean AI output
+  ↓
+<strong style="color: var(--green);">VALIDATE</strong> ← The key step that makes it autonomous
+  ↓
+If pass: mark complete, save state
+If fail: track failure, save state, retry later</pre>
+    </div>
+
+    <blockquote style="text-align: center; border-left: none; border-top: 4px solid var(--cyan);">
+        <p>Copy these patterns and your AI will be autonomous.</p>
+    </blockquote>
+
+    <hr>
+
+    <div class="highlight-box" style="text-align: center; border-left-color: var(--green);">
+        <p><strong>Proven in production:</strong> 3,924 autonomous decisions</p>
+        <p><strong>Runtime:</strong> 6+ hours continuous</p>
+        <p><strong>Validation accuracy:</strong> 100%</p>
+        <p style="margin-bottom: 0;"><strong>Human interventions:</strong> Only architectural (4 total)</p>
+    </div>
+
+    <hr>
+
+    <div style="margin-top: 60px; text-align: center;">
+        <a href="the-organism-experiment.html" class="back-link" style="font-size: 16px;">← Back to Main Article</a>
+        <p style="margin-top: 24px; font-size: 14px; color: var(--text-dim);">
+            Part of <a href="the-organism-experiment.html" style="color: var(--cyan); text-decoration: none;">The Organism Experiment</a> series
+        </p>
+    </div>
+
+</article>
+
+</body>
+</html>

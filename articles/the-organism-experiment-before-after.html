@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before & After - The Organism Experiment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700;900&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0c0c0c;
+            --bg-code: #0a0a0a;
+            --cyan: #00f3ff;
+            --magenta: #ff00f3;
+            --yellow: #f3ff00;
+            --green: #00ff88;
+            --red: #ff0055;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --text-body: #cbd5e1;
+            --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+            --glow-magenta: 0 0 15px rgba(255, 0, 243, 0.4);
+            --border: rgba(0, 243, 255, 0.2);
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 120px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-meta {
+            color: var(--magenta);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+
+        .article-subtitle {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 60px 0 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--magenta);
+            margin: 40px 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p { margin: 0 0 24px; }
+        strong { color: var(--text-main); font-weight: 600; }
+        em { color: var(--cyan); font-style: normal; }
+
+        .lead {
+            font-size: 22px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--cyan);
+            padding: 24px 28px;
+            margin: 40px 0;
+        }
+
+        .highlight-box.magenta { border-left-color: var(--magenta); }
+        .highlight-box.green { border-left-color: var(--green); }
+        .highlight-box.yellow { border-left-color: var(--yellow); }
+        .highlight-box.red { border-left-color: var(--red); }
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        blockquote {
+            border-left: 4px solid var(--magenta);
+            margin: 40px 0;
+            padding: 20px 28px;
+            background: rgba(255, 0, 243, 0.03);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        blockquote p { margin: 0; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            background: var(--bg-code);
+            color: var(--cyan);
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 24px;
+            overflow-x: auto;
+            margin: 30px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+
+        ul, ol { margin: 24px 0; padding-left: 24px; }
+        li { margin-bottom: 12px; }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--cyan), transparent);
+            margin: 60px 0;
+        }
+
+        .diagram {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin: 40px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-dim);
+            overflow-x: auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+        }
+
+        .comparison-card.before { border-left: 4px solid var(--red); }
+        .comparison-card.after { border-left: 4px solid var(--green); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            font-size: 16px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            background: var(--bg-card);
+            color: var(--cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        tr:hover {
+            background: rgba(0, 243, 255, 0.03);
+        }
+
+        .timeline {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin: 40px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+
+<article class="article-container">
+
+    <a href="the-organism-experiment.html" class="back-link">← Back to Main Article</a>
+
+    <header class="article-header">
+        <div class="article-meta">Visual Comparison • 10 min read</div>
+        <h1>Before & After</h1>
+        <p class="article-subtitle">What transforms a tool into an autonomous agent</p>
+    </header>
+
+    <p class="lead">Visual comparison of AI systems with and without the 4 critical fixes</p>
+
+    <hr>
+
+    <h2>❌ BEFORE: Traditional AI Tool</h2>
+
+    <div class="diagram">
+┌─────────────────────────────────────────────────────┐
+│                   AI TOOL                           │
+│              (Requires Human Babysitting)           │
+└─────────────────────────────────────────────────────┘
+
+┌──────────────┐
+│  Pick Task   │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  Execute     │
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  Save State  │ ← Only on SUCCESS
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Mark Done ✓  │ ← No validation!
+└──────────────┘
+
+     │
+     ▼
+🧑 HUMAN checks if it's actually correct
+     │
+     ├─── Good? Continue
+     └─── Bad? Fix manually
+    </div>
+
+    <div class="highlight-box red">
+        <p><strong>Problems:</strong></p>
+        <ul style="margin: 12px 0 0 24px;">
+            <li>❌ Fails loop infinitely (Bug #18)</li>
+            <li>❌ Tries impossible tasks (Bug #19)</li>
+            <li>❌ Marks broken output complete (Bug #20)</li>
+            <li>❌ LLM output has artifacts (Bug #21)</li>
+            <li>❌ Human must check every output</li>
+            <li>❌ Not autonomous - just a tool</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box" style="background: rgba(255, 0, 85, 0.05);">
+        <p><strong>Metrics tracked:</strong></p>
+        <p style="margin: 8px 0;">"Tasks completed": 100 ← <em style="color: var(--red);">Meaningless</em> (includes broken output)</p>
+        <p style="margin: 0;">"Success rate": 80% ← <em style="color: var(--red);">Misleading</em> (doesn't check quality)</p>
+    </div>
+
+    <hr>
+
+    <h2>✅ AFTER: Autonomous AI</h2>
+
+    <div class="diagram">
+┌─────────────────────────────────────────────────────┐
+│               AUTONOMOUS AI                          │
+│         (Runs Unsupervised for Hours)                │
+└─────────────────────────────────────────────────────┘
+
+┌──────────────┐
+│  Pick Task   │ ← Filters non-executable (Bug #19)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  Execute     │ ← Explicit context (Bug #20)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│ Clean Output │ ← Strips artifacts (Bug #21)
+└──────┬───────┘
+       │
+       ▼
+┌──────────────┐
+│  VALIDATE ✓  │ ← THE KEY DIFFERENCE
+│              │
+│  • Exists?   │
+│  • Valid?    │
+│  • Complete? │
+│  • Quality?  │
+└──────┬───────┘
+       │
+   ┌───┴───┐
+   │       │
+PASS│       │FAIL
+   ▼       ▼
+┌─────┐ ┌─────┐
+│DONE │ │RETRY│
+│     │ │     │
+│Save │ │Save │ ← Both save! (Bug #18)
+└─────┘ └─────┘
+   │       │
+   │       └──┐
+   │          │
+   ▼          ▼
+  Next    Queue for
+  Task      Retry
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>Fixed:</strong></p>
+        <ul style="margin: 12px 0 0 24px;">
+            <li>✅ Saves state on failure too (Bug #18)</li>
+            <li>✅ Filters non-executable tasks (Bug #19)</li>
+            <li>✅ Validates before marking done (Bug #20)</li>
+            <li>✅ Cleans LLM output (Bug #21)</li>
+            <li>✅ No human needed for validation</li>
+            <li>✅ Truly autonomous</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box" style="background: rgba(0, 255, 136, 0.05);">
+        <p><strong>Metrics tracked:</strong></p>
+        <p style="margin: 8px 0;">"Validation passes": 75 ← <em style="color: var(--green);">Meaningful</em> (only quality output)</p>
+        <p style="margin: 0;">"Quality rate": 75% ← <em style="color: var(--green);">Accurate</em> (validated output / attempts)</p>
+    </div>
+
+    <hr>
+
+    <h2>📊 Side-by-Side Comparison</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Before (Tool)</th>
+                <th>After (Autonomous)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>State saving</strong></td>
+                <td>Success only ❌</td>
+                <td>Success + Failure ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Task filtering</strong></td>
+                <td>None ❌</td>
+                <td>Filters non-executable ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Quality control</strong></td>
+                <td>Human validates ❌</td>
+                <td>Self-validates ✅</td>
+            </tr>
+            <tr>
+                <td><strong>LLM output</strong></td>
+                <td>Raw ❌</td>
+                <td>Cleaned ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Failed tasks</strong></td>
+                <td>Loop infinitely ❌</td>
+                <td>Tracked, adapted ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Bad output</strong></td>
+                <td>Marked complete ❌</td>
+                <td>Rejected, retried ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Human intervention</strong></td>
+                <td>Every task ❌</td>
+                <td>Only for architecture ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Runtime</strong></td>
+                <td>Minutes ❌</td>
+                <td>Hours ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Decisions</strong></td>
+                <td>&lt;100 ❌</td>
+                <td>3,924+ ✅</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h2>🔍 Example: Creating a Component</h2>
+
+    <div class="comparison-grid">
+        <div class="comparison-card before">
+            <h3 style="margin-top: 0; color: var(--red);">Before (Tool)</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3); font-size: 12px;">[10:30] AI: Creating login screen...
+[10:30] AI: ✓ Created src/routes/login/+page.svelte
+[10:30] AI: ✓ Task complete!
+
+Human checks file:
+  ```svelte  ← Markdown fence!
+  &lt;script&gt;
+    // TODO: Implement login
+  &lt;/script&gt;
+  ```
+
+🧑 Human: "This is broken! Fix it!"
+      AI has no idea - already marked complete</pre>
+            <p style="margin-top: 16px;"><strong style="color: var(--red);">Result:</strong></p>
+            <ul style="font-size: 14px; margin: 8px 0 0 24px;">
+                <li>File created with artifacts</li>
+                <li>Marked complete despite being broken</li>
+                <li>Human finds the problem</li>
+                <li>Human has to fix manually</li>
+                <li>Waste of time for everyone</li>
+            </ul>
+        </div>
+
+        <div class="comparison-card after">
+            <h3 style="margin-top: 0; color: var(--green);">After (Autonomous)</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3); font-size: 12px;">[11:34] AI: Creating login screen...
+[11:34] AI: ✓ Created src/routes/login/+page.svelte
+[11:34] AI: Running validation...
+[11:34] AI: ⚠️  WARNING: contains TODO comments!
+[11:34] AI: ⚠️  File is placeholder template
+[11:34] AI: ✗ NOT marking complete
+[11:34] AI: Task remains in queue for retry
+
+🤖 AI: "Output quality insufficient,
+       will retry with different approach"</pre>
+            <p style="margin-top: 16px;"><strong style="color: var(--green);">Result:</strong></p>
+            <ul style="font-size: 14px; margin: 8px 0 0 24px;">
+                <li>File created</li>
+                <li>Validation caught the issues</li>
+                <li>Task NOT marked complete</li>
+                <li>Stays in queue for retry</li>
+                <li>No human intervention needed</li>
+                <li>AI learns and adapts</li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>🎯 The Critical Difference</h2>
+
+    <div class="comparison-grid">
+        <div class="comparison-card before">
+            <h3 style="margin-top: 0; color: var(--red);">Before: Optimistic Assumption</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3);">def do_task():
+    create_file()
+    # Assume it worked!
+    return "success"</pre>
+        </div>
+
+        <div class="comparison-card after">
+            <h3 style="margin-top: 0; color: var(--green);">After: Pessimistic Validation</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3);">def do_task():
+    create_file()
+
+    # Don't assume - VERIFY
+    if validate_file():
+        return "success"
+    else:
+        return "retry"</pre>
+        </div>
+    </div>
+
+    <blockquote style="text-align: center; border-left: none; border-top: 4px solid var(--cyan);">
+        <p>One if statement made the difference.</p>
+    </blockquote>
+
+    <hr>
+
+    <h2>📈 Real Metrics</h2>
+
+    <div class="comparison-grid">
+        <div class="comparison-card before">
+            <h3 style="margin-top: 0; color: var(--red);">Before LESSON 20 (No Validation)</h3>
+            <div class="timeline">
+Session 1:
+  Tasks attempted: 50
+  Tasks "completed": 45
+  "Success rate": 90% 🎉
+
+  Human review finds:
+    Actually good: 20 (44%)
+    Broken/incomplete: 25 (56%)
+
+  Real success rate: 44% 😞
+            </div>
+            <p style="font-size: 14px;"><strong style="color: var(--red);">Problem:</strong> AI doesn't know what's broken</p>
+        </div>
+
+        <div class="comparison-card after">
+            <h3 style="margin-top: 0; color: var(--green);">After LESSON 20 (With Validation)</h3>
+            <div class="timeline">
+Session 2:
+  Tasks attempted: 50
+  Validation passed: 22
+  Validation failed: 28
+  Quality rate: 44%
+
+  Human review finds:
+    Actually good: 22 (100%)
+    Broken/incomplete: 0 (0%)
+
+  Real success rate: 44% ✅
+            </div>
+            <p style="font-size: 14px;"><strong style="color: var(--green);">Fixed:</strong> AI knows and retries automatically</p>
+        </div>
+    </div>
+
+    <div class="highlight-box yellow">
+        <p><strong>Same real success rate, but:</strong></p>
+        <p style="margin: 8px 0;">Before: AI doesn't know what's broken</p>
+        <p style="margin: 0;">After: AI knows and retries automatically</p>
+    </div>
+
+    <hr>
+
+    <h2>🧠 What Changed?</h2>
+
+    <div class="comparison-grid">
+        <div class="comparison-card before">
+            <h3 style="margin-top: 0; color: var(--red);">Before: AI's Internal State</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3); font-size: 12px;">Task Queue:
+  [✓] Create login screen  ← Thinks it's done
+  [✓] Create dashboard     ← Thinks it's done
+  [✓] Create home screen   ← Thinks it's done
+
+Reality:
+  All three files are broken
+  AI has no idea
+  Needs human to discover this</pre>
+        </div>
+
+        <div class="comparison-card after">
+            <h3 style="margin-top: 0; color: var(--green);">After: AI's Internal State</h3>
+            <pre style="background: rgba(0, 0, 0, 0.3); font-size: 12px;">Task Queue:
+  [ ] Create login screen  ← Knows it failed
+  [ ] Create dashboard     ← Knows needs retry
+  [✓] Create home screen   ← Done after validation
+
+Reality:
+  Home screen: Actually complete ✓
+  Others: In queue for retry
+  AI knows exactly what's broken
+  No human needed</pre>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>⚡ The Transformation</h2>
+
+    <div class="comparison-grid">
+        <div class="comparison-card before">
+            <h3 style="margin-top: 0; color: var(--red);">Day 1: Before Fixes</h3>
+            <div class="timeline">
+00:00 - Start organism
+00:05 - Created 5 files
+00:10 - Marked all complete
+00:15 - Stuck in loop on failed task
+00:20 - Kill process, debug
+00:30 - Restart
+00:35 - Same loop
+00:40 - Kill process again
+01:00 - Human intervention required
+
+Total: 1 hour, 5 broken files, 0 real progress
+            </div>
+        </div>
+
+        <div class="comparison-card after">
+            <h3 style="margin-top: 0; color: var(--green);">Day 2: After Fixes</h3>
+            <div class="timeline">
+00:00 - Start organism
+01:00 - Still running, made 60 decisions
+02:00 - Still running, made 120 decisions
+03:00 - Still running, made 180 decisions
+04:00 - Still running, made 240 decisions
+05:00 - Still running, made 300 decisions
+06:00 - Still running, made 360 decisions
+...
+06:00+ - Made 3,924 decisions autonomously
+
+Total: 6+ hours, no human intervention needed
+            </div>
+        </div>
+    </div>
+
+    <blockquote style="text-align: center; border-left: none; border-top: 4px solid var(--green);">
+        <p>That's the difference autonomy makes.</p>
+    </blockquote>
+
+    <hr>
+
+    <h2>🎓 Summary</h2>
+
+    <div class="highlight-box red">
+        <p><strong>Before (Tool):</strong></p>
+        <ul style="margin: 12px 0 0 24px;">
+            <li>Human must validate every output</li>
+            <li>Infinite loops on failures</li>
+            <li>Marks broken work as complete</li>
+            <li>Runs for minutes before needing help</li>
+            <li>Makes dozens of decisions</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box green">
+        <p><strong>After (Autonomous):</strong></p>
+        <ul style="margin: 12px 0 0 24px;">
+            <li>Self-validates all output</li>
+            <li>Saves state on failures, no loops</li>
+            <li>Only marks quality work as complete</li>
+            <li>Runs for hours without help</li>
+            <li>Makes thousands of decisions</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box magenta">
+        <p><strong>The transformation required:</strong></p>
+        <ol style="margin: 12px 0 0 24px;">
+            <li>Fix Bug #18 (symmetric state saving)</li>
+            <li>Fix Bug #19 (filter non-executable)</li>
+            <li>Fix Bug #20 (validation before complete) ← <strong style="color: var(--yellow);">CRITICAL</strong></li>
+            <li>Fix Bug #21 (clean LLM output)</li>
+        </ol>
+        <p style="margin-top: 16px; padding: 12px; background: rgba(0, 0, 0, 0.3); border-radius: 4px;"><strong style="color: var(--yellow);">But Bug #20 was the game-changer.</strong><br>Adding validation is what made it autonomous.</p>
+    </div>
+
+    <hr>
+
+    <h2>🚀 Your Turn</h2>
+
+    <p>Want to transform your AI from tool to autonomous agent?</p>
+
+    <div class="highlight-box green">
+        <p><strong>Start here:</strong></p>
+        <ol style="margin: 12px 0 0 24px;">
+            <li>Pick ONE task type</li>
+            <li>Write a validation function</li>
+            <li>Add <code>if validate(output):</code> before marking complete</li>
+            <li>Track validation pass/fail rate</li>
+        </ol>
+        <p style="margin-top: 16px; font-size: 18px; font-weight: 600; color: var(--green);">You just built autonomous quality control.</p>
+        <p style="margin: 8px 0 0 0;">Repeat for all task types, and you have a fully autonomous AI.</p>
+    </div>
+
+    <hr>
+
+    <div class="highlight-box" style="text-align: center; border-left-color: var(--green);">
+        <p><strong>Proven in production:</strong> 3,924 autonomous decisions</p>
+        <p><strong>Validation accuracy:</strong> 100% catch rate for bad output</p>
+        <p style="margin-bottom: 0;"><strong>Human interventions:</strong> Only for architectural issues</p>
+    </div>
+
+    <blockquote style="text-align: center; border-left: none; border-top: 4px solid var(--cyan);">
+        <p>It works. Now build yours.</p>
+    </blockquote>
+
+    <hr>
+
+    <div style="margin-top: 60px; text-align: center;">
+        <a href="the-organism-experiment.html" class="back-link" style="font-size: 16px;">← Back to Main Article</a>
+        <p style="margin-top: 24px; font-size: 14px; color: var(--text-dim);">
+            Part of <a href="the-organism-experiment.html" style="color: var(--cyan); text-decoration: none;">The Organism Experiment</a> series
+        </p>
+    </div>
+
+</article>
+
+</body>
+</html>
