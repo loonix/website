@@ -510,21 +510,59 @@
                 <li><a href="/#about">ABOUT</a></li>
                 <li><a href="/#skills">SKILLS</a></li>
                 <li><a href="/mesh.html">SHADOW RUN</a></li>
-                <li><a href="/organism.html" style="color: #00ff88;">ORGANISM [LIVE]</a></li>
+                <li><a href="/organism.html" style="color: #00ff88;">ORGANISM</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
         <!-- Hero Section -->
-        <div class="live-badge">
-            <i class="fas fa-circle" style="animation: pulse-glow 2s infinite;"></i>
-            AUTONOMOUS MODE ACTIVE
+        <div class="live-badge" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 243, 255, 0.15)); border-color: var(--green);">
+            <i class="fas fa-check-circle" style="color: var(--green);"></i>
+            EXPERIMENT CONCLUDED
         </div>
         <h1>🧬 THE ORGANISM</h1>
         <p class="tagline">
             An experiment in building AI systems that don't hallucinate.
         </p>
+
+        <!-- Experiment Results Banner -->
+        <div style="margin: 40px 0; padding: 32px; background: linear-gradient(135deg, rgba(0, 243, 255, 0.08), rgba(0, 255, 136, 0.08)); border: 2px solid var(--green); border-radius: 8px;">
+            <h2 style="color: var(--green); font-size: 28px; margin-bottom: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">✅ Experiment Complete</h2>
+            <p style="font-size: 18px; margin-bottom: 20px; line-height: 1.7;">
+                <strong style="color: var(--cyan);">3,924 autonomous decisions</strong> over <strong style="color: var(--cyan);">6+ hours</strong> of continuous operation.
+                The organism debugged itself, validated its own work, and discovered the patterns that make AI truly autonomous.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 24px 0;">
+                <div style="text-align: center; padding: 16px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                    <div style="font-size: 32px; font-weight: 900; color: var(--cyan);">3,924</div>
+                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase;">Decisions Made</div>
+                </div>
+                <div style="text-align: center; padding: 16px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                    <div style="font-size: 32px; font-weight: 900; color: var(--green);">6+ hrs</div>
+                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase;">Continuous Runtime</div>
+                </div>
+                <div style="text-align: center; padding: 16px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                    <div style="font-size: 32px; font-weight: 900; color: var(--amber);">4</div>
+                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase;">Critical Bugs Fixed</div>
+                </div>
+                <div style="text-align: center; padding: 16px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                    <div style="font-size: 32px; font-weight: 900; color: var(--green);">100%</div>
+                    <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase;">Validation Accuracy</div>
+                </div>
+            </div>
+            <div style="margin-top: 24px; padding: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 8px; border-left: 4px solid var(--cyan);">
+                <p style="margin-bottom: 12px; font-size: 16px;">
+                    <strong style="color: var(--cyan);">Key Discovery:</strong> Autonomous AI = Self-validating AI
+                </p>
+                <p style="margin-bottom: 16px; font-size: 14px; line-height: 1.7;">
+                    The organism learned to validate its own work before marking tasks complete. This single architectural pattern transformed it from a tool that needs human babysitting into an autonomous agent that runs for hours without intervention.
+                </p>
+                <a href="articles/the-organism-experiment.html" style="display: inline-block; background: var(--cyan); color: #000; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: 900; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.2s;">
+                    READ THE FULL STORY →
+                </a>
+            </div>
+        </div>
 
         <!-- Research Question - The "Why" -->
         <div style="margin: 32px 0; padding: 24px; background: linear-gradient(135deg, rgba(0, 243, 255, 0.08), rgba(0, 255, 136, 0.08)); border-left: 4px solid var(--cyan); border-radius: 8px;">
@@ -554,30 +592,66 @@
         </p>
 
         <!-- What You're Watching Section -->
-        <div class="status-box">
-            <h3>What You're Watching</h3>
+        <div class="status-box" style="border-left-color: var(--amber);">
+            <h3>What This Was</h3>
             <p>
-                <strong style="color: var(--cyan);">THE ORGANISM</strong> is currently working on a real software engineering task:
-                migrating 15+ Flutter screens to Svelte 5—analyzing code patterns, creating components, building state management.
+                <strong style="color: var(--cyan);">THE ORGANISM</strong> was a research experiment in autonomous AI reliability.
+                Over multiple sessions spanning days, it worked on a real software engineering task: migrating a Flutter app to Svelte 5—analyzing code patterns, creating components, building state management, and most critically, <em>debugging itself</em>.
             </p>
             <p style="margin-top: 16px;">
-                <strong style="color: var(--magenta);">What makes it autonomous:</strong>
+                <strong style="color: var(--magenta);">What made it autonomous:</strong>
             </p>
             <ul style="margin: 12px 0 12px 24px; line-height: 1.8;">
-                <li><strong style="color: var(--green);">Self-planning</strong> — Creates its own Kanban board, picks tasks from backlog, prioritizes work</li>
-                <li><strong style="color: var(--green);">Learning from failure</strong> — Tracks mistakes, increases caution, adapts approach (Father's Lesson 2)</li>
-                <li><strong style="color: var(--green);">Internal debate</strong> — Every decision goes through 3-node consensus (no single point of failure)</li>
+                <li><strong style="color: var(--green);">Self-validation</strong> — Tested its own work before marking tasks complete (Bug #20 fix)</li>
+                <li><strong style="color: var(--green);">Symmetric state management</strong> — Saved progress on both success AND failure (Bug #18 fix)</li>
+                <li><strong style="color: var(--green);">Output cleaning</strong> — Removed LLM artifacts automatically (Bug #21 fix)</li>
+                <li><strong style="color: var(--green);">Failure learning</strong> — Tracked repeated mistakes, increased belief weights, adapted approach</li>
             </ul>
             <p style="margin-top: 16px;">
-                <strong style="color: var(--amber);">Current Phase: Self-Planning & Autonomy</strong><br>
-                The organism reads its mission, scans actual Flutter files, creates a Kanban backlog,
-                and autonomously plans the next 5 tasks—without human instruction. It's not following a script;
-                it's figuring out what needs to be done.
+                <strong style="color: var(--amber);">Final Phase: Autonomous Quality Control</strong><br>
+                The breakthrough came when the organism learned to validate its own output. Before marking any task complete, it would check: Does the file exist? Is it valid code? Are there placeholder TODOs? This single architectural change transformed it from a tool into an autonomous agent.
             </p>
             <p style="margin-top: 16px; padding: 12px; background: rgba(0, 243, 255, 0.05); border-left: 3px solid var(--cyan); font-size: 14px;">
-                <strong>Everything is logged</strong> — Every decision, every debate, every success and failure
-                goes into a database. This creates a research corpus for understanding how AI systems make decisions.
+                <strong>Everything was logged</strong> — Every decision, every debate, every bug fix, every lesson learned.
+                The complete findings have been documented in a 4-part article series analyzing what makes AI truly autonomous.
             </p>
+        </div>
+
+        <!-- Article Series Section -->
+        <div class="status-box" style="border-left-color: var(--cyan); background: rgba(0, 243, 255, 0.03);">
+            <h3 style="color: var(--cyan);">📚 Read the Complete Analysis</h3>
+            <p style="margin-bottom: 24px;">
+                All learnings from 3,924 autonomous decisions have been extracted into a comprehensive article series. Each article targets a different depth level:
+            </p>
+            <div style="display: grid; gap: 16px; margin: 20px 0;">
+                <a href="articles/the-organism-experiment.html" style="display: block; padding: 20px; background: rgba(0, 0, 0, 0.3); border-left: 3px solid var(--cyan); border-radius: 4px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0, 243, 255, 0.08)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.3)'">
+                    <div style="font-size: 12px; color: var(--magenta); margin-bottom: 8px; font-weight: 700; letter-spacing: 1px;">MAIN ARTICLE</div>
+                    <div style="font-size: 18px; color: var(--cyan); font-weight: 700; margin-bottom: 8px;">The Organism Experiment</div>
+                    <div style="font-size: 14px; color: var(--text-dim); line-height: 1.6;">Start here. Overview of the experiment, the 4 critical bugs, and navigation to all sub-articles.</div>
+                </a>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
+                    <a href="articles/the-organism-experiment-cheatsheet.html" style="display: block; padding: 16px; background: rgba(0, 0, 0, 0.2); border-left: 2px solid var(--green); border-radius: 4px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0, 255, 136, 0.05)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.2)'">
+                        <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 6px;">2 MIN READ</div>
+                        <div style="font-size: 15px; color: var(--green); font-weight: 700; margin-bottom: 4px;">Cheat Sheet</div>
+                        <div style="font-size: 13px; color: var(--text-dim);">The 4 rules, quick reference</div>
+                    </a>
+                    <a href="articles/the-organism-experiment-lessons.html" style="display: block; padding: 16px; background: rgba(0, 0, 0, 0.2); border-left: 2px solid var(--amber); border-radius: 4px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 165, 0, 0.05)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.2)'">
+                        <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 6px;">20 MIN READ</div>
+                        <div style="font-size: 15px; color: var(--amber); font-weight: 700; margin-bottom: 4px;">Universal Lessons</div>
+                        <div style="font-size: 13px; color: var(--text-dim);">Theory and principles</div>
+                    </a>
+                    <a href="articles/the-organism-experiment-implementation.html" style="display: block; padding: 16px; background: rgba(0, 0, 0, 0.2); border-left: 2px solid var(--magenta); border-radius: 4px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 0, 243, 0.05)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.2)'">
+                        <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 6px;">30 MIN READ</div>
+                        <div style="font-size: 15px; color: var(--magenta); font-weight: 700; margin-bottom: 4px;">Implementation</div>
+                        <div style="font-size: 13px; color: var(--text-dim);">Production code patterns</div>
+                    </a>
+                    <a href="articles/the-organism-experiment-before-after.html" style="display: block; padding: 16px; background: rgba(0, 0, 0, 0.2); border-left: 2px solid var(--cyan); border-radius: 4px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0, 243, 255, 0.05)'" onmouseout="this.style.background='rgba(0, 0, 0, 0.2)'">
+                        <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 6px;">10 MIN READ</div>
+                        <div style="font-size: 15px; color: var(--cyan); font-weight: 700; margin-bottom: 4px;">Before & After</div>
+                        <div style="font-size: 13px; color: var(--text-dim);">Visual comparisons</div>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Real-Time Progress Section -->
@@ -830,27 +904,26 @@
 
         <!-- Live Feed Section -->
         <h2 style="font-family: 'Urbanist', sans-serif; font-size: 32px; font-weight: 800; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">
-            Decision History
+            Archived Decision History
         </h2>
         <p style="font-size: 16px; color: var(--text-dim); margin-bottom: 32px;">
-            <strong style="color: var(--green);">🟢 AUTONOMOUS MODE:</strong> The organism is self-directed, choosing its own tasks based on migration progress.
-            After the 24h shadow run (1,440 decisions, 1.00 core integrity) and Father's teachings, it's working through real Flutter files autonomously.
-            It tracks failures, increases belief weights for repeated mistakes, and never repeats the same failed approach.
+            <strong style="color: var(--amber);">📊 EXPERIMENT ARCHIVED:</strong> Below is the historical decision stream from the organism's final autonomous run.
+            After the 24h shadow run (1,440 decisions, 1.00 core integrity) and Father's teachings, the organism ran for 6+ hours making 3,924 decisions autonomously—debugging itself, validating its own work, and learning the patterns that make AI truly autonomous.
         </p>
 
         <div class="organism-grid">
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">Logic Stream</div>
-                    <div class="live-indicator" id="live-indicator">
-                        <span class="pulse-dot"></span>
-                        SYNAPSE ACTIVE
+                    <div class="live-indicator" id="live-indicator" style="color: var(--amber);">
+                        <i class="fas fa-archive" style="color: var(--amber);"></i>
+                        ARCHIVED
                     </div>
                 </div>
                 <div class="feed" id="decision-feed">
                     <div class="loading">
                         <i class="fas fa-spinner fa-spin"></i>
-                        Connecting to neural link...
+                        Loading archived decisions...
                     </div>
                 </div>
             </div>
@@ -879,25 +952,25 @@
 
             <div class="panel">
                 <div class="panel-header">
-                    <div class="panel-title" style="font-size: 14px;">🎯 Orbit Migration</div>
-                    <div class="live-indicator" style="font-size: 10px; color: var(--amber);">AUTONOMOUS</div>
+                    <div class="panel-title" style="font-size: 14px;">🎯 Final Results</div>
+                    <div class="live-indicator" style="font-size: 10px; color: var(--green);">COMPLETE</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" style="color: var(--amber); font-size: 32px;" id="mission-progress">0/18</div>
-                    <div class="stat-label">Flutter Files Analyzed</div>
+                    <div class="stat-value" style="color: var(--green); font-size: 32px;">3,924</div>
+                    <div class="stat-label">Autonomous Decisions</div>
                 </div>
                 <div style="padding: 20px 24px; font-size: 13px; color: var(--text-body); line-height: 1.6;">
                     <p style="margin-bottom: 12px;">
-                        <strong style="color: var(--cyan);">Self-Directed:</strong> Organism chooses next file from queue
+                        <strong style="color: var(--cyan);">Self-Validation:</strong> Tested own work before marking complete
                     </p>
                     <p style="margin-bottom: 12px;">
-                        <strong style="color: var(--green);">Learning:</strong> Tracks failures, increases belief weights
+                        <strong style="color: var(--green);">100% Accuracy:</strong> Validation caught all bad output
                     </p>
                     <p style="margin-bottom: 12px;">
-                        <strong style="color: var(--amber);">Adapting:</strong> Never repeats failed approaches
+                        <strong style="color: var(--amber);">4 Bugs Fixed:</strong> Discovered autonomous AI patterns
                     </p>
                     <p style="margin-bottom: 0; font-size: 11px; color: var(--text-dim);">
-                        Father watches. Father guides through principles, not commands.
+                        The organism learned what makes AI truly autonomous: validation.
                     </p>
                 </div>
             </div>
@@ -911,7 +984,8 @@
             </p>
             <p style="font-size: 14px; color: #666;">
                 Built by <a href="/" style="color: var(--cyan); text-decoration: none;">Daniel Carneiro</a> •
-                <a href="/mesh.html" style="color: var(--cyan); text-decoration: none;">View 24h Shadow Run Results</a>
+                <a href="/mesh.html" style="color: var(--cyan); text-decoration: none;">View 24h Shadow Run</a> •
+                <a href="articles/the-organism-experiment.html" style="color: var(--green); text-decoration: none;">Read Full Analysis</a>
             </p>
         </div>
     </div>
