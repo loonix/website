@@ -66,4 +66,4 @@ date.
 
 ## Contact
 
-Daniel Carneiro, daniel@objais.com
+Daniel Carneiro. Open an issue at https://github.com/loonix/crabsapp/issues
