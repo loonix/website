@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crabsapp, Privacy Policy</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0 auto; max-width: 46rem; padding: 3rem 1.5rem 6rem;
+    background: #14141E; color: #C8C8D2;
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  h1 { color: #F6F5F2; font-size: 1.9rem; margin: 0 0 .25rem; }
+  h2 { color: #F6F5F2; font-size: 1.15rem; margin: 2.4rem 0 .6rem; }
+  .updated { color: #8C8CA0; font-size: .9rem; margin-bottom: 2.4rem; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid #2A2A36; vertical-align: top; }
+  th { color: #F6F5F2; font-weight: 600; }
+  code { background: #1E1E2D; padding: .1rem .35rem; border-radius: 4px; font-size: .88em; }
+  a { color: #5AA0E6; }
+  hr { border: 0; border-top: 1px solid #2A2A36; margin: 2.5rem 0; }
+  .crab { font-size: 1.6rem; }
+</style>
+</head>
+<body>
+
+<h1>Crabsapp, Privacy Policy</h1>
+<p class="updated">Last updated: 22 October 2026</p>
+
+<p>Crabsapp (<code>com.opencrabs.mi8crab</code>) is a client for an agent that runs
+on your own device. It is not a hosted service and it has no server of its own.</p>
+
+<h2>What the app stores on your device</h2>
+<p>Everything the app knows lives in the app's private storage on the phone:</p>
+<ul>
+  <li>the conversations, written by the local agent binary into its own SQLite
+      database inside the app's private directory;</li>
+  <li>the app's preferences: selected model and provider, voice settings, the
+      optional API key you type in for spoken summaries, and the ElevenLabs key
+      if you enter one;</li>
+  <li>no analytics, no crash reporting, no advertising identifier, no device
+      fingerprint.</li>
+</ul>
+<p>Uninstalling the app deletes all of it. There is no backup to restore from,
+because there is no server holding a copy.</p>
+
+<h2>What leaves the device, and when</h2>
+<p>The app itself makes exactly one kind of outbound request: the optional spoken
+summary. When you ask for a spoken answer, the text of that answer is sent to the
+summariser endpoint you configured, together with the API key you entered, to
+shorten it before it is read aloud. If you never use the spoken summary, the app
+makes no outbound request of its own.</p>
+<p>The agent binary may contact the model provider you configured. That traffic is
+between you and that provider, under their terms and their privacy policy, and it
+carries the prompt you sent plus the conversation context the model needs.</p>
+<p>The app contains no third-party analytics, tracking or advertising SDK. Its only
+dependencies are Flutter's own libraries and the Cupertino icon font.</p>
+
+<h2>Permissions, and why each one exists</h2>
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr><td><code>INTERNET</code></td><td>the spoken summary request, and the agent's calls to your model provider</td></tr>
+  <tr><td><code>RECORD_AUDIO</code></td><td>dictation through the system speech recogniser; requested at the moment you tap the microphone, never at launch</td></tr>
+  <tr><td><code>POST_NOTIFICATIONS</code></td><td>the ongoing notification that keeps the agent alive</td></tr>
+  <tr><td><code>FOREGROUND_SERVICE</code> / <code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>a long-lived agent connection that must survive the app being backgrounded</td></tr>
+  <tr><td><code>RECEIVE_BOOT_COMPLETED</code></td><td>bringing the agent back after a reboot</td></tr>
+  <tr><td><code>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</code></td><td>optional; without it the system may kill the agent mid-turn</td></tr>
+</table>
+
+<h2>Root</h2>
+<p>Crabsapp is built for a rooted device and asks for superuser access through
+Magisk or an equivalent manager. It uses that access to run the agent binary
+inside a Linux chroot on the phone. It does not use root to read other apps' data,
+and it does not touch anything outside its own chroot and the app's private
+directory.</p>
+
+<h2>Children</h2>
+<p>The app is a developer tool. It is not directed at children and collects no
+personal information from anyone.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, the new version is published at this address with a new
+date.</p>
+
+<h2>Contact</h2>
+<p>Daniel Carneiro, <a href="mailto:daniel@objais.com">daniel@objais.com</a></p>
+</body>
+</html>
